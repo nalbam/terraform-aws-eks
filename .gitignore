@@ -1,0 +1,30 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows shortcuts
+*.lnk
+
+# Mac
+.DS_Store
+
+# Terraform
+.terraform/
+.terraform.tfstate.lock.info
+terraform.tfstate.backup
+terraform.tfstate
+terraform.tfplan
+
+# Maven
+target/
+build/
+
+# JetBrains
+.idea/
+*.iml
