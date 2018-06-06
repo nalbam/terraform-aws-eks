@@ -1,7 +1,7 @@
 # terraform-aws-eks
 
 ```bash
-# aws-cli
+# aws-cli > 1.15.33
 pip3 install awscli
 
 # kubectl
@@ -34,8 +34,7 @@ kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.0.0
 kubectl apply -f handson-labs-2018/3_Kubernetes/sample-web.yml
 
 # get
-kubectl get deploy,pod,svc --all-namespaces
-
+kubectl get no,deploy,pod,svc --all-namespaces
 ```
 * https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
 * https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html
