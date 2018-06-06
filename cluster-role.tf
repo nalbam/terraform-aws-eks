@@ -1,5 +1,5 @@
-resource "aws_iam_role" "default" {
-  name = "${var.name}-${var.stage}"
+resource "aws_iam_role" "cluster" {
+  name = "terraform-eks-${var.name}-${var.stage}-cluster"
 
   assume_role_policy = <<POLICY
 {
@@ -17,12 +17,12 @@ resource "aws_iam_role" "default" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "default-eks-cluster-policy" {
-  role       = "${aws_iam_role.default.name}"
+resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSClusterPolicy" {
+  role       = "${aws_iam_role.cluster.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "default-eks-service-policy" {
-  role       = "${aws_iam_role.default.name}"
+resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSServicePolicy" {
+  role       = "${aws_iam_role.cluster.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
 }

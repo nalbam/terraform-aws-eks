@@ -1,12 +1,14 @@
 # terraform-aws-eks
 
-```
+```bash
 aws configure set default.region us-east-1
-aws configure set default.region ap-northeast-2
 
 # eks
 aws eks list-clusters
-aws eks describe-cluster --name nalbam-dev --query cluster.status
+aws eks describe-cluster --name nalbam-dev
+
+mkdir -p ~/.kube
+vi ~/.kube/config
 
 # heptio
 curl -o heptio-authenticator-aws https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-06-05/bin/linux/amd64/heptio-authenticator-aws
@@ -21,7 +23,9 @@ kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.0.0
 # sample
 kubectl apply -f handson-labs-2018/3_Kubernetes/sample-web.yml
 
-#
-kubectl get deploy,pod,svc,job --all-namespaces
+# get
+kubectl get deploy,pod,svc --all-namespaces
 
 ```
+* https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
+* https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html

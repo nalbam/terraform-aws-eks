@@ -1,11 +1,11 @@
 locals {
-  kube-config = <<KUBECONFIG
+  kube-config = <<EOF
 
 apiVersion: v1
 clusters:
 - cluster:
-    server: ${aws_eks_cluster.demo.endpoint}
-    certificate-authority-data: ${aws_eks_cluster.demo.certificate_authority.0.data}
+    server: ${aws_eks_cluster.cluster.endpoint}
+    certificate-authority-data: ${aws_eks_cluster.cluster.certificate_authority.0.data}
   name: kubernetes
 contexts:
 - context:
@@ -28,17 +28,32 @@ users:
         # - "-r"
         # - "<role-arn>"
 
-KUBECONFIG
+EOF
 }
 
 output "kube-config" {
   value = "${local.kube-config}"
 }
 
-output "endpoint" {
-  value = "${aws_eks_cluster.demo.endpoint}"
+locals {
+  config-map-aws-auth = <<EOF
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: ${aws_iam_role.node.arn}
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+
+EOF
 }
 
-//output "kubeconfig-certificate-authority-data" {
-//  value = "${aws_eks_cluster.demo.certificate_authority.0.data}"
-//}
+output "config-map-aws-auth" {
+  value = "${local.config-map-aws-auth}"
+}
