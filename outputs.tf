@@ -29,10 +29,10 @@ locals {
 mkdir -p ~/.kube && cat .output/kube-config.yml > ~/.kube/config
 
 # aws-auth
-kubectl apply -f .output/aws-auth.yaml
+kubectl apply -f .output/aws-auth.yml
 
 # calico
-kubectl apply -f ./data/calico.yaml
+kubectl apply -f ./data/calico.yml
 
 # sample
 kubectl apply -f ./data/sample-web.yml
