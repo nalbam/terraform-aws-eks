@@ -25,10 +25,6 @@ resource "local_file" "kube-config" {
 locals {
   config = <<EOF
 
-# eks
-aws eks list-clusters
-aws eks describe-cluster --name ${var.name}
-
 # kube-config
 mkdir -p ~/.kube
 cat .output/kube-config.yml > ~/.kube/config
