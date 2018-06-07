@@ -1,7 +1,7 @@
 # terraform-aws-eks
 
 ```bash
-# aws-cli > 1.15.33
+# aws-cli > 1.15.32
 pip3 install awscli
 
 # kubectl
@@ -9,29 +9,32 @@ brew install kubectl
 
 # heptio
 curl -o heptio-authenticator-aws https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-06-05/bin/darwin/amd64/heptio-authenticator-aws
-chmod +x ./heptio-authenticator-aws
-sudo mv ./heptio-authenticator-aws /usr/local/bin/
+chmod +x ./heptio-authenticator-aws && sudo mv ./heptio-authenticator-aws /usr/local/bin/
 
 # region
 aws configure set default.region us-east-1
 
+# terraform (10m)
+terraform init
+terraform plan
+terraform apply
+
 # eks
 aws eks list-clusters
-aws eks describe-cluster --name nalbam-dev
+aws eks describe-cluster --name demo
 
 # kube-config
 mkdir -p ~/.kube
-vi ~/.kube/config
+cat .output/kube-config.yml > ~/.kube/config
 
-# config-map-aws-auth
-vi config-map-aws-auth.yaml
-kubectl apply -f config-map-aws-auth.yaml
+# aws-auth
+kubectl apply -f .output/aws-auth.yaml
 
 # calico
-kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/v1.0.0/config/v1.0/aws-k8s-cni-calico.yaml
+kubectl apply -f ./data/calico.yaml
 
 # sample
-kubectl apply -f handson-labs-2018/3_Kubernetes/sample-web.yml
+kubectl apply -f ./data/sample-web.yml
 
 # get
 kubectl get no,deploy,pod,svc --all-namespaces

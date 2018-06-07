@@ -2,12 +2,12 @@ variable region {
   default = "us-east-1"
 }
 
-variable stage {
-  default = "dev"
+variable name {
+  default = "demo"
 }
 
-variable name {
-  default = "nalbam"
+variable node_type {
+  default = "m4.large"
 }
 
 variable "cidr_block" {

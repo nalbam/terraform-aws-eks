@@ -5,8 +5,8 @@ resource "aws_vpc" "cluster" {
 
   tags = "${
     map(
-     "Name", "terraform-eks-${var.name}-${var.stage}",
-     "kubernetes.io/cluster/${var.name}-${var.stage}", "shared"
+     "Name", "terraform-eks-${var.name}",
+     "kubernetes.io/cluster/${var.name}", "shared"
     )
   }"
 }
@@ -21,8 +21,8 @@ resource "aws_subnet" "cluster" {
 
   tags = "${
     map(
-     "Name", "terraform-eks-${var.name}-${var.stage}",
-     "kubernetes.io/cluster/${var.name}-${var.stage}", "shared"
+     "Name", "terraform-eks-${var.name}",
+     "kubernetes.io/cluster/${var.name}", "shared"
     )
   }"
 }
@@ -31,7 +31,7 @@ resource "aws_internet_gateway" "cluster" {
   vpc_id = "${aws_vpc.cluster.id}"
 
   tags {
-    Name = "terraform-eks-${var.name}-${var.stage}"
+    Name = "terraform-eks-${var.name}"
   }
 }
 

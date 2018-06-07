@@ -1,5 +1,5 @@
 resource "aws_security_group" "cluster" {
-  name        = "${var.name}-${var.stage}-cluster"
+  name = "${var.name}-cluster"
   description = "Cluster communication with worker nodes"
 
   vpc_id      = "${aws_vpc.cluster.id}"
@@ -12,17 +12,17 @@ resource "aws_security_group" "cluster" {
   }
 
   tags {
-    Name = "terraform-eks-${var.name}-${var.stage}"
+    Name = "terraform-eks-${var.name}"
   }
 }
 
 resource "aws_security_group_rule" "cluster-ingress-node-https" {
   description              = "Allow pods to communicate with the cluster API Server"
-  from_port                = 443
-  protocol                 = "tcp"
   security_group_id        = "${aws_security_group.cluster.id}"
   source_security_group_id = "${aws_security_group.node.id}"
+  from_port                = 443
   to_port                  = 443
+  protocol                 = "tcp"
   type                     = "ingress"
 }
 
@@ -32,9 +32,9 @@ resource "aws_security_group_rule" "cluster-ingress-node-https" {
 //resource "aws_security_group_rule" "cluster-ingress-workstation-https" {
 //  cidr_blocks       = ["A.B.C.D/32"]
 //  description       = "Allow workstation to communicate with the cluster API Server"
-//  from_port         = 443
-//  protocol          = "tcp"
 //  security_group_id = "${aws_security_group.cluster.id}"
+//  from_port         = 443
 //  to_port           = 443
+//  protocol          = "tcp"
 //  type              = "ingress"
 //}
