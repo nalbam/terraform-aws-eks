@@ -26,8 +26,7 @@ locals {
   config = <<EOF
 
 # kube-config
-mkdir -p ~/.kube
-cat .output/kube-config.yml > ~/.kube/config
+mkdir -p ~/.kube && cat .output/kube-config.yml > ~/.kube/config
 
 # aws-auth
 kubectl apply -f .output/aws-auth.yaml
