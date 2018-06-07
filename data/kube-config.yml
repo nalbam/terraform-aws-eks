@@ -9,7 +9,7 @@ contexts:
     cluster: kubernetes
     user: aws
   name: aws
-current-context: default
+current-context: aws
 kind: Config
 preferences: {}
 users:
