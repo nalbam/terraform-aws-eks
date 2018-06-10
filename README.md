@@ -4,6 +4,9 @@
 # aws-cli > 1.15.32
 pip3 install awscli
 
+# terraform
+brew install terraform
+
 # kubectl
 brew install kubectl
 
