@@ -26,6 +26,9 @@ terraform apply
 aws eks list-clusters
 aws eks describe-cluster --name demo
 
+# regign
+aws configure set default.region us-east-1
+
 # kube-config
 mkdir -p ~/.kube && cat .output/kube-config.yml > ~/.kube/config
 
@@ -39,7 +42,8 @@ kubectl apply -f ./data/calico.yml
 kubectl apply -f ./data/sample-web.yml
 
 # get
-kubectl get no,deploy,pod,svc --all-namespaces
+kubectl get node --all-namespaces
+kubectl get pod,svc --all-namespaces
 ```
 * https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
 * https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html
