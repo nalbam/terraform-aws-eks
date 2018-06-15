@@ -1,4 +1,4 @@
-# worker node iam role
+# worker iam role
 
 resource "aws_iam_role" "node" {
   name = "terraform-eks-${var.name}-node"

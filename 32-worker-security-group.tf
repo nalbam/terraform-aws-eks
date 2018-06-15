@@ -1,4 +1,4 @@
-# worker node security group
+# worker security group
 
 resource "aws_security_group" "node" {
   name = "terraform-eks-${var.name}-node"
