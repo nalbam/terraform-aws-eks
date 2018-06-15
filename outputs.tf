@@ -38,7 +38,8 @@ kubectl apply -f ./data/calico.yml
 kubectl apply -f ./data/sample-web.yml
 
 # get
-kubectl get no,deploy,pod,svc --all-namespaces
+kubectl get node --all-namespaces
+kubectl get pod,svc --all-namespaces
 
 EOF
 }
