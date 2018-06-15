@@ -1,4 +1,4 @@
-# worker node autoscaling group
+# eks worker
 
 data "aws_ami" "eks-worker" {
   filter {
