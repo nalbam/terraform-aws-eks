@@ -1,3 +1,5 @@
+# cluster iam role
+
 resource "aws_iam_role" "cluster" {
   name = "terraform-eks-${var.name}-cluster"
 

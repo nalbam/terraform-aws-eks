@@ -1,3 +1,5 @@
+# worker node security group
+
 resource "aws_security_group" "node" {
   name = "terraform-eks-${var.name}-node"
   description = "Security group for all nodes in the cluster"

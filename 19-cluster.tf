@@ -1,4 +1,4 @@
-# Terraform Main
+# eks cluster
 
 resource "aws_eks_cluster" "cluster" {
   name     = "${var.name}"

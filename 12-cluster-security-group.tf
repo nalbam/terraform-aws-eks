@@ -1,3 +1,5 @@
+# cluster security group
+
 resource "aws_security_group" "cluster" {
   name = "${var.name}-cluster"
   description = "Cluster communication with worker nodes"

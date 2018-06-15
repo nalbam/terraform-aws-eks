@@ -1,3 +1,5 @@
+# variable
+
 variable region {
   default = "us-east-1"
 }
@@ -13,3 +15,5 @@ variable node_type {
 variable "cidr_block" {
   default = "10.0.0.0/16"
 }
+
+data "aws_availability_zones" "available" {}

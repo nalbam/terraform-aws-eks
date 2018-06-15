@@ -1,4 +1,4 @@
-data "aws_availability_zones" "available" {}
+# cluster vpc
 
 resource "aws_vpc" "cluster" {
   cidr_block = "${var.cidr_block}"

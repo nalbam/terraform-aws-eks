@@ -1,3 +1,5 @@
+# output
+
 data "template_file" "aws-auth" {
   template = "${file("${path.cwd}/data/aws-auth.yml")}"
   vars {
