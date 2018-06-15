@@ -27,6 +27,9 @@ resource "local_file" "kube-config" {
 locals {
   config = <<EOF
 
+# regign
+aws configure set default.region ${var.region}
+
 # kube-config
 mkdir -p ~/.kube && cat .output/kube-config.yml > ~/.kube/config
 
