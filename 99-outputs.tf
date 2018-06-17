@@ -1,16 +1,5 @@
 # output
 
-data "template_file" "aws_auth" {
-  template = "${file("${path.cwd}/data/aws_auth.yml")}"
-  vars {
-    AWS_IAM_ROLE_ARN = "${aws_iam_role.node.arn}"
-  }
-}
-resource "local_file" "aws_auth" {
-  content  = "${data.template_file.aws_auth.rendered}"
-  filename = "${path.cwd}/.output/aws_auth.yml"
-}
-
 data "template_file" "kube_config" {
   template = "${file("${path.cwd}/data/kube_config.yml")}"
   vars {
@@ -22,6 +11,17 @@ data "template_file" "kube_config" {
 resource "local_file" "kube_config" {
   content  = "${data.template_file.kube_config.rendered}"
   filename = "${path.cwd}/.output/kube_config.yml"
+}
+
+data "template_file" "aws_auth" {
+  template = "${file("${path.cwd}/data/aws_auth.yml")}"
+  vars {
+    AWS_IAM_ROLE_ARN = "${aws_iam_role.node.arn}"
+  }
+}
+resource "local_file" "aws_auth" {
+  content  = "${data.template_file.aws_auth.rendered}"
+  filename = "${path.cwd}/.output/aws_auth.yml"
 }
 
 locals {
