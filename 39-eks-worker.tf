@@ -1,6 +1,6 @@
 # eks worker
 
-data "aws_ami" "eks-worker" {
+data "aws_ami" "worker" {
   filter {
     name   = "name"
     values = ["eks-worker-*"]
@@ -12,7 +12,7 @@ data "aws_ami" "eks-worker" {
 }
 
 locals {
-  node-userdata = <<EOF
+  userdata = <<EOF
 #!/bin/bash -xe
 CA_CERTIFICATE_DIRECTORY=/etc/kubernetes/pki
 CA_CERTIFICATE_FILE_PATH=$CA_CERTIFICATE_DIRECTORY/ca.crt
@@ -39,10 +39,10 @@ EOF
 resource "aws_launch_configuration" "node" {
   name_prefix                 = "terraform-eks-${var.name}"
   iam_instance_profile        = "${aws_iam_instance_profile.node.name}"
-  image_id                    = "${data.aws_ami.eks-worker.id}"
+  image_id                    = "${data.aws_ami.worker.id}"
   instance_type               = "${var.node_type}"
   security_groups             = ["${aws_security_group.node.id}"]
-  user_data_base64            = "${base64encode(local.node-userdata)}"
+  user_data_base64            = "${base64encode(local.userdata)}"
   associate_public_ip_address = true
 
   lifecycle {
