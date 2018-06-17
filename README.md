@@ -30,10 +30,10 @@ aws eks describe-cluster --name demo
 aws configure set default.region us-east-1
 
 # kube-config
-mkdir -p ~/.kube && cat .output/kube-config.yml > ~/.kube/config
+mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config
 
 # aws-auth
-kubectl apply -f .output/aws-auth.yml
+kubectl apply -f .output/aws_auth.yml
 
 # calico
 kubectl apply -f ./data/calico.yml

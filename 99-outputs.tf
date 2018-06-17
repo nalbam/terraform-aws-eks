@@ -1,27 +1,27 @@
 # output
 
-data "template_file" "aws-auth" {
-  template = "${file("${path.cwd}/data/aws-auth.yml")}"
+data "template_file" "aws_auth" {
+  template = "${file("${path.cwd}/data/aws_auth.yml")}"
   vars {
     AWS_IAM_ROLE_ARN = "${aws_iam_role.node.arn}"
   }
 }
-resource "local_file" "aws-auth" {
-  content = "${data.template_file.aws-auth.rendered}"
-  filename = "${path.cwd}/.output/aws-auth.yml"
+resource "local_file" "aws_auth" {
+  content  = "${data.template_file.aws_auth.rendered}"
+  filename = "${path.cwd}/.output/aws_auth.yml"
 }
 
-data "template_file" "kube-config" {
-  template = "${file("${path.cwd}/data/kube-config.yml")}"
+data "template_file" "kube_config" {
+  template = "${file("${path.cwd}/data/kube_config.yml")}"
   vars {
     CERTIFICATE = "${aws_eks_cluster.cluster.certificate_authority.0.data}"
     MASTER_ENDPOINT = "${aws_eks_cluster.cluster.endpoint}"
     CLUSTER_NAME = "${var.name}"
   }
 }
-resource "local_file" "kube-config" {
-  content = "${data.template_file.kube-config.rendered}"
-  filename = "${path.cwd}/.output/kube-config.yml"
+resource "local_file" "kube_config" {
+  content  = "${data.template_file.kube_config.rendered}"
+  filename = "${path.cwd}/.output/kube_config.yml"
 }
 
 locals {
@@ -30,11 +30,11 @@ locals {
 # regign
 aws configure set default.region ${var.region}
 
-# kube-config
-mkdir -p ~/.kube && cat .output/kube-config.yml > ~/.kube/config
+# kube config
+mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config
 
-# aws-auth
-kubectl apply -f .output/aws-auth.yml
+# aws auth
+kubectl apply -f .output/aws_auth.yml
 
 # calico
 kubectl apply -f ./data/calico.yml
