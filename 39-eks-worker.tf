@@ -53,7 +53,7 @@ resource "aws_launch_configuration" "node" {
 resource "aws_autoscaling_group" "node" {
   name                 = "terraform-eks-${var.name}"
   desired_capacity     = 2
-  max_size             = 2
+  max_size             = 4
   min_size             = 1
   vpc_zone_identifier  = ["${aws_subnet.cluster.*.id}"]
   launch_configuration = "${aws_launch_configuration.node.id}"
