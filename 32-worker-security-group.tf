@@ -13,6 +13,22 @@ resource "aws_security_group" "node" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Allow node to communicate with each other
+  ingress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "-1"
+    source_security_group_id = "${aws_security_group.node.id}"
+  }
+
+  # Allow worker Kubelets and pods to receive communication from the cluster control plane
+  ingress {
+    from_port   = 1025
+    to_port     = 65535
+    protocol    = "tcp"
+    source_security_group_id = "${aws_security_group.cluster.id}"
+  }
+
   tags = "${
     map(
      "Name", "terraform-eks-${var.name}-node",
@@ -21,22 +37,22 @@ resource "aws_security_group" "node" {
   }"
 }
 
-resource "aws_security_group_rule" "node-ingress-self" {
-  description              = "Allow node to communicate with each other"
-  security_group_id        = "${aws_security_group.node.id}"
-  source_security_group_id = "${aws_security_group.node.id}"
-  from_port                = 0
-  to_port                  = 65535
-  protocol                 = "-1"
-  type                     = "ingress"
-}
+//resource "aws_security_group_rule" "node-ingress-self" {
+//  description              = "Allow node to communicate with each other"
+//  security_group_id        = "${aws_security_group.node.id}"
+//  source_security_group_id = "${aws_security_group.node.id}"
+//  from_port                = 0
+//  to_port                  = 65535
+//  protocol                 = "-1"
+//  type                     = "ingress"
+//}
 
-resource "aws_security_group_rule" "node-ingress-cluster" {
-  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
-  security_group_id        = "${aws_security_group.node.id}"
-  source_security_group_id = "${aws_security_group.cluster.id}"
-  from_port                = 1025
-  to_port                  = 65535
-  protocol                 = "tcp"
-  type                     = "ingress"
-}
+//resource "aws_security_group_rule" "node-ingress-cluster" {
+//  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
+//  security_group_id        = "${aws_security_group.node.id}"
+//  source_security_group_id = "${aws_security_group.cluster.id}"
+//  from_port                = 1025
+//  to_port                  = 65535
+//  protocol                 = "tcp"
+//  type                     = "ingress"
+//}
