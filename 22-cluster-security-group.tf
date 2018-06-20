@@ -13,28 +13,20 @@ resource "aws_security_group" "cluster" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Allow pods to communicate with the cluster API Server
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    source_security_group_id = "${aws_security_group.node.id}"
-  }
-
   tags {
     Name = "terraform-eks-${var.name}"
   }
 }
 
-//resource "aws_security_group_rule" "cluster-ingress-node-https" {
-//  description              = "Allow pods to communicate with the cluster API Server"
-//  security_group_id        = "${aws_security_group.cluster.id}"
-//  source_security_group_id = "${aws_security_group.node.id}"
-//  from_port                = 443
-//  to_port                  = 443
-//  protocol                 = "tcp"
-//  type                     = "ingress"
-//}
+resource "aws_security_group_rule" "cluster-ingress-node-https" {
+  description              = "Allow pods to communicate with the cluster API Server"
+  security_group_id        = "${aws_security_group.cluster.id}"
+  source_security_group_id = "${aws_security_group.node.id}"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
+  type                     = "ingress"
+}
 
 # OPTIONAL: Allow inbound traffic from your local workstation external IP
 #           to the Kubernetes. You will need to replace A.B.C.D below with
