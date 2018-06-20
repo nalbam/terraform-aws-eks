@@ -42,6 +42,10 @@ resource "aws_route_table" "cluster" {
     cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.cluster.id}"
   }
+
+  tags {
+    Name = "terraform-eks-${var.name}"
+  }
 }
 
 resource "aws_route_table_association" "cluster" {
