@@ -43,7 +43,7 @@ spec:
       targetPort: 80
     - name: https
       port: 443
-      targetPort: 443
+      targetPort: 80
   selector:
     k8s-app: sample-web
 
