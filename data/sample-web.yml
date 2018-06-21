@@ -65,3 +65,6 @@ spec:
         backend:
           serviceName: sample-web
           servicePort: 80
+  tls:
+  - hosts:
+    - sample-web.apps.nalbam.com

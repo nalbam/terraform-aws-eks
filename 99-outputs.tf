@@ -36,15 +36,12 @@ mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config
 # aws auth
 kubectl apply -f .output/aws_auth.yml
 
-# calico
-kubectl apply -f ./data/calico.yml
-
 # sample
 kubectl apply -f ./data/sample-web.yml
 
 # get
-kubectl get node --all-namespaces
-kubectl get pod,svc --all-namespaces
+kubectl get node
+kubectl get deploy,pod,svc --all-namespaces
 
 EOF
 }
