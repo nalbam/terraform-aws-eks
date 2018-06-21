@@ -8,7 +8,7 @@ metadata:
   labels:
     app: sample-web
 spec:
-  replicas: 5
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -68,6 +68,3 @@ spec:
         backend:
           serviceName: sample-web
           servicePort: 80
-  tls:
-  - hosts:
-    - sample-web.apps.nalbam.com
