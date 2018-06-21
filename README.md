@@ -1,5 +1,7 @@
 # terraform-aws-eks
 
+* see: https://github.com/nalbam/docs/blob/master/201806/EKS/README.md
+
 ```bash
 # aws-cli > 1.15.32
 pip3 install awscli
