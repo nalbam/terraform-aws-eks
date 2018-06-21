@@ -40,7 +40,7 @@ kubectl apply -f ./data/sample-web.yml
 
 # get
 kubectl get node
-kubectl get deploy,pod,svc --all-namespaces
+kubectl get deploy,pod,svc,ing --all-namespaces
 ```
 * https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
 * https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html

@@ -41,7 +41,7 @@ kubectl apply -f ./data/sample-web.yml
 
 # get
 kubectl get node
-kubectl get deploy,pod,svc --all-namespaces
+kubectl get deploy,pod,svc,ing --all-namespaces
 
 EOF
 }
