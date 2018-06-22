@@ -15,7 +15,7 @@ curl -o heptio-authenticator-aws https://amazon-eks.s3-us-west-2.amazonaws.com/1
 chmod +x ./heptio-authenticator-aws && sudo mv ./heptio-authenticator-aws /usr/local/bin/
 
 # region
-aws configure set default.region us-east-1
+aws configure set default.region us-west-2
 
 # terraform (10m)
 terraform init
@@ -27,7 +27,7 @@ aws eks list-clusters
 aws eks describe-cluster --name demo
 
 # regign
-aws configure set default.region us-east-1
+aws configure set default.region us-west-2
 
 # kube config
 mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config

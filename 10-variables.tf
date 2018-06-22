@@ -1,7 +1,7 @@
 # variable
 
 variable region {
-  default = "us-east-1"
+  default = "us-west-2"
 }
 
 variable name {
