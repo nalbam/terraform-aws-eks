@@ -14,8 +14,8 @@ resource "aws_vpc" "cluster" {
 resource "aws_subnet" "cluster" {
   count = 2
 
-  vpc_id            = "${aws_vpc.cluster.id}"
-  cidr_block        = "${cidrsubnet(aws_vpc.cluster.cidr_block, 8, 20 + count.index)}"
+  vpc_id     = "${aws_vpc.cluster.id}"
+  cidr_block = "${cidrsubnet(aws_vpc.cluster.cidr_block, 8, 20 + count.index)}"
 
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
 

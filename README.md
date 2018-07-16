@@ -1,6 +1,6 @@
 # terraform-aws-eks
 
-* see: https://github.com/nalbam/docs/blob/master/201806/EKS/README.md
+* see: <https://github.com/nalbam/docs/blob/master/201806/EKS/README.md>
 
 ```bash
 # aws-cli > 1.15.32
@@ -45,5 +45,6 @@ kubectl get node
 kubectl get deploy,pod,svc,ing --all-namespaces
 kubectl get svc,ing -o wide --all-namespaces
 ```
-* https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
-* https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html
+
+* <https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html>
+* <https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html>

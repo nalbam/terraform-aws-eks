@@ -2,12 +2,14 @@
 
 data "template_file" "kube_config" {
   template = "${file("${path.cwd}/data/kube_config.yml")}"
+
   vars {
-    CERTIFICATE = "${aws_eks_cluster.cluster.certificate_authority.0.data}"
+    CERTIFICATE     = "${aws_eks_cluster.cluster.certificate_authority.0.data}"
     MASTER_ENDPOINT = "${aws_eks_cluster.cluster.endpoint}"
-    CLUSTER_NAME = "${var.name}"
+    CLUSTER_NAME    = "${var.name}"
   }
 }
+
 resource "local_file" "kube_config" {
   content  = "${data.template_file.kube_config.rendered}"
   filename = "${path.cwd}/.output/kube_config.yml"
@@ -15,10 +17,12 @@ resource "local_file" "kube_config" {
 
 data "template_file" "aws_auth" {
   template = "${file("${path.cwd}/data/aws_auth.yml")}"
+
   vars {
     AWS_IAM_ROLE_ARN = "${aws_iam_role.node.arn}"
   }
 }
+
 resource "local_file" "aws_auth" {
   content  = "${data.template_file.aws_auth.rendered}"
   filename = "${path.cwd}/.output/aws_auth.yml"

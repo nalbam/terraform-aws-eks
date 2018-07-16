@@ -1,10 +1,10 @@
 # worker security group
 
 resource "aws_security_group" "node" {
-  name = "terraform-eks-${var.name}-node"
+  name        = "terraform-eks-${var.name}-node"
   description = "Security group for all nodes in the cluster"
 
-  vpc_id      = "${aws_vpc.cluster.id}"
+  vpc_id = "${aws_vpc.cluster.id}"
 
   egress {
     from_port   = 0
