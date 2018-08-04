@@ -1,7 +1,7 @@
 # output
 
 data "template_file" "kube_config" {
-  template = "${file("${path.cwd}/data/kube_config.yml")}"
+  template = "${file("${path.module}/data/kube_config.yml")}"
 
   vars {
     CERTIFICATE     = "${aws_eks_cluster.cluster.certificate_authority.0.data}"
@@ -16,7 +16,7 @@ resource "local_file" "kube_config" {
 }
 
 data "template_file" "aws_auth" {
-  template = "${file("${path.cwd}/data/aws_auth.yml")}"
+  template = "${file("${path.module}/data/aws_auth.yml")}"
 
   vars {
     AWS_IAM_ROLE_ARN = "${aws_iam_role.node.arn}"
@@ -39,9 +39,6 @@ mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config
 
 # aws auth
 kubectl apply -f .output/aws_auth.yml
-
-# sample
-kubectl apply -f ./data/sample-web.yml
 
 # get
 kubectl get node

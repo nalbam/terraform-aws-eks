@@ -28,17 +28,11 @@ terraform apply
 aws eks list-clusters
 aws eks describe-cluster --name demo
 
-# regign
-aws configure set default.region us-west-2
-
 # kube config
 mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config
 
 # aws auth
 kubectl apply -f .output/aws_auth.yml
-
-# sample
-kubectl apply -f ./data/sample-web.yml
 
 # get
 kubectl get node
