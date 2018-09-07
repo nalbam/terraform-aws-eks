@@ -16,7 +16,7 @@ module "eks" {
   source     = "./modules/eks"
   region     = "us-west-2"
   name       = "demo"
-  cidr_block = "10.99.0.0/16"
+  cidr_block = "10.88.0.0/16"
   node_type  = "m4.large"
 }
 
