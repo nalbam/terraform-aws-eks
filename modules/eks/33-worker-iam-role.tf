@@ -1,7 +1,7 @@
 # worker iam role
 
 resource "aws_iam_role" "node" {
-  name = "terraform-eks-${var.name}-node"
+  name = "tf-eks-${var.name}-node"
 
   assume_role_policy = <<POLICY
 {
@@ -35,6 +35,6 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
 }
 
 resource "aws_iam_instance_profile" "node" {
-  name = "terraform-eks-${var.name}"
+  name = "tf-eks-${var.name}"
   role = "${aws_iam_role.node.name}"
 }

@@ -1,7 +1,7 @@
 # cluster security group
 
 resource "aws_security_group" "cluster" {
-  name        = "${var.name}-cluster"
+  name        = "tf-eks-${var.name}-cluster"
   description = "Cluster communication with worker nodes"
 
   vpc_id = "${aws_vpc.cluster.id}"
@@ -14,7 +14,7 @@ resource "aws_security_group" "cluster" {
   }
 
   tags {
-    Name = "terraform-eks-${var.name}"
+    Name = "tf-eks-${var.name}-cluster"
   }
 }
 

@@ -32,12 +32,11 @@ sed -i s,CERTIFICATE_AUTHORITY_FILE,$CA_CERTIFICATE_FILE_PATH,g /var/lib/kubelet
 sed -i s,CLIENT_CA_FILE,$CA_CERTIFICATE_FILE_PATH,g  /etc/systemd/system/kubelet.service
 systemctl daemon-reload
 systemctl restart kubelet kube-proxy
-
 EOF
 }
 
 resource "aws_launch_configuration" "node" {
-  name_prefix                 = "terraform-eks-${var.name}"
+  name_prefix                 = "tf-eks-${var.name}"
   iam_instance_profile        = "${aws_iam_instance_profile.node.name}"
   image_id                    = "${data.aws_ami.worker.id}"
   instance_type               = "${var.node_type}"
@@ -51,7 +50,7 @@ resource "aws_launch_configuration" "node" {
 }
 
 resource "aws_autoscaling_group" "node" {
-  name                 = "terraform-eks-${var.name}"
+  name                 = "tf-eks-${var.name}"
   desired_capacity     = 2
   max_size             = 4
   min_size             = 1
@@ -60,7 +59,7 @@ resource "aws_autoscaling_group" "node" {
 
   tag {
     key                 = "Name"
-    value               = "terraform-eks-${var.name}"
+    value               = "tf-eks-${var.name}"
     propagate_at_launch = true
   }
 
