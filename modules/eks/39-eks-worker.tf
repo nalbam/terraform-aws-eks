@@ -51,9 +51,9 @@ resource "aws_launch_configuration" "node" {
 
 resource "aws_autoscaling_group" "node" {
   name                 = "tf-eks-${var.name}"
-  desired_capacity     = 2
-  max_size             = 4
-  min_size             = 1
+  desired_capacity     = "${var.desired}"
+  min_size             = "${var.min}"
+  max_size             = "${var.max}"
   vpc_zone_identifier  = ["${aws_subnet.cluster.*.id}"]
   launch_configuration = "${aws_launch_configuration.node.id}"
 

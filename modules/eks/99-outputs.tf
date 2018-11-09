@@ -41,9 +41,8 @@ mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config
 kubectl apply -f .output/aws_auth.yml
 
 # get
-kubectl get node
+kubectl get node -o wide
 kubectl get deploy,pod,svc,ing --all-namespaces
-kubectl get svc,ing -o wide --all-namespaces
 
 EOF
 }
