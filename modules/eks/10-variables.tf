@@ -28,8 +28,4 @@ variable max {
   default = "5"
 }
 
-variable az_count {
-  default = "2"
-}
-
-data "aws_availability_zones" "available" {}
+data "aws_availability_zones" "azs" {}

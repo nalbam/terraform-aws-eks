@@ -35,6 +35,6 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
 }
 
 resource "aws_iam_instance_profile" "node" {
-  name = "tf-eks-${var.name}"
+  name = "tf-eks-${var.name}-node"
   role = "${aws_iam_role.node.name}"
 }
