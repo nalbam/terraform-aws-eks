@@ -34,9 +34,9 @@ resource "aws_iam_role_policy_attachment" "worker-AmazonEC2ContainerRegistryRead
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
-resource "aws_iam_role_policy_attachment" "worker-AmazonEC2FullAccess" {
+resource "aws_iam_role_policy_attachment" "worker-AutoScalingFullAccess" {
   role       = "${aws_iam_role.worker.name}"
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AutoScalingFullAccess"
 }
 
 resource "aws_iam_instance_profile" "worker" {

@@ -10,11 +10,6 @@ data "template_file" "kube_config" {
   }
 }
 
-resource "local_file" "kube_config" {
-  content  = "${data.template_file.kube_config.rendered}"
-  filename = "${path.cwd}/.output/kube_config.yml"
-}
-
 data "template_file" "aws_auth" {
   template = "${file("${path.module}/data/aws_auth.yml")}"
 
@@ -23,9 +18,23 @@ data "template_file" "aws_auth" {
   }
 }
 
+data "template_file" "aws_ebs_gp2" {
+  template = "${file("${path.module}/data/aws_ebs_gp2.yml")}"
+}
+
+resource "local_file" "kube_config" {
+  content  = "${data.template_file.kube_config.rendered}"
+  filename = "${path.cwd}/.output/kube_config.yml"
+}
+
 resource "local_file" "aws_auth" {
   content  = "${data.template_file.aws_auth.rendered}"
   filename = "${path.cwd}/.output/aws_auth.yml"
+}
+
+resource "local_file" "aws_ebs_gp2" {
+  content  = "${data.template_file.aws_ebs_gp2.rendered}"
+  filename = "${path.cwd}/.output/aws_ebs_gp2.yml"
 }
 
 locals {
@@ -39,6 +48,9 @@ mkdir -p ~/.kube && cat .output/kube_config.yml > ~/.kube/config
 
 # aws auth
 kubectl apply -f .output/aws_auth.yml
+
+# aws ebs gp2
+kubectl apply -f .output/aws_ebs_gp2.yml
 
 # get
 kubectl get node -o wide

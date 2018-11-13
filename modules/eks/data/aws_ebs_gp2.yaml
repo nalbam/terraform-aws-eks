@@ -1,0 +1,25 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: default
+  labels:
+    k8s-addon: storage-aws.addons.k8s.io
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+
+---
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp2
+  labels:
+    k8s-addon: storage-aws.addons.k8s.io
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
