@@ -9,8 +9,8 @@ resource "aws_subnet" "public" {
 
   tags = "${
     map(
-     "Name", "tf-eks-${var.name}",
-     "kubernetes.io/cluster/${var.name}", "shared"
+     "Name", "${local.lower_name}-public",
+     "kubernetes.io/cluster/${local.lower_name}", "shared"
     )
   }"
 }
@@ -19,7 +19,7 @@ resource "aws_internet_gateway" "public" {
   vpc_id = "${aws_vpc.cluster.id}"
 
   tags {
-    Name = "tf-eks-${var.name}"
+    Name = "${local.lower_name}-public"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_route_table" "public" {
   }
 
   tags {
-    Name = "tf-eks-${var.name}"
+    Name = "${local.lower_name}-public"
   }
 }
 

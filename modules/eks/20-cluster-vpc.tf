@@ -5,8 +5,8 @@ resource "aws_vpc" "cluster" {
 
   tags = "${
     map(
-     "Name", "tf-eks-${var.name}",
-     "kubernetes.io/cluster/${var.name}", "shared"
+     "Name", "${local.lower_name}",
+     "kubernetes.io/cluster/${local.lower_name}", "shared"
     )
   }"
 }

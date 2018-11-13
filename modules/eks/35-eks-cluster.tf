@@ -1,7 +1,7 @@
 # eks cluster
 
 resource "aws_eks_cluster" "cluster" {
-  name     = "tf-eks-${var.name}"
+  name     = "${local.lower_name}"
   role_arn = "${aws_iam_role.cluster.arn}"
 
   vpc_config {

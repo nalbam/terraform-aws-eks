@@ -1,7 +1,7 @@
 # worker iam role
 
-resource "aws_iam_role" "node" {
-  name = "tf-eks-${var.name}-node"
+resource "aws_iam_role" "worker" {
+  name = "${local.lower_name}-worker"
 
   assume_role_policy = <<POLICY
 {
@@ -19,22 +19,22 @@ resource "aws_iam_role" "node" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "node-AmazonEKSWorkerNodePolicy" {
-  role       = "${aws_iam_role.node.name}"
+resource "aws_iam_role_policy_attachment" "worker-AmazonEKSWorkerNodePolicy" {
+  role       = "${aws_iam_role.worker.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "node-AmazonEKS_CNI_Policy" {
-  role       = "${aws_iam_role.node.name}"
+resource "aws_iam_role_policy_attachment" "worker-AmazonEKS_CNI_Policy" {
+  role       = "${aws_iam_role.worker.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
-resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOnly" {
-  role       = "${aws_iam_role.node.name}"
+resource "aws_iam_role_policy_attachment" "worker-AmazonEC2ContainerRegistryReadOnly" {
+  role       = "${aws_iam_role.worker.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
-resource "aws_iam_instance_profile" "node" {
-  name = "tf-eks-${var.name}-node"
-  role = "${aws_iam_role.node.name}"
+resource "aws_iam_instance_profile" "worker" {
+  name = "${local.lower_name}-worker"
+  role = "${aws_iam_role.worker.name}"
 }

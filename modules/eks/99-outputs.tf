@@ -6,7 +6,7 @@ data "template_file" "kube_config" {
   vars {
     CERTIFICATE     = "${aws_eks_cluster.cluster.certificate_authority.0.data}"
     MASTER_ENDPOINT = "${aws_eks_cluster.cluster.endpoint}"
-    CLUSTER_NAME    = "${var.name}"
+    CLUSTER_NAME    = "${local.lower_name}"
   }
 }
 
@@ -19,7 +19,7 @@ data "template_file" "aws_auth" {
   template = "${file("${path.module}/data/aws_auth.yml")}"
 
   vars {
-    AWS_IAM_ROLE_ARN = "${aws_iam_role.node.arn}"
+    AWS_IAM_ROLE_ARN = "${aws_iam_role.worker.arn}"
   }
 }
 

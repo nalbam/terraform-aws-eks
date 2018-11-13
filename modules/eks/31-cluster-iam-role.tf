@@ -1,7 +1,7 @@
 # cluster iam role
 
 resource "aws_iam_role" "cluster" {
-  name = "tf-eks-${var.name}-cluster"
+  name = "${local.lower_name}-cluster"
 
   assume_role_policy = <<POLICY
 {

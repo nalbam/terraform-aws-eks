@@ -1,14 +1,22 @@
 # variable
 
-variable region {
-  default = "us-west-2"
+variable "region" {
+  description = "The region to deploy the cluster in, e.g: us-east-1"
 }
 
-variable name {
-  default = "demo"
+variable "city" {
+  description = "City Name of the cluster, e.g: VIRGINIA"
 }
 
-variable node_type {
+variable "stage" {
+  description = "Stage Name of the cluster, e.g: DEV"
+}
+
+variable "name" {
+  description = "Name of the cluster, e.g: DEMO"
+}
+
+variable instance_type {
   default = "m4.large"
 }
 

@@ -1,7 +1,7 @@
 # cluster security group
 
 resource "aws_security_group" "cluster" {
-  name        = "tf-eks-${var.name}-cluster"
+  name        = "${local.lower_name}-cluster"
   description = "Cluster communication with worker nodes"
 
   vpc_id = "${aws_vpc.cluster.id}"
@@ -14,14 +14,14 @@ resource "aws_security_group" "cluster" {
   }
 
   tags {
-    Name = "tf-eks-${var.name}-cluster"
+    Name = "${local.lower_name}-cluster"
   }
 }
 
 resource "aws_security_group_rule" "cluster-ingress-node-https" {
   description              = "Allow pods to communicate with the cluster API Server"
   security_group_id        = "${aws_security_group.cluster.id}"
-  source_security_group_id = "${aws_security_group.node.id}"
+  source_security_group_id = "${aws_security_group.worker.id}"
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"

@@ -1,9 +1,5 @@
 # eks
 
-provider "aws" {
-  region = "us-west-2"
-}
-
 terraform {
   backend "s3" {
     region = "ap-northeast-2"
@@ -12,18 +8,24 @@ terraform {
   }
 }
 
+provider "aws" {
+  region = "${var.region}"
+}
+
 module "eks" {
   source = "./modules/eks"
 
-  region = "us-west-2"
-  name   = "demo"
+  region = "${var.region}"
+  city   = "${var.city}"
+  stage  = "${var.stage}"
+  name   = "${var.name}"
 
   cidr_block = "10.11.0.0/16"
 
-  node_type = "r4.large"
-  desired   = "2"
-  min       = "2"
-  max       = "5"
+  instance_type = "r4.large"
+  desired       = "2"
+  min           = "2"
+  max           = "5"
 }
 
 output "config" {
