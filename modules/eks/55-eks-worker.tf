@@ -44,4 +44,10 @@ resource "aws_autoscaling_group" "worker" {
     value               = "owned"
     propagate_at_launch = true
   }
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/enabled"
+    value               = ""
+    propagate_at_launch = true
+  }
 }
