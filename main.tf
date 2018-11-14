@@ -22,7 +22,7 @@ module "eks" {
 
   cidr_block = "10.11.0.0/16"
 
-  instance_type = "r5.large"
+  instance_type = "r4.large"
   desired       = "2"
   min           = "2"
   max           = "5"
