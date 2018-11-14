@@ -3,12 +3,23 @@
 data "aws_ami" "worker" {
   filter {
     name   = "name"
-    values = ["eks-worker-*"]
+    values = ["amazon-eks-node-v*"]
   }
 
   owners = ["602401143452"] # Amazon Account ID
 
   most_recent = true
+}
+
+locals {
+  userdata = <<EOF
+#!/bin/bash
+set -o xtrace
+/etc/eks/bootstrap.sh \
+  --apiserver-endpoint '${aws_eks_cluster.cluster.endpoint}' \
+  --b64-cluster-ca '${aws_eks_cluster.cluster.certificate_authority.0.data}' \
+  '${local.lower_name}'
+EOF
 }
 
 resource "aws_launch_configuration" "worker" {

@@ -16,7 +16,7 @@ resource "aws_security_group" "worker" {
   tags = "${
     map(
      "Name", "${local.lower_name}-worker",
-     "kubernetes.io/cluster/${local.lower_name}", "shared"
+     "kubernetes.io/cluster/${local.lower_name}", "owned"
     )
   }"
 }
