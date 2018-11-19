@@ -26,6 +26,10 @@ module "eks" {
   desired       = "2"
   min           = "2"
   max           = "5"
+
+  key_path   = ""                # ~/.ssh/id_rsa.pub
+  key_name   = "nalbam-oregon"   # nalbam-oregon
+  admin_cidr = "1.214.48.241/32" # $(curl icanhazip.com)/32
 }
 
 output "config" {

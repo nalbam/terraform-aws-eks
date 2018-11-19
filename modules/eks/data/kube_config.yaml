@@ -1,23 +1,27 @@
 apiVersion: v1
+kind: Config
+preferences: {}
+
 clusters:
 - cluster:
     server: ${MASTER_ENDPOINT}
     certificate-authority-data: ${CERTIFICATE}
-  name: kubernetes
+  name: ${CLUSTER_NAME}
+
 contexts:
 - context:
-    cluster: kubernetes
-    user: aws
-  name: aws
-current-context: aws
-kind: Config
-preferences: {}
+    cluster: ${CLUSTER_NAME}
+    user: ${CLUSTER_NAME}
+  name: ${CLUSTER_NAME}
+
+current-context: ${CLUSTER_NAME}
+
 users:
-- name: aws
+- name: ${CLUSTER_NAME}
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1alpha1
-      command: heptio-authenticator-aws
+      command: aws-iam-authenticator
       args:
         - "token"
         - "-i"
