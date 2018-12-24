@@ -32,8 +32,6 @@ resource "aws_launch_template" "worker" {
 
   key_name = "${var.key_path != "" ? "${local.lower_name}-worker" : "${var.key_name}"}"
 
-  # vpc_security_group_ids = ["${aws_security_group.worker.id}"]
-
   iam_instance_profile {
     name = "${aws_iam_instance_profile.worker.name}"
   }
@@ -58,7 +56,7 @@ resource "aws_autoscaling_group" "worker" {
 
   launch_template = {
     id      = "${aws_launch_template.worker.id}"
-    version = "${aws_launch_template.worker.latest_version}"
+    version = "$$Latest"
   }
   tag {
     key                 = "Name"
