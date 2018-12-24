@@ -39,6 +39,7 @@ resource "aws_launch_template" "worker" {
   }
   network_interfaces {
     associate_public_ip_address = true
+    delete_on_termination       = true
     security_groups             = ["${aws_security_group.worker.id}"]
   }
   instance_market_options {
