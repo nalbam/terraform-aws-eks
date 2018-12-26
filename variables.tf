@@ -1,11 +1,11 @@
 # variable
 
 variable "region" {
-  default = "us-west-2"
+  default = "ap-northeast-1"
 }
 
 variable "city" {
-  default = "OREGON"
+  default = "TOKYO"
 }
 
 variable "stage" {
