@@ -2,8 +2,8 @@
 
 resource "aws_subnet" "public" {
   count      = "${length(data.aws_availability_zones.azs.names) > 3 ? 3 : length(data.aws_availability_zones.azs.names)}"
-  vpc_id     = "${aws_vpc.cluster.id}"
-  cidr_block = "${cidrsubnet(aws_vpc.cluster.cidr_block, 8, 10 + count.index)}"
+  vpc_id     = "${data.aws_vpc.cluster.id}"
+  cidr_block = "${cidrsubnet(data.aws_vpc.cluster.cidr_block, 8, 10 + count.index)}"
 
   availability_zone = "${data.aws_availability_zones.azs.names[count.index]}"
 
@@ -15,20 +15,12 @@ resource "aws_subnet" "public" {
   }"
 }
 
-resource "aws_internet_gateway" "public" {
-  vpc_id = "${aws_vpc.cluster.id}"
-
-  tags {
-    Name = "${local.lower_name}-public"
-  }
-}
-
 resource "aws_route_table" "public" {
-  vpc_id = "${aws_vpc.cluster.id}"
+  vpc_id = "${data.aws_vpc.cluster.id}"
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.public.id}"
+    gateway_id = "${data.aws_internet_gateway.cluster.id}"
   }
 
   tags {

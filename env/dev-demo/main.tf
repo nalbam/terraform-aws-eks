@@ -9,16 +9,16 @@ terraform {
 }
 
 provider "aws" {
-  region = "${var.region}"
+  region = "ap-northeast-1"
 }
 
 module "eks" {
-  source = "./modules/eks"
+  source = "../../modules/eks"
 
-  region = "${var.region}"
-  city   = "${var.city}"
-  stage  = "${var.stage}"
-  name   = "${var.name}"
+  region = "ap-northeast-1"
+  city   = "TOKYO"
+  stage  = "DEV"
+  name   = "DEMO"
 
   cidr_block = "10.11.0.0/16"
 
@@ -29,7 +29,7 @@ module "eks" {
 
   key_path   = ""               # ~/.ssh/id_rsa.pub
   key_name   = "nalbam-tokyo"   # nalbam-tokyo
-  admin_cidr = "58.151.93.9/32" # $(curl icanhazip.com)/32
+  admin_cidr = "58.151.93.9/32" # echo "$(curl -sL icanhazip.com)/32"
 }
 
 output "config" {

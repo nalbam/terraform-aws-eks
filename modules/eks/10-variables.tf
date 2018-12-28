@@ -16,6 +16,10 @@ variable "name" {
   description = "Name of the cluster, e.g: DEMO"
 }
 
+variable "vpc_id" {
+  default = ""
+}
+
 variable "cidr_block" {
   default = "10.0.0.0/16"
 }
