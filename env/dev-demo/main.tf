@@ -27,8 +27,8 @@ module "eks" {
   min           = "2"
   max           = "5"
 
-  key_path   = ""               # ~/.ssh/id_rsa.pub
-  key_name   = "nalbam-tokyo"   # nalbam-tokyo
+  key_name = "nalbam-tokyo"
+
   admin_cidr = "58.151.93.9/32" # echo "$(curl -sL icanhazip.com)/32"
 }
 
