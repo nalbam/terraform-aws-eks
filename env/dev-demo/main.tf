@@ -9,14 +9,14 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-northeast-1"
+  region = "ap-northeast-2"
 }
 
 module "eks" {
   source = "../../modules/eks"
 
-  region = "ap-northeast-1"
-  city   = "TOKYO"
+  region = "ap-northeast-2"
+  city   = "SEOUL"
   stage  = "DEV"
   name   = "DEMO"
 
@@ -27,7 +27,7 @@ module "eks" {
   min           = "2"
   max           = "5"
 
-  key_name = "nalbam-tokyo"
+  key_name = "nalbam-seoul"
 
   admin_cidr = "58.151.93.9/32" # echo "$(curl -sL icanhazip.com)/32"
 }
