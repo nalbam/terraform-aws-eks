@@ -1,7 +1,7 @@
 # cluster subnet public
 
 resource "aws_subnet" "public" {
-  count      = "${length(data.aws_availability_zones.azs.names) > 3 ? 3 : length(data.aws_availability_zones.azs.names)}"
+  count      = "${local.az_count}"
   vpc_id     = "${data.aws_vpc.cluster.id}"
   cidr_block = "${cidrsubnet(data.aws_vpc.cluster.cidr_block, 8, 10 + count.index)}"
 
@@ -9,7 +9,7 @@ resource "aws_subnet" "public" {
 
   tags = "${
     map(
-     "Name", "${local.lower_name}-public",
+     "Name", "${var.city}-${upper(element(split("", data.aws_availability_zones.azs.names[count.index]), length(data.aws_availability_zones.azs.names[count.index])-1))}-${var.stage}-${var.name}-${var.suffix}-PUBLIC",
      "kubernetes.io/cluster/${local.lower_name}", "shared"
     )
   }"
@@ -24,12 +24,12 @@ resource "aws_route_table" "public" {
   }
 
   tags {
-    Name = "${local.lower_name}-public"
+    Name = "${local.upper_name}-PUBLIC"
   }
 }
 
 resource "aws_route_table_association" "public" {
-  count          = "${length(data.aws_availability_zones.azs.names) > 3 ? 3 : length(data.aws_availability_zones.azs.names)}"
+  count          = "${local.az_count}"
   subnet_id      = "${aws_subnet.public.*.id[count.index]}"
   route_table_id = "${aws_route_table.public.id}"
 }

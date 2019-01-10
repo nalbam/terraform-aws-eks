@@ -29,10 +29,9 @@ resource "aws_security_group_rule" "cluster-ingress-node-https" {
 }
 
 resource "aws_security_group_rule" "cluster-ingress-admin-https" {
-  count             = "${var.admin_cidr != "" ? 1 : 0}"
   description       = "Allow workstation to communicate with the cluster API Server"
   security_group_id = "${aws_security_group.cluster.id}"
-  cidr_blocks       = ["${var.admin_cidr}"]
+  cidr_blocks       = ["${var.allow_ip_address}"]
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"

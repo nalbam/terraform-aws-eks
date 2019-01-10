@@ -16,12 +16,18 @@ variable "name" {
   description = "Name of the cluster, e.g: DEMO"
 }
 
-variable "vpc_id" {
-  default = ""
+variable "suffix" {
+  description = "Name of the cluster, e.g: EKS"
 }
 
-variable "cidr_block" {
-  default = "10.0.0.0/16"
+variable "vpc_id" {
+  description = "The VPC ID."
+  default     = ""
+}
+
+variable "vpc_cidr" {
+  description = "The CIDR block for the VPC, e.g: 10.0.0.0/16"
+  default     = "10.0.0.0/16"
 }
 
 variable instance_type {
@@ -48,8 +54,10 @@ variable "key_path" {
   default = ""
 }
 
-variable admin_cidr {
-  default = ""
+variable "allow_ip_address" {
+  description = "List of IP Address to permit access"
+  type        = "list"
+  default     = ["*"]
 }
 
 variable "cities" {

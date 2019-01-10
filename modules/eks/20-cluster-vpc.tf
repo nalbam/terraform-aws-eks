@@ -1,14 +1,14 @@
 # cluster vpc
 
 resource "aws_vpc" "cluster" {
-  count = "${var.vpc_id == "" ? 1 : 0}"
+  count      = "${var.vpc_id == "" ? 1 : 0}"
+  cidr_block = "${var.vpc_cidr}"
 
-  cidr_block = "${var.cidr_block}"
   enable_dns_hostnames = true
 
   tags = "${
     map(
-     "Name", "${local.lower_name}",
+     "Name", "${local.upper_name}",
      "kubernetes.io/cluster/${local.lower_name}", "shared"
     )
   }"
@@ -21,7 +21,7 @@ resource "aws_internet_gateway" "cluster" {
   vpc_id = "${data.aws_vpc.cluster.id}"
 
   tags = {
-    Name = "${local.lower_name}"
+    Name = "${local.upper_name}"
   }
 }
 

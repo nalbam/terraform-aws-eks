@@ -19,8 +19,10 @@ module "eks" {
   city   = "SEOUL"
   stage  = "DEV"
   name   = "DEMO"
+  suffix = "EKS"
 
-  cidr_block = "10.11.0.0/16"
+  vpc_id   = ""
+  vpc_cidr = "10.11.0.0/16"
 
   instance_type = "m4.large"
   desired       = "2"
@@ -29,7 +31,9 @@ module "eks" {
 
   key_name = "nalbam-seoul"
 
-  admin_cidr = "58.151.93.9/32" # echo "$(curl -sL icanhazip.com)/32"
+  allow_ip_address = [
+    "58.151.93.9/32", # 강남 echo "$(curl -sL icanhazip.com)/32"
+  ]
 }
 
 output "config" {

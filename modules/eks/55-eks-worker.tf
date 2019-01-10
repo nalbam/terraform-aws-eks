@@ -15,8 +15,6 @@ resource "aws_launch_configuration" "worker" {
 
   key_name = "${var.key_path != "" ? "${local.lower_name}-worker" : "${var.key_name}"}"
 
-  associate_public_ip_address = true
-
   security_groups = ["${aws_security_group.worker.id}"]
 
   lifecycle {
@@ -34,19 +32,22 @@ resource "aws_launch_template" "worker" {
 
   block_device_mappings {
     device_name = "/dev/xvda"
+
     ebs {
       volume_size = "128"
       volume_type = "gp2"
     }
   }
+
   iam_instance_profile {
     name = "${aws_iam_instance_profile.worker.name}"
   }
+
   network_interfaces {
-    associate_public_ip_address = true
-    delete_on_termination       = true
-    security_groups             = ["${aws_security_group.worker.id}"]
+    delete_on_termination = true
+    security_groups       = ["${aws_security_group.worker.id}"]
   }
+
   instance_market_options {
     market_type = "spot"
   }
@@ -57,7 +58,7 @@ resource "aws_autoscaling_group" "worker" {
   desired_capacity    = "${var.desired}"
   min_size            = "${var.min}"
   max_size            = "${var.max}"
-  vpc_zone_identifier = ["${aws_subnet.public.*.id}"]
+  vpc_zone_identifier = ["${aws_subnet.private.*.id}"]
 
   # launch_configuration = "${aws_launch_configuration.worker.id}"
 
