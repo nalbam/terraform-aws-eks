@@ -24,7 +24,7 @@ resource "aws_route_table" "public" {
   }
 
   tags {
-    Name = "${local.upper_name}-PUBLIC"
+    Name = "${local.full_name}-PUBLIC"
   }
 }
 

@@ -8,7 +8,7 @@ resource "aws_vpc" "cluster" {
 
   tags = "${
     map(
-     "Name", "${local.upper_name}",
+     "Name", "${local.full_name}",
      "kubernetes.io/cluster/${local.lower_name}", "shared"
     )
   }"
@@ -21,7 +21,7 @@ resource "aws_internet_gateway" "cluster" {
   vpc_id = "${data.aws_vpc.cluster.id}"
 
   tags = {
-    Name = "${local.upper_name}"
+    Name = "${local.full_name}"
   }
 }
 
