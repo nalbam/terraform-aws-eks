@@ -8,28 +8,31 @@
 * <https://github.com/kubernetes-sigs/aws-iam-authenticator>
 
 ```bash
-# aws-cli > 1.15.32
-pip3 install awscli
-
 # terraform
-brew install terraform
+curl -sL opspresso.sh/tools/terraform | bash
+
+# aws-cli
+curl -sL opspresso.sh/tools/awscli | bash
 
 # kubectl
-brew install kubectl
+curl -sL opspresso.sh/tools/kubectl | bash
+
+# aws-iam-authenticator
+curl -sL opspresso.sh/tools/aws-iam-authenticator | bash
 ```
 
 ## Create Cluster
 
 ```bash
 # region
-aws configure set default.region us-west-2
+aws configure set default.region ap-northeast-2
 
 # terraform (10m)
 terraform init
 terraform plan
 terraform apply
 
-# eks
+# aws eks
 aws eks list-clusters
 aws eks describe-cluster --name oregon-dev-demo
 
@@ -43,7 +46,7 @@ kubectl apply -f .output/aws_auth.yaml
 # aws ebs gp2
 kubectl apply -f .output/aws_ebs_gp2.yaml
 
-# get
+# kubectl get
 kubectl get node -o wide
 kubectl get deploy,pod,svc,ing --all-namespaces
 ```

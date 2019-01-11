@@ -34,8 +34,9 @@ resource "aws_launch_template" "worker" {
     device_name = "/dev/xvda"
 
     ebs {
-      volume_size = "128"
-      volume_type = "gp2"
+      volume_size           = "128"
+      volume_type           = "gp2"
+      delete_on_termination = true
     }
   }
 
