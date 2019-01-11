@@ -3,7 +3,7 @@
 resource "aws_subnet" "public" {
   count      = "${local.az_count}"
   vpc_id     = "${data.aws_vpc.cluster.id}"
-  cidr_block = "${cidrsubnet(data.aws_vpc.cluster.cidr_block, 8, 10 + count.index)}"
+  cidr_block = "${cidrsubnet(data.aws_vpc.cluster.cidr_block, 4, count.index)}"
 
   availability_zone = "${data.aws_availability_zones.azs.names[count.index]}"
 
