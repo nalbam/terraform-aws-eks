@@ -21,8 +21,9 @@ module "eks" {
   name   = "DEMO"
   suffix = "EKS"
 
-  vpc_id   = ""
-  vpc_cidr = "10.11.0.0/16"
+  # vpc_id     = ""
+  # subnet_ids = []
+  vpc_cidr = "10.20.0.0/16"
 
   instance_type = "m4.large"
   desired       = "2"

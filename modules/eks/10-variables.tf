@@ -30,6 +30,12 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
+variable "subnet_ids" {
+  description = "List of Subnet Ids"
+  type        = "list"
+  default     = []
+}
+
 variable instance_type {
   default = "m4.large"
 }

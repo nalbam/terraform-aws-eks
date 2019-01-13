@@ -4,7 +4,7 @@ resource "aws_security_group" "worker" {
   name        = "${local.lower_name}-worker"
   description = "Security group for all worker nodes in the cluster"
 
-  vpc_id = "${aws_vpc.cluster.id}"
+  vpc_id = "${data.aws_vpc.cluster.id}"
 
   egress {
     from_port   = 0

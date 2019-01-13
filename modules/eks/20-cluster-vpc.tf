@@ -14,19 +14,18 @@ resource "aws_vpc" "cluster" {
   }"
 }
 
+data "aws_vpc" "cluster" {
+  id = "${var.vpc_id == "" ? aws_vpc.cluster.*.id[0] : var.vpc_id}"
+}
+
 // Create an Internet Gateway.
 resource "aws_internet_gateway" "cluster" {
-  count = "${var.vpc_id == "" ? 1 : 0}"
-
-  vpc_id = "${data.aws_vpc.cluster.id}"
+  count  = "${var.vpc_id == "" ? 1 : 0}"
+  vpc_id = "${aws_vpc.cluster.*.id[0]}"
 
   tags = {
     Name = "${local.full_name}"
   }
-}
-
-data "aws_vpc" "cluster" {
-  id = "${var.vpc_id == "" ? element(concat(aws_vpc.cluster.*.id, list("")), 0) : var.vpc_id}"
 }
 
 data "aws_internet_gateway" "cluster" {

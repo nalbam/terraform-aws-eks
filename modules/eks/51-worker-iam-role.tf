@@ -50,8 +50,7 @@ resource "aws_iam_role_policy_attachment" "worker-AutoScaling" {
 }
 
 resource "aws_iam_policy" "worker_autoscaling" {
-  name_prefix = "eks-worker-autoscaling-${aws_eks_cluster.cluster.name}"
-  description = "EKS worker node autoscaling policy for cluster ${aws_eks_cluster.cluster.name}"
+  name_prefix = "${local.lower_name}-worker-autoscaling"
   policy      = "${data.aws_iam_policy_document.worker_autoscaling.json}"
 }
 
@@ -84,7 +83,7 @@ data "aws_iam_policy_document" "worker_autoscaling" {
 
     condition {
       test     = "StringEquals"
-      variable = "autoscaling:ResourceTag/kubernetes.io/cluster/${aws_eks_cluster.cluster.name}"
+      variable = "autoscaling:ResourceTag/kubernetes.io/cluster/${local.lower_name}"
       values   = ["owned"]
     }
 

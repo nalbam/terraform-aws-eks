@@ -3,7 +3,7 @@
 resource "aws_subnet" "private" {
   count      = "${local.az_count}"
   vpc_id     = "${data.aws_vpc.cluster.id}"
-  cidr_block = "${cidrsubnet(data.aws_vpc.cluster.cidr_block, 4, (count.index + local.az_count))}"
+  cidr_block = "${cidrsubnet(data.aws_vpc.cluster.cidr_block, 2, (count.index + 1))}" // /18 64 C 16384 255.255.192.000
 
   availability_zone = "${data.aws_availability_zones.azs.names[count.index]}"
 
