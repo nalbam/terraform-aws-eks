@@ -32,9 +32,6 @@ kubectl config current-context
 # aws auth
 kubectl apply -f .output/aws_auth.yaml
 
-# aws ebs gp2
-kubectl apply -f .output/aws_ebs_gp2.yaml
-
 # get
 kubectl get node -o wide
 kubectl get all --all-namespaces

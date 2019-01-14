@@ -30,7 +30,3 @@ data "template_file" "aws_auth" {
     AWS_IAM_ROLE_ARN = "${aws_iam_role.worker.arn}"
   }
 }
-
-data "template_file" "aws_ebs_gp2" {
-  template = "${file("${path.module}/data/aws_ebs_gp2.yaml")}"
-}
