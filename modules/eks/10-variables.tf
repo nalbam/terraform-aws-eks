@@ -36,10 +36,6 @@ variable "subnet_ids" {
   default     = []
 }
 
-variable max_azs {
-  default = "3"
-}
-
 variable instance_type {
   default = "m4.large"
 }
