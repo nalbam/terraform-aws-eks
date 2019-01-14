@@ -25,6 +25,8 @@ module "eks" {
   # subnet_ids = []
   vpc_cidr = "10.20.0.0/16"
 
+  max_azs = "1"
+
   instance_type = "m4.large"
   desired       = "2"
   min           = "2"
