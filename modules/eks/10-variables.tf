@@ -17,7 +17,7 @@ variable "name" {
 }
 
 variable "suffix" {
-  description = "Name of the cluster, e.g: EKS"
+  description = "Suffix of the cluster, e.g: EKS"
 }
 
 variable "vpc_id" {
