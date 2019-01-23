@@ -1,10 +1,10 @@
 # cluster security group
 
 resource "aws_security_group" "cluster" {
-  name        = "${local.lower_name}-cluster"
+  name        = "masters.${local.lower_name}"
   description = "Cluster communication with worker nodes"
 
-  vpc_id = "${data.aws_vpc.cluster.id}"
+  vpc_id = "${var.vpc_id}"
 
   egress {
     from_port   = 0
@@ -13,9 +13,13 @@ resource "aws_security_group" "cluster" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
-    Name = "${local.lower_name}-cluster"
-  }
+  tags = "${
+    map(
+     "Name", "masters.${local.lower_name}",
+     "KubernetesCluster", "${local.lower_name}",
+     "kubernetes.io/cluster/${local.lower_name}", "owned"
+    )
+  }"
 }
 
 resource "aws_security_group_rule" "cluster-ingress-node-https" {

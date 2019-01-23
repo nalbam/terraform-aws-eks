@@ -17,17 +17,12 @@ variable "name" {
 }
 
 variable "suffix" {
-  description = "Suffix of the cluster, e.g: EKS"
+  description = "Name of the cluster, e.g: EKS"
 }
 
 variable "vpc_id" {
   description = "The VPC ID."
   default     = ""
-}
-
-variable "vpc_cidr" {
-  description = "The CIDR block for the VPC, e.g: 10.0.0.0/16"
-  default     = "10.0.0.0/16"
 }
 
 variable "subnet_ids" {
@@ -64,26 +59,4 @@ variable "allow_ip_address" {
   description = "List of IP Address to permit access"
   type        = "list"
   default     = ["*"]
-}
-
-variable "cities" {
-  type = "map"
-
-  default = {
-    ap-northeast-1 = "Tokyo"
-    ap-northeast-2 = "Seoul"
-    ap-south-1     = "Mumbai"
-    ap-southeast-1 = "Singapore"
-    ap-southeast-2 = "Sydney"
-    ca-central-1   = "Central"
-    eu-central-1   = "Frankfurt"
-    eu-west-1      = "Ireland"
-    eu-west-2      = "London"
-    eu-west-3      = "Paris"
-    sa-east-1      = "SãoPaulo"
-    us-east-1      = "Virginia"
-    us-east-2      = "Ohio"
-    us-west-1      = "California"
-    us-west-2      = "Oregon"
-  }
 }

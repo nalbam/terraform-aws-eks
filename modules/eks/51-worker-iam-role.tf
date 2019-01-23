@@ -43,3 +43,8 @@ resource "aws_iam_role_policy_attachment" "worker-AutoScalingFullAccess" {
   role       = "${aws_iam_role.worker.name}"
   policy_arn = "arn:aws:iam::aws:policy/AutoScalingFullAccess"
 }
+
+# resource "aws_iam_role_policy_attachment" "worker-AmazonS3FullAccess" {
+#   role       = "${aws_iam_role.worker.name}"
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+# }

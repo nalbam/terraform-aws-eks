@@ -1,10 +1,10 @@
 # worker security group
 
 resource "aws_security_group" "worker" {
-  name        = "${local.lower_name}-worker"
+  name        = "nodes.${local.lower_name}"
   description = "Security group for all worker nodes in the cluster"
 
-  vpc_id = "${data.aws_vpc.cluster.id}"
+  vpc_id = "${var.vpc_id}"
 
   egress {
     from_port   = 0
@@ -15,7 +15,8 @@ resource "aws_security_group" "worker" {
 
   tags = "${
     map(
-     "Name", "${local.lower_name}-worker",
+     "Name", "nodes.${local.lower_name}",
+     "KubernetesCluster", "${local.lower_name}",
      "kubernetes.io/cluster/${local.lower_name}", "owned"
     )
   }"

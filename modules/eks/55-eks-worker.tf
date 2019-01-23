@@ -55,11 +55,12 @@ resource "aws_launch_template" "worker" {
 }
 
 resource "aws_autoscaling_group" "worker" {
-  name                = "${local.lower_name}"
-  desired_capacity    = "${var.desired}"
-  min_size            = "${var.min}"
-  max_size            = "${var.max}"
-  vpc_zone_identifier = ["${aws_subnet.private.*.id}"]
+  name             = "${local.lower_name}"
+  desired_capacity = "${var.desired}"
+  min_size         = "${var.min}"
+  max_size         = "${var.max}"
+
+  vpc_zone_identifier = ["${var.subnet_ids}"]
 
   # launch_configuration = "${aws_launch_configuration.worker.id}"
 
