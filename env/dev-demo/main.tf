@@ -47,3 +47,7 @@ output "name" {
 output "config" {
   value = "${module.eks.config}"
 }
+
+output "worker_sg_id" {
+  value = "${module.eks.worker_sg_id}"
+}
