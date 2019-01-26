@@ -9,16 +9,16 @@
 
 ```bash
 # terraform
-curl -sL opspresso.sh/tools/terraform | bash
+curl -sL opspresso.com/tools/terraform | bash
 
 # aws-cli
-curl -sL opspresso.sh/tools/awscli | bash
+curl -sL opspresso.com/tools/awscli | bash
 
 # kubectl
-curl -sL opspresso.sh/tools/kubectl | bash
+curl -sL opspresso.com/tools/kubectl | bash
 
 # aws-iam-authenticator
-curl -sL opspresso.sh/tools/aws-iam-authenticator | bash
+curl -sL opspresso.com/tools/aws-iam-authenticator | bash
 ```
 
 ## Create Cluster
