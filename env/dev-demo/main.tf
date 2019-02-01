@@ -28,10 +28,13 @@ module "eks" {
     "subnet-041179c58d07b38dd",
   ]
 
+  launch_configuration_enable = false
+  launch_template_enable      = true
+
   instance_type = "m4.large"
-  desired       = "2"
-  min           = "2"
-  max           = "5"
+
+  min = "2"
+  max = "5"
 
   key_name = "nalbam-seoul"
 

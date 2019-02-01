@@ -31,12 +31,16 @@ variable "subnet_ids" {
   default     = []
 }
 
-variable instance_type {
-  default = "m4.large"
+variable "launch_configuration_enable" {
+  default = true
 }
 
-variable desired {
-  default = "2"
+variable "launch_template_enable" {
+  default = false
+}
+
+variable instance_type {
+  default = "m4.large"
 }
 
 variable min {
