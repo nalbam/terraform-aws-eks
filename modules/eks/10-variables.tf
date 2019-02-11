@@ -20,6 +20,10 @@ variable "suffix" {
   description = "Name of the cluster, e.g: EKS"
 }
 
+variable "kubernetes_version" {
+  default = "1.11"
+}
+
 variable "vpc_id" {
   description = "The VPC ID."
   default     = ""
@@ -39,19 +43,19 @@ variable "launch_template_enable" {
   default = false
 }
 
-variable instance_type {
+variable "instance_type" {
   default = "m4.large"
 }
 
-variable min {
+variable "min" {
   default = "2"
 }
 
-variable max {
+variable "max" {
   default = "5"
 }
 
-variable key_name {
+variable "key_name" {
   default = ""
 }
 

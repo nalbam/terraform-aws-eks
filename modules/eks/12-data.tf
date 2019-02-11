@@ -5,7 +5,7 @@ data "aws_availability_zones" "azs" {}
 data "aws_ami" "worker" {
   filter {
     name   = "name"
-    values = ["amazon-eks-node-*"]
+    values = ["amazon-eks-node-${var.kubernetes_version}-*"]
   }
 
   owners = ["602401143452"] # Amazon Account ID
