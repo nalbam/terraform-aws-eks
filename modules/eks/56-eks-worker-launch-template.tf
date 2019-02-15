@@ -35,7 +35,7 @@ resource "aws_launch_template" "worker" {
 }
 
 resource "aws_autoscaling_group" "worker-lt" {
-  count = "${var.launch_template_enable ? 1 : 0}"
+  count = "${var.launch_template_enable ? length(var.mixed_instances) != 2 ? 1 : 0 : 0}"
 
   name = "${local.lower_name}-lt"
 
@@ -47,6 +47,51 @@ resource "aws_autoscaling_group" "worker-lt" {
   launch_template = {
     id      = "${aws_launch_template.worker.id}"
     version = "$$Latest"
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "${local.lower_name}"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "kubernetes.io/cluster/${local.lower_name}"
+    value               = "owned"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/enabled"
+    value               = ""
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_autoscaling_group" "worker-lt-mixed" {
+  count = "${var.launch_template_enable ? length(var.mixed_instances) == 2 ? 1 : 0 : 0}"
+
+  name = "${local.lower_name}-lt-mixed"
+
+  min_size = "${var.min}"
+  max_size = "${var.max}"
+
+  vpc_zone_identifier = ["${var.subnet_ids}"]
+
+  mixed_instances_policy {
+    launch_template {
+      launch_template_specification {
+        launch_template_id = "${aws_launch_template.worker.id}"
+      }
+
+      override {
+        instance_type = "${var.mixed_instances[0]}"
+      }
+
+      override {
+        instance_type = "${var.mixed_instances[1]}"
+      }
+    }
   }
 
   tag {

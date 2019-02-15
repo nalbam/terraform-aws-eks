@@ -33,8 +33,10 @@ module "eks" {
 
   instance_type = "m4.large"
 
-  min = "2"
-  max = "5"
+  mixed_instances = ["r4.large", "c4.large"]
+
+  min = "0"
+  max = "10"
 
   key_name = "nalbam-seoul"
 

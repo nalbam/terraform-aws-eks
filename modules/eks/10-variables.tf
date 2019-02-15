@@ -47,6 +47,11 @@ variable "instance_type" {
   default = "m4.large"
 }
 
+variable "mixed_instances" {
+  type    = "list"
+  default = []
+}
+
 variable "min" {
   default = "2"
 }
