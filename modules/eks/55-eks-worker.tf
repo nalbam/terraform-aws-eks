@@ -14,8 +14,8 @@ resource "aws_launch_configuration" "worker" {
   security_groups = ["${aws_security_group.worker.id}"]
 
   root_block_device {
-    volume_type           = "gp2"
-    volume_size           = "128"
+    volume_type           = "${var.volume_type}"
+    volume_size           = "${var.volume_size}"
     delete_on_termination = true
   }
 
@@ -24,10 +24,10 @@ resource "aws_launch_configuration" "worker" {
   }
 }
 
-resource "aws_autoscaling_group" "worker-lc" {
+resource "aws_autoscaling_group" "worker" {
   count = "${var.launch_configuration_enable ? 1 : 0}"
 
-  name = "${local.lower_name}-lc"
+  name = "${local.lower_name}"
 
   min_size = "${var.min}"
   max_size = "${var.max}"
@@ -37,14 +37,14 @@ resource "aws_autoscaling_group" "worker-lc" {
   launch_configuration = "${aws_launch_configuration.worker.id}"
 
   tag {
-    key                 = "Name"
-    value               = "${local.lower_name}"
+    key                 = "launch_type"
+    value               = "normal"
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "launch_type"
-    value               = "lc"
+    key                 = "Name"
+    value               = "${local.lower_name}"
     propagate_at_launch = true
   }
 

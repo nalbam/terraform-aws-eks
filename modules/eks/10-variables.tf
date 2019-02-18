@@ -52,6 +52,14 @@ variable "mixed_instances" {
   default = []
 }
 
+variable "volume_type" {
+  default = "gp2"
+}
+
+variable "volume_size" {
+  default = "128"
+}
+
 variable "min" {
   default = "1"
 }
