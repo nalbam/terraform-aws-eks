@@ -49,27 +49,10 @@ resource "aws_autoscaling_group" "worker-spot" {
     version = "$$Latest"
   }
 
-  tag {
-    key                 = "launch_type"
-    value               = "spot"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "Name"
-    value               = "${local.lower_name}"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "kubernetes.io/cluster/${local.lower_name}"
-    value               = "owned"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "k8s.io/cluster-autoscaler/enabled"
-    value               = ""
-    propagate_at_launch = true
-  }
+  tags = "${concat(
+    list(
+      map("key", "launch_type", "value", "mixed", "propagate_at_launch", true),
+    ),
+    local.worker_tags)
+  }"
 }

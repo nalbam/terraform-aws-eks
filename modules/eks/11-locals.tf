@@ -9,6 +9,31 @@ locals {
 }
 
 locals {
+  worker_tags = [
+    {
+      key                 = "Name"
+      value               = "${local.lower_name}"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "KubernetesCluster"
+      value               = "${local.lower_name}"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "kubernetes.io/cluster/${local.lower_name}"
+      value               = "owned"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "k8s.io/cluster-autoscaler/enabled"
+      value               = ""
+      propagate_at_launch = true
+    },
+  ]
+}
+
+locals {
   userdata = <<EOF
 #!/bin/bash -xe
 /etc/eks/bootstrap.sh \
