@@ -29,9 +29,9 @@ resource "aws_launch_template" "worker" {
     security_groups       = ["${aws_security_group.worker.id}"]
   }
 
-  # instance_market_options {
-  #   market_type = "spot"
-  # }
+  instance_market_options {
+    market_type = "spot"
+  }
 }
 
 resource "aws_autoscaling_group" "worker-lt" {
