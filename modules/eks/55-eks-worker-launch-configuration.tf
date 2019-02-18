@@ -3,7 +3,7 @@
 resource "aws_launch_configuration" "worker" {
   count = "${var.launch_configuration_enable ? 1 : 0}"
 
-  name_prefix          = "${local.lower_name}"
+  name_prefix          = "${local.lower_name}-"
   image_id             = "${data.aws_ami.worker.id}"
   instance_type        = "${var.instance_type}"
   iam_instance_profile = "${aws_iam_instance_profile.worker.name}"
@@ -12,6 +12,12 @@ resource "aws_launch_configuration" "worker" {
   key_name = "${var.key_path != "" ? "${local.lower_name}-worker" : "${var.key_name}"}"
 
   security_groups = ["${aws_security_group.worker.id}"]
+
+  root_block_device {
+    volume_type           = "gp2"
+    volume_size           = "128"
+    delete_on_termination = true
+  }
 
   lifecycle {
     create_before_destroy = true
@@ -33,6 +39,12 @@ resource "aws_autoscaling_group" "worker-lc" {
   tag {
     key                 = "Name"
     value               = "${local.lower_name}"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "launch_type"
+    value               = "lc"
     propagate_at_launch = true
   }
 

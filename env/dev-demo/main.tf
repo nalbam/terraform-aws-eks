@@ -35,7 +35,7 @@ module "eks" {
 
   mixed_instances = ["r4.large", "c4.large"]
 
-  min = "0"
+  min = "1"
   max = "10"
 
   key_name = "nalbam-seoul"

@@ -53,11 +53,19 @@ variable "mixed_instances" {
 }
 
 variable "min" {
-  default = "2"
+  default = "1"
 }
 
 variable "max" {
   default = "5"
+}
+
+variable "on_demand_base" {
+  default = "1"
+}
+
+variable "on_demand_rate" {
+  default = "30"
 }
 
 variable "key_name" {
