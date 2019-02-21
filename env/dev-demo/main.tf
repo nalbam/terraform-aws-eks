@@ -31,9 +31,9 @@ module "eks" {
   launch_configuration_enable = false
   launch_template_enable      = true
 
-  instance_type = "m4.large"
+  instance_type = "m5.large"
 
-  mixed_instances = ["r4.large", "c4.large"]
+  mixed_instances = ["m4.large", "r4.large", "r5.large"]
 
   min = "1"
   max = "10"

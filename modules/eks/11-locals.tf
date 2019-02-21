@@ -12,7 +12,7 @@ locals {
   worker_tags = [
     {
       key                 = "Name"
-      value               = "${local.lower_name}"
+      value               = "${local.upper_name}-WORKER"
       propagate_at_launch = true
     },
     {

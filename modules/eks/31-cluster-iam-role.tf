@@ -1,7 +1,7 @@
 # cluster iam role
 
 resource "aws_iam_role" "cluster" {
-  name = "${local.lower_name}-cluster"
+  name = "${local.upper_name}-CLUSTER"
 
   assume_role_policy = <<POLICY
 {

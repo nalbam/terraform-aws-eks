@@ -1,14 +1,14 @@
 # eks worker
 
 resource "aws_launch_template" "worker-mixed" {
-  count = "${var.launch_template_enable ? length(var.mixed_instances) == 2 ? 1 : 0 : 0}"
+  count = "${var.launch_template_enable ? length(var.mixed_instances) > 0 ? 1 : 0 : 0}"
 
-  name_prefix   = "${local.lower_name}-mixed-"
+  name_prefix   = "${local.upper_name}-MIXED-"
   image_id      = "${data.aws_ami.worker.id}"
   instance_type = "${var.instance_type}"
   user_data     = "${base64encode(local.userdata)}"
 
-  key_name = "${var.key_path != "" ? "${local.lower_name}-worker" : "${var.key_name}"}"
+  key_name = "${var.key_path != "" ? "${local.upper_name}-WORKER" : "${var.key_name}"}"
 
   block_device_mappings {
     device_name = "/dev/xvda"
@@ -31,9 +31,9 @@ resource "aws_launch_template" "worker-mixed" {
 }
 
 resource "aws_autoscaling_group" "worker-mixed" {
-  count = "${var.launch_template_enable ? length(var.mixed_instances) == 2 ? 1 : 0 : 0}"
+  count = "${var.launch_template_enable ? length(var.mixed_instances) > 0 ? 1 : 0 : 0}"
 
-  name = "${local.lower_name}-mixed"
+  name = "${local.upper_name}-MIXED"
 
   min_size = "${var.min}"
   max_size = "${var.max}"
@@ -63,6 +63,10 @@ resource "aws_autoscaling_group" "worker-mixed" {
 
       override {
         instance_type = "${var.mixed_instances[1]}"
+      }
+
+      override {
+        instance_type = "${var.mixed_instances[2]}"
       }
     }
   }
