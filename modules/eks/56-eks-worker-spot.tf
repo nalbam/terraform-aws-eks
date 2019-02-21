@@ -1,7 +1,7 @@
 # eks worker
 
 resource "aws_launch_template" "worker-spot" {
-  count = "${var.launch_template_enable ? length(var.mixed_instances) < 1 ? 1 : 0 : 0}"
+  count = "${var.launch_template_enable ? length(var.mixed_instances) == 0 ? 1 : 0 : 0}"
 
   name_prefix   = "${local.upper_name}-SPOT-"
   image_id      = "${data.aws_ami.worker.id}"
@@ -28,10 +28,14 @@ resource "aws_launch_template" "worker-spot" {
     delete_on_termination = true
     security_groups       = ["${aws_security_group.worker.id}"]
   }
+
+  instance_market_options {
+    market_type = "spot"
+  }
 }
 
 resource "aws_autoscaling_group" "worker-spot" {
-  count = "${var.launch_template_enable ? length(var.mixed_instances) < 1 ? 1 : 0 : 0}"
+  count = "${var.launch_template_enable ? length(var.mixed_instances) == 0 ? 1 : 0 : 0}"
 
   name = "${local.upper_name}-SPOT"
 
@@ -40,27 +44,14 @@ resource "aws_autoscaling_group" "worker-spot" {
 
   vpc_zone_identifier = ["${var.subnet_ids}"]
 
-  mixed_instances_policy {
-    instances_distribution {
-      on_demand_base_capacity                  = "${var.on_demand_base}"
-      on_demand_percentage_above_base_capacity = "${var.on_demand_rate}"
-    }
-
-    launch_template {
-      launch_template_specification {
-        launch_template_id = "${aws_launch_template.worker-spot.id}"
-        version            = "$$Latest"
-      }
-
-      override {
-        instance_type = "${var.instance_type}"
-      }
-    }
+  launch_template = {
+    id      = "${aws_launch_template.worker-spot.id}"
+    version = "$$Latest"
   }
 
   tags = "${concat(
     list(
-      map("key", "launch_type", "value", "mixed", "propagate_at_launch", true),
+      map("key", "launch_type", "value", "spot", "propagate_at_launch", true),
     ),
     local.worker_tags)
   }"
