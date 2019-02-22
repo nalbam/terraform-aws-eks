@@ -1,11 +1,11 @@
 # output
 
 output "name" {
-  value = "${aws_eks_cluster.cluster.name}"
+  value = "${element(concat(aws_eks_cluster.cluster.*.name, list("")), 0)}"
 }
 
 output "endpoint" {
-  value = "${aws_eks_cluster.cluster.endpoint}"
+  value = "${element(concat(aws_eks_cluster.cluster.*.endpoint, list("")), 0)}"
 }
 
 output "config" {
@@ -13,5 +13,5 @@ output "config" {
 }
 
 output "worker_sg_id" {
-  value = "${aws_security_group.worker.id}"
+  value = "${element(concat(aws_security_group.worker.*.id, list("")), 0)}"
 }
