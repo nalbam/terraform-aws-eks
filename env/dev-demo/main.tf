@@ -33,7 +33,7 @@ module "eks" {
 
   instance_type = "m5.large"
 
-  mixed_instances = ["m4.large", "r4.large", "m5.large"]
+  mixed_instances = ["m4.large", "r4.large", "r5.large"]
 
   min = "1"
   max = "10"
