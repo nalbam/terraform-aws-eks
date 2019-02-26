@@ -16,7 +16,6 @@ resource "aws_security_group" "worker" {
   tags = "${
     map(
      "Name", "nodes.${local.lower_name}",
-     "KubernetesCluster", "${local.lower_name}",
      "kubernetes.io/cluster/${local.lower_name}", "owned"
     )
   }"
@@ -36,21 +35,11 @@ resource "aws_security_group_rule" "worker-ingress-cluster" {
   description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
   security_group_id        = "${aws_security_group.worker.id}"
   source_security_group_id = "${aws_security_group.cluster.id}"
-  from_port                = 0                                                                                        # 1025
+  from_port                = 0
   to_port                  = 65535
   protocol                 = "-1"
   type                     = "ingress"
 }
-
-# resource "aws_security_group_rule" "worker-ingress-https" {
-#   description              = "Allow pods running extension API servers on port 443 to receive communication from cluster control plane."
-#   security_group_id        = "${aws_security_group.worker.id}"
-#   source_security_group_id = "${aws_security_group.cluster.id}"
-#   from_port                = 443
-#   to_port                  = 443
-#   protocol                 = "tcp"
-#   type                     = "ingress"
-# }
 
 resource "aws_security_group_rule" "worker-ingress-admin-ssh" {
   description       = "Allow workstation to communicate with the cluster API Server"

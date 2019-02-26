@@ -89,3 +89,7 @@ variable "allow_ip_address" {
   type        = "list"
   default     = ["*"]
 }
+
+variable "launch_efs_enable" {
+  default = false
+}

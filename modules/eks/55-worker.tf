@@ -38,7 +38,7 @@ resource "aws_autoscaling_group" "worker" {
 
   tags = "${concat(
     list(
-      map("key", "launch_type", "value", "normal", "propagate_at_launch", true),
+      map("key", "asg:lifecycle", "value", "normal", "propagate_at_launch", true),
     ),
     local.worker_tags)
   }"

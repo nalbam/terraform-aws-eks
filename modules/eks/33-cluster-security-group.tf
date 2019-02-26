@@ -16,7 +16,6 @@ resource "aws_security_group" "cluster" {
   tags = "${
     map(
      "Name", "masters.${local.lower_name}",
-     "KubernetesCluster", "${local.lower_name}",
      "kubernetes.io/cluster/${local.lower_name}", "owned"
     )
   }"

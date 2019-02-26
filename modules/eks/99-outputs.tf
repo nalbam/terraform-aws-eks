@@ -15,3 +15,7 @@ output "config" {
 output "worker_sg_id" {
   value = "${element(concat(aws_security_group.worker.*.id, list("")), 0)}"
 }
+
+output "efs_id" {
+  value = "${element(concat(aws_efs_file_system.efs.*.id, list("")), 0)}"
+}
