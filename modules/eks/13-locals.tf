@@ -54,6 +54,13 @@ efs_id = ${element(concat(aws_efs_file_system.efs.*.id, list("")), 0)}
 # kube config
 aws eks update-kubeconfig --name ${local.lower_name} --alias ${local.lower_name}
 
+# or
+mkdir -p ~/.kube && cp .output/kube_config.yaml ~/.kube/config
+
+# files
+cat .output/aws_auth.yaml
+cat .output/kube_config.yaml
+
 # get
 kubectl get node -o wide
 kubectl get all --all-namespaces

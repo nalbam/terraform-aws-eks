@@ -15,29 +15,24 @@ curl -sL https://raw.githubusercontent.com/opsnow/kops-cui/master/tools.sh | bas
 ## Create Cluster
 
 ```bash
-# region
-aws configure set default.region us-west-2
+# env
+cd env/dev-demo
 
 # terraform (10m)
 terraform init
 terraform plan
 terraform apply
 
-# eks
-aws eks list-clusters
-aws eks describe-cluster --name ${CLUSTER_NAME}
-aws eks update-kubeconfig --name ${CLUSTER_NAME} --alias ${CLUSTER_NAME}
-
-# aws auth
-kubectl apply -f .output/aws_auth.yaml --kubeconfig .output/kube_config.yaml
-
 # kube config
-mkdir -p ~/.kube && cat .output/kube_config.yaml > ~/.kube/config
-kubectl config current-context
+mkdir -p ~/.kube && cp .output/kube_config.yaml ~/.kube/config
+
+# files
+cat .output/aws_auth.yaml
+cat .output/kube_config.yaml
 
 # get
 kubectl get node -o wide
-kubectl get deploy,pod,svc,ing --all-namespaces
+kubectl get all --all-namespaces
 ```
 
 * <https://github.com/awslabs/amazon-eks-ami/>
