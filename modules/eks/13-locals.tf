@@ -45,18 +45,19 @@ EOF
 
 locals {
   config = <<EOF
-# regign
-aws configure set default.region ${var.region}
+#
 
-# aws auth
-kubectl apply -f .output/aws_auth.yaml --kubeconfig .output/kube_config.yaml
+name = ${element(concat(aws_eks_cluster.cluster.*.name, list("")), 0)}
+
+efs_id = ${element(concat(aws_efs_file_system.efs.*.id, list("")), 0)}
 
 # kube config
-mkdir -p ~/.kube && cat .output/kube_config.yaml > ~/.kube/config
-kubectl config current-context
+aws eks update-kubeconfig --name ${local.lower_name} --alias ${local.lower_name}
 
 # get
 kubectl get node -o wide
 kubectl get all --all-namespaces
+
+#
 EOF
 }
