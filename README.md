@@ -8,42 +8,34 @@
 * <https://github.com/kubernetes-sigs/aws-iam-authenticator>
 
 ```bash
-# terraform
-curl -sL opspresso.com/tools/terraform | bash
-
-# aws-cli
-curl -sL opspresso.com/tools/awscli | bash
-
-# kubectl
-curl -sL opspresso.com/tools/kubectl | bash
-
-# aws-iam-authenticator
-curl -sL opspresso.com/tools/aws-iam-authenticator | bash
+# install tools
+curl -sL https://raw.githubusercontent.com/opsnow/kops-cui/master/tools.sh | bash
 ```
 
 ## Create Cluster
 
 ```bash
 # region
-aws configure set default.region ap-northeast-2
+aws configure set default.region us-west-2
 
 # terraform (10m)
 terraform init
 terraform plan
 terraform apply
 
-# aws eks
+# eks
 aws eks list-clusters
-aws eks describe-cluster --name oregon-dev-demo
+aws eks describe-cluster --name CLUSTER_NAME
+aws eks update-kubeconfig --name CLUSTER_NAME
+
+# aws auth
+kubectl apply -f .output/aws_auth.yaml --kubeconfig .output/kube_config.yaml
 
 # kube config
 mkdir -p ~/.kube && cat .output/kube_config.yaml > ~/.kube/config
 kubectl config current-context
 
-# aws auth
-kubectl apply -f .output/aws_auth.yaml
-
-# kubectl get
+# get
 kubectl get node -o wide
 kubectl get deploy,pod,svc,ing --all-namespaces
 ```
