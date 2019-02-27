@@ -28,12 +28,16 @@ module "eks" {
     "subnet-041179c58d07b38dd",
   ]
 
+  launch_efs_enable = true
+
   launch_configuration_enable = false
   launch_template_enable      = true
 
   instance_type = "m5.large"
 
   mixed_instances = ["m4.large", "r4.large", "r5.large"]
+
+  volume_size = "32"
 
   min = "1"
   max = "10"
