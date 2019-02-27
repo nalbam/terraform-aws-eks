@@ -25,8 +25,8 @@ terraform apply
 
 # eks
 aws eks list-clusters
-aws eks describe-cluster --name CLUSTER_NAME
-aws eks update-kubeconfig --name CLUSTER_NAME
+aws eks describe-cluster --name ${CLUSTER_NAME}
+aws eks update-kubeconfig --name ${CLUSTER_NAME} --alias ${CLUSTER_NAME}
 
 # aws auth
 kubectl apply -f .output/aws_auth.yaml --kubeconfig .output/kube_config.yaml

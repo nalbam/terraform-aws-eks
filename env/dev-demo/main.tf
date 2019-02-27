@@ -59,8 +59,8 @@ module "eks" {
 
   map_users = [
     {
-      user     = "user/jungyoul.yu"
-      username = "iam_user_jungyoul.yu"
+      user     = "user/admin"
+      username = "iam_user_admin"
       group    = "system:masters"
     },
   ]
