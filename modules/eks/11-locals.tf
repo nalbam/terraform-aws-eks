@@ -48,12 +48,12 @@ locals {
 # regign
 aws configure set default.region ${var.region}
 
+# aws auth
+kubectl apply -f .output/aws_auth.yaml --kubeconfig .output/kube_config.yaml
+
 # kube config
 mkdir -p ~/.kube && cat .output/kube_config.yaml > ~/.kube/config
 kubectl config current-context
-
-# aws auth
-kubectl apply -f .output/aws_auth.yaml
 
 # get
 kubectl get node -o wide

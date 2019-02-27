@@ -42,8 +42,27 @@ module "eks" {
 
   allow_ip_address = [
     "58.151.93.9/32", # 강남 echo "$(curl -sL icanhazip.com)/32"
+    "10.10.1.0/24",   # bastion
+  ]
+
+  map_roles = [
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/SEOUL-DEV-DEMO-BASTION"
+      username = "iam_role_bastion"
+      group    = "system:masters"
+    },
+  ]
+
+  map_users = [
+    {
+      user     = "user/jungyoul.yu"
+      username = "iam_user_jungyoul.yu"
+      group    = "system:masters"
+    },
   ]
 }
+
+data "aws_caller_identity" "current" {}
 
 output "name" {
   value = "${module.eks.name}"

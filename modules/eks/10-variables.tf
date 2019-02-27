@@ -35,6 +35,10 @@ variable "subnet_ids" {
   default     = []
 }
 
+variable "launch_efs_enable" {
+  default = false
+}
+
 variable "launch_configuration_enable" {
   default = true
 }
@@ -90,6 +94,14 @@ variable "allow_ip_address" {
   default     = ["*"]
 }
 
-variable "launch_efs_enable" {
-  default = false
+variable "map_roles" {
+  description = "Additional IAM roles to add to the aws-auth configmap."
+  type        = "list"
+  default     = []
+}
+
+variable "map_users" {
+  description = "Additional IAM users to add to the aws-auth configmap."
+  type        = "list"
+  default     = []
 }
