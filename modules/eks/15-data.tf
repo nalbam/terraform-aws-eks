@@ -25,9 +25,18 @@ data "template_file" "kube_config" {
   }
 }
 
+data "template_file" "kube_config_secret" {
+  template = "${file("${path.module}/data/kube_config_secret.yaml.tpl")}"
+
+  vars {
+    CLUSTER_NAME = "${local.lower_name}"
+    ENCODED_TEXT = "${base64encode(data.template_file.kube_config.rendered)}"
+  }
+}
+
 data "template_file" "map_roles" {
   count    = "${length(var.map_roles)}"
-  template = "${file("${path.module}/data/aws-auth-map_roles.yaml.tpl")}"
+  template = "${file("${path.module}/data/aws_auth-map_roles.yaml.tpl")}"
 
   vars {
     rolearn  = "${lookup(var.map_roles[count.index], "rolearn")}"
@@ -38,7 +47,7 @@ data "template_file" "map_roles" {
 
 data "template_file" "map_users" {
   count    = "${length(var.map_users)}"
-  template = "${file("${path.module}/data/aws-auth-map_users.yaml.tpl")}"
+  template = "${file("${path.module}/data/aws_auth-map_users.yaml.tpl")}"
 
   vars {
     userid   = "${data.aws_caller_identity.current.account_id}"
