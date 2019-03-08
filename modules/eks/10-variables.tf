@@ -107,7 +107,7 @@ variable "map_users" {
 }
 
 variable "local_exec_interpreter" {
-  description = "Command to run for local-exec resources. Must be a shell-style interpreter. If you are on Windows Git Bash is a good choice."
+  description = "Command to run for local-exec resources. Must be a shell-style interpreter."
   type        = "list"
   default     = ["/bin/sh", "-c"]
 }

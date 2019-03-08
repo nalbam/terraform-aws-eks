@@ -16,7 +16,7 @@ data "aws_ami" "worker" {
 }
 
 data "template_file" "kube_config" {
-  template = "${file("${path.module}/data/kube_config.yaml.tpl")}"
+  template = "${file("${path.module}/template/kube_config.yaml.tpl")}"
 
   vars {
     CERTIFICATE     = "${aws_eks_cluster.cluster.certificate_authority.0.data}"
@@ -26,7 +26,7 @@ data "template_file" "kube_config" {
 }
 
 data "template_file" "kube_config_secret" {
-  template = "${file("${path.module}/data/kube_config_secret.yaml.tpl")}"
+  template = "${file("${path.module}/template/kube_config_secret.yaml.tpl")}"
 
   vars {
     CLUSTER_NAME = "${local.lower_name}"
@@ -36,7 +36,7 @@ data "template_file" "kube_config_secret" {
 
 data "template_file" "map_roles" {
   count    = "${length(var.map_roles)}"
-  template = "${file("${path.module}/data/aws_auth-map_roles.yaml.tpl")}"
+  template = "${file("${path.module}/template/aws_auth-map_roles.yaml.tpl")}"
 
   vars {
     rolearn  = "${lookup(var.map_roles[count.index], "rolearn")}"
@@ -47,7 +47,7 @@ data "template_file" "map_roles" {
 
 data "template_file" "map_users" {
   count    = "${length(var.map_users)}"
-  template = "${file("${path.module}/data/aws_auth-map_users.yaml.tpl")}"
+  template = "${file("${path.module}/template/aws_auth-map_users.yaml.tpl")}"
 
   vars {
     userid   = "${data.aws_caller_identity.current.account_id}"
@@ -58,7 +58,7 @@ data "template_file" "map_users" {
 }
 
 data "template_file" "aws_auth" {
-  template = "${file("${path.module}/data/aws_auth.yaml.tpl")}"
+  template = "${file("${path.module}/template/aws_auth.yaml.tpl")}"
 
   vars {
     rolearn   = "${aws_iam_role.worker.arn}"
