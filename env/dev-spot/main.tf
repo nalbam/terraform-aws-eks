@@ -4,7 +4,7 @@ terraform {
   backend "s3" {
     region = "ap-northeast-2"
     bucket = "terraform-nalbam-seoul"
-    key    = "eks.tfstate"
+    key    = "eks-spot.tfstate"
   }
 }
 
@@ -18,7 +18,7 @@ module "eks" {
   region = "ap-northeast-2"
   city   = "SEOUL"
   stage  = "DEV"
-  name   = "DEMO"
+  name   = "SPOT"
   suffix = "EKS"
 
   vpc_id = "vpc-0c9725a980c28cbf3"
@@ -34,8 +34,6 @@ module "eks" {
   launch_template_enable      = true
 
   instance_type = "m5.large"
-
-  mixed_instances = ["m4.large", "r4.large", "r5.large"]
 
   volume_size = "32"
 
