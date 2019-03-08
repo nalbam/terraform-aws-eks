@@ -24,8 +24,8 @@ module "eks" {
   vpc_id = "vpc-0c9725a980c28cbf3"
 
   subnet_ids = [
-    "subnet-04b404e5200b9bacb",
-    "subnet-02c3048ca81b318fb",
+    "subnet-00b78569ce3ddef67",
+    "subnet-027cf36a33643a7a2",
   ]
 
   launch_efs_enable = true
@@ -38,7 +38,7 @@ module "eks" {
   volume_size = "32"
 
   min = "1"
-  max = "10"
+  max = "5"
 
   key_name = "nalbam-seoul"
 
