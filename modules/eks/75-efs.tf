@@ -9,7 +9,7 @@ resource "aws_efs_file_system" "efs" {
     map(
      "Name", "efs.${local.lower_name}",
      "KubernetesCluster", "${local.lower_name}",
-     "kubernetes.io/cluster/${local.lower_name}", "owned"
+     "kubernetes.io/cluster/${local.lower_name}", "owned",
     )
   }"
 }

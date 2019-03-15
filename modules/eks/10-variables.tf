@@ -111,3 +111,8 @@ variable "local_exec_interpreter" {
   type        = "list"
   default     = ["/bin/sh", "-c"]
 }
+
+variable "buckets" {
+  type    = "list"
+  default = []
+}

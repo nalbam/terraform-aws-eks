@@ -27,7 +27,7 @@ locals {
     },
     {
       key                 = "k8s.io/cluster-autoscaler/enabled"
-      value               = ""
+      value               = "true"
       propagate_at_launch = true
     },
   ]
@@ -46,10 +46,6 @@ EOF
 locals {
   config = <<EOF
 #
-
-name = ${element(concat(aws_eks_cluster.cluster.*.name, list("")), 0)}
-
-efs_id = ${element(concat(aws_efs_file_system.efs.*.id, list("")), 0)}
 
 # kube config
 aws eks update-kubeconfig --name ${local.lower_name} --alias ${local.lower_name}
