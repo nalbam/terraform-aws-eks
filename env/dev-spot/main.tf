@@ -40,9 +40,6 @@ module "eks" {
   min = "1"
   max = "5"
 
-  on_demand_base = "0"
-  on_demand_rate = "25"
-
   key_name = "nalbam-seoul"
 
   allow_ip_address = [
