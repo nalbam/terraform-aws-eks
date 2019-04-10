@@ -21,6 +21,8 @@ module "eks" {
   name   = "DEMO"
   suffix = "EKS"
 
+  kubernetes_version = "1.11"
+
   vpc_id = "vpc-0c9725a980c28cbf3"
 
   subnet_ids = [
