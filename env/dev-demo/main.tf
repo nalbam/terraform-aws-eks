@@ -21,6 +21,8 @@ module "eks" {
   name   = "DEMO"
   suffix = "EKS"
 
+  kubernetes_version = "1.12"
+
   vpc_id = "vpc-0c9725a980c28cbf3"
 
   subnet_ids = [
@@ -41,6 +43,9 @@ module "eks" {
 
   min = "1"
   max = "10"
+
+  on_demand_base = "1"
+  on_demand_rate = "25"
 
   key_name = "nalbam-seoul"
 
