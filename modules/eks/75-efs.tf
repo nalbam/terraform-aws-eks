@@ -7,9 +7,9 @@ resource "aws_efs_file_system" "efs" {
 
   tags = "${
     map(
-     "Name", "efs.${local.lower_name}",
-     "KubernetesCluster", "${local.lower_name}",
-     "kubernetes.io/cluster/${local.lower_name}", "owned",
+      "Name", "efs.${local.lower_name}",
+      "KubernetesCluster", "${local.lower_name}",
+      "kubernetes.io/cluster/${local.lower_name}", "owned",
     )
   }"
 }

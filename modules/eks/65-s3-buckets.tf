@@ -7,9 +7,9 @@ resource "aws_s3_bucket" "buckets" {
 
   tags = "${
     map(
-     "Name", "${local.lower_name}-${var.buckets[count.index]}",
-     "KubernetesCluster", "${local.lower_name}",
-     "kubernetes.io/cluster/${local.lower_name}", "owned",
+      "Name", "${local.lower_name}-${var.buckets[count.index]}",
+      "KubernetesCluster", "${local.lower_name}",
+      "kubernetes.io/cluster/${local.lower_name}", "owned",
     )
   }"
 }

@@ -23,11 +23,11 @@ module "eks" {
 
   kubernetes_version = "1.12"
 
-  vpc_id = "vpc-0c9725a980c28cbf3"
+  vpc_id = "vpc-00c644066e3a8d97d"
 
   subnet_ids = [
-    "subnet-04b404e5200b9bacb",
-    "subnet-02c3048ca81b318fb",
+    "subnet-0c29ad66d2500c8a1",
+    "subnet-0f33970fc136666e5",
   ]
 
   launch_efs_enable = true
