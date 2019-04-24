@@ -23,17 +23,23 @@ module "eks" {
 
   kubernetes_version = "1.12"
 
-  vpc_id = "vpc-0c9725a980c28cbf3"
+  vpc_id = "vpc-00c644066e3a8d97d"
 
   subnet_ids = [
-    "subnet-00b78569ce3ddef67",
-    "subnet-027cf36a33643a7a2",
+    "subnet-0c29ad66d2500c8a1",
+    "subnet-0f33970fc136666e5",
+  ]
+
+  buckets = [
+    "artifact",
   ]
 
   launch_efs_enable = true
 
   launch_configuration_enable = false
   launch_template_enable      = true
+
+  associate_public_ip_address = true
 
   instance_type = "m5.large"
 

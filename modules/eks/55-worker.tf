@@ -11,6 +11,8 @@ resource "aws_launch_configuration" "worker" {
 
   key_name = "${var.key_path != "" ? "${local.upper_name}-WORKER" : "${var.key_name}"}"
 
+  associate_public_ip_address = "${var.associate_public_ip_address}"
+
   security_groups = ["${aws_security_group.worker.id}"]
 
   root_block_device {

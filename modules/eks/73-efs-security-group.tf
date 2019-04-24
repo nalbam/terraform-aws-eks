@@ -15,8 +15,8 @@ resource "aws_security_group" "efs" {
 
   tags = "${
     map(
-     "Name", "efs.${local.lower_name}",
-     "kubernetes.io/cluster/${local.lower_name}", "owned"
+      "Name", "efs.${local.lower_name}",
+      "kubernetes.io/cluster/${local.lower_name}", "owned"
     )
   }"
 }

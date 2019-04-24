@@ -21,7 +21,7 @@ variable "suffix" {
 }
 
 variable "kubernetes_version" {
-  default = "1.11"
+  default = "1.12"
 }
 
 variable "vpc_id" {
@@ -44,6 +44,10 @@ variable "launch_configuration_enable" {
 }
 
 variable "launch_template_enable" {
+  default = false
+}
+
+variable "associate_public_ip_address" {
   default = false
 }
 
