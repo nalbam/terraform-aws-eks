@@ -35,9 +35,9 @@ module "eks" {
   launch_configuration_enable = false
   launch_template_enable      = true
 
-  instance_type = "m5.large"
+  instance_type = "m4.large"
 
-  mixed_instances = ["m4.large", "r4.large", "r5.large"]
+  mixed_instances = ["m5.large", "r4.large", "r5.large"]
 
   volume_size = "32"
 
@@ -50,7 +50,7 @@ module "eks" {
   key_name = "nalbam-seoul"
 
   allow_ip_address = [
-    "10.10.1.0/24",   # bastion
+    "10.10.1.0/24", # bastion
   ]
 
   map_roles = [
