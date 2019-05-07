@@ -30,27 +30,33 @@ module "eks" {
     "subnet-0f33970fc136666e5",
   ]
 
+  buckets = [
+    "artifact",
+  ]
+
   launch_efs_enable = true
 
   launch_configuration_enable = false
   launch_template_enable      = true
 
-  instance_type = "m5.large"
+  associate_public_ip_address = true
 
-  mixed_instances = ["m4.large", "r4.large", "r5.large"]
+  instance_type = "m4.large"
+
+  mixed_instances = ["m5.large", "r4.large", "r5.large"]
 
   volume_size = "32"
 
   min = "1"
-  max = "10"
+  max = "5"
 
-  on_demand_base = "1"
-  on_demand_rate = "25"
+  on_demand_base = "0"
+  on_demand_rate = "0"
 
   key_name = "nalbam-seoul"
 
   allow_ip_address = [
-    "10.10.1.0/24",   # bastion
+    "10.10.1.0/24", # bastion
   ]
 
   map_roles = [
