@@ -51,7 +51,7 @@ module "eks" {
   max = "5"
 
   on_demand_base = "0"
-  on_demand_rate = "0"
+  on_demand_rate = "25"
 
   key_name = "nalbam-seoul"
 
