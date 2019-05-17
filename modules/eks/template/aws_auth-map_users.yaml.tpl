@@ -1,6 +1,6 @@
     - userarn: arn:aws:iam::${userid}:${user}
       username: ${username}
-${group}
+%{ if group != "" }
       groups:
         - ${group}
-${group}
+%{ endif }
