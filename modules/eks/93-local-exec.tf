@@ -7,16 +7,15 @@ resource "null_resource" "executor" {
     working_dir = "${path.module}"
 
     command = <<EOS
+echo "${null_resource.executor.triggers.aws_auth}" > .output/_exec_aws_auth.yaml & \
+echo "${null_resource.executor.triggers.kube_config}" > .output/_exec_kube_config.yaml & \
+echo "${null_resource.executor.triggers.role_admin}" > .output/_exec_role_admin.yaml & \
+echo "${null_resource.executor.triggers.role_view}" > .output/_exec_role_view.yaml & \
 for i in `seq 1 10`; do \
-  echo "${null_resource.executor.triggers.aws_auth}" > aws_auth.yaml & \
-  echo "${null_resource.executor.triggers.kube_config}" > kube_config.yaml & \
-  echo "${null_resource.executor.triggers.role_admin}" > role_admin.yaml & \
-  echo "${null_resource.executor.triggers.role_view}" > role_view.yaml & \
-  kubectl apply -f aws_auth.yaml --kubeconfig kube_config.yaml && break || sleep 10; \
+  kubectl apply -f .output/_exec_aws_auth.yaml --kubeconfig .output/_exec_kube_config.yaml && break || sleep 10; \
 done; \
-kubectl apply -f role_admin.yaml --kubeconfig kube_config.yaml & \
-kubectl apply -f role_view.yaml --kubeconfig kube_config.yaml & \
-rm aws_auth.yaml kube_config.yaml role_admin.yaml role_view.yaml
+kubectl apply -f .output/_exec_role_admin.yaml --kubeconfig .output/_exec_kube_config.yaml & \
+kubectl apply -f .output/_exec_role_view.yaml --kubeconfig .output/_exec_kube_config.yaml
 EOS
 
     interpreter = ["${var.local_exec_interpreter}"]
