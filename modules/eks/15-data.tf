@@ -34,9 +34,9 @@ data "template_file" "kube_config_secret" {
   }
 }
 
-data "template_file" "map_roles" {
+data "template_file" "aws_auth_map_roles" {
   count    = "${length(var.map_roles)}"
-  template = "${file("${path.module}/template/aws_auth-map_roles.yaml.tpl")}"
+  template = "${file("${path.module}/template/aws_auth_map_roles.yaml.tpl")}"
 
   vars {
     rolearn  = "${lookup(var.map_roles[count.index], "rolearn")}"
@@ -45,9 +45,9 @@ data "template_file" "map_roles" {
   }
 }
 
-data "template_file" "map_users" {
+data "template_file" "aws_auth_map_users" {
   count    = "${length(var.map_users)}"
-  template = "${file("${path.module}/template/aws_auth-map_users.yaml.tpl")}"
+  template = "${file("${path.module}/template/aws_auth_map_users.yaml.tpl")}"
 
   vars {
     userid   = "${data.aws_caller_identity.current.account_id}"
@@ -62,7 +62,45 @@ data "template_file" "aws_auth" {
 
   vars {
     rolearn   = "${aws_iam_role.worker.arn}"
-    map_roles = "${join("", data.template_file.map_roles.*.rendered)}"
-    map_users = "${join("", data.template_file.map_users.*.rendered)}"
+    map_roles = "${join("", data.template_file.aws_auth_map_roles.*.rendered)}"
+    map_users = "${join("", data.template_file.aws_auth_map_users.*.rendered)}"
+  }
+}
+
+data "template_file" "cluster_role_binding_admin_subjects" {
+  count    = "${length(var.map_users)}"
+  template = "${file("${path.module}/template/cluster_role_binding_admin_subjects.yaml.tpl")}"
+
+  vars {
+    user     = "${lookup(var.map_users[count.index], "user")}"
+    username = "${lookup(var.map_users[count.index], "username")}"
+    group    = "${lookup(var.map_users[count.index], "group")}"
+  }
+}
+
+data "template_file" "cluster_role_binding_admin" {
+  template = "${file("${path.module}/template/cluster_role_binding_admin.yaml.tpl")}"
+
+  vars {
+    subjects = "${join("", data.template_file.cluster_role_binding_admin_subjects.*.rendered)}"
+  }
+}
+
+data "template_file" "cluster_role_binding_view_subjects" {
+  count    = "${length(var.map_users)}"
+  template = "${file("${path.module}/template/cluster_role_binding_view_subjects.yaml.tpl")}"
+
+  vars {
+    user     = "${lookup(var.map_users[count.index], "user")}"
+    username = "${lookup(var.map_users[count.index], "username")}"
+    group    = "${lookup(var.map_users[count.index], "group")}"
+  }
+}
+
+data "template_file" "cluster_role_binding_view" {
+  template = "${file("${path.module}/template/cluster_role_binding_view.yaml.tpl")}"
+
+  vars {
+    subjects = "${join("", data.template_file.cluster_role_binding_view_subjects.*.rendered)}"
   }
 }

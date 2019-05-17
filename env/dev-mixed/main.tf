@@ -71,13 +71,13 @@ module "eks" {
   map_users = [
     {
       user     = "user/admin"
-      username = "iam_user_admin"
-      group    = "system:masters"
+      username = "iam-admin"
+      group    = "admin"
     },
     {
       user     = "user/dev"
-      username = "iam_user_dev"
-      group    = ""
+      username = "iam-dev"
+      group    = "view"
     },
   ]
 }

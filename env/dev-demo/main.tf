@@ -72,12 +72,12 @@ module "eks" {
     {
       user     = "user/admin"
       username = "iam-admin"
-      group    = "system:masters"
+      group    = "admin"
     },
     {
       user     = "user/dev"
       username = "iam-dev"
-      group    = ""
+      group    = "view"
     },
   ]
 }
