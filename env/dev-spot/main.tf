@@ -72,7 +72,7 @@ module "eks" {
     {
       user     = "user/dev"
       username = "iam_user_dev"
-      group    = "system:masters"
+      group    = ""
     },
   ]
 }
