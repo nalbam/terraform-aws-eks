@@ -15,8 +15,7 @@ for i in `seq 1 10`; do \
   kubectl apply -f aws_auth.yaml --kubeconfig kube_config.yaml && break || sleep 10; \
 done; \
 kubectl apply -f role_admin.yaml --kubeconfig kube_config.yaml & \
-kubectl apply -f role_view.yaml --kubeconfig kube_config.yaml & \
-rm aws_auth.yaml kube_config.yaml role_admin.yaml role_view.yaml
+kubectl apply -f role_view.yaml --kubeconfig kube_config.yaml
 EOS
 
     interpreter = ["${var.local_exec_interpreter}"]
