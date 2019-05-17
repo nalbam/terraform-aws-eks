@@ -11,5 +11,7 @@ data:
         - system:bootstrappers
         - system:nodes
 ${map_roles}
+%{ if map_users != "" }
   mapUsers: |
 ${map_users}
+%{ endif }
