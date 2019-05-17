@@ -27,7 +27,8 @@ module "eks" {
 
   subnet_ids = [
     "subnet-0c29ad66d2500c8a1",
-    "subnet-0f33970fc136666e5",
+    "subnet-0bcc6818c3c96b827",
+    "subnet-01ba9f9879fcf178b",
   ]
 
   buckets = [
