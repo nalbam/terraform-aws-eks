@@ -27,7 +27,7 @@ module "eks" {
 
   subnet_ids = [
     "subnet-0c29ad66d2500c8a1",
-    "subnet-0bcc6818c3c96b827",
+    # "subnet-0bcc6818c3c96b827",
     "subnet-01ba9f9879fcf178b",
   ]
 
@@ -63,7 +63,7 @@ module "eks" {
   map_roles = [
     {
       rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/SEOUL-DEV-DEMO-BASTION"
-      username = "iam_role_bastion"
+      username = "iam-role-bastion"
       group    = "system:masters"
     },
   ]
@@ -72,7 +72,7 @@ module "eks" {
     {
       user     = "user/admin"
       username = "iam-admin"
-      group    = "admin"
+      group    = "system:masters"
     },
     {
       user     = "user/dev"
