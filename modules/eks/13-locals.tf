@@ -3,9 +3,9 @@
 locals {
   full_name = "${var.city}-${var.stage}-${var.name}-${var.suffix}"
 
-  upper_name = "${upper(local.full_name)}"
+  upper_name = upper(local.full_name)
 
-  lower_name = "${lower(local.full_name)}"
+  lower_name = lower(local.full_name)
 }
 
 locals {
@@ -17,7 +17,7 @@ locals {
     },
     {
       key                 = "KubernetesCluster"
-      value               = "${local.lower_name}"
+      value               = local.lower_name
       propagate_at_launch = true
     },
     {
@@ -38,9 +38,10 @@ locals {
 #!/bin/bash -xe
 /etc/eks/bootstrap.sh \
   --apiserver-endpoint '${aws_eks_cluster.cluster.endpoint}' \
-  --b64-cluster-ca '${aws_eks_cluster.cluster.certificate_authority.0.data}' \
+  --b64-cluster-ca '${aws_eks_cluster.cluster.certificate_authority[0].data}' \
   '${local.lower_name}'
 EOF
+
 }
 
 locals {
@@ -63,4 +64,6 @@ kubectl get all --all-namespaces
 
 #
 EOF
+
 }
+

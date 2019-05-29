@@ -31,7 +31,7 @@ variable "vpc_id" {
 
 variable "subnet_ids" {
   description = "List of Subnet Ids"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -56,7 +56,7 @@ variable "instance_type" {
 }
 
 variable "mixed_instances" {
-  type    = "list"
+  type    = list(string)
   default = []
 }
 
@@ -94,29 +94,37 @@ variable "key_path" {
 
 variable "allow_ip_address" {
   description = "List of IP Address to permit access"
-  type        = "list"
+  type        = list(string)
   default     = ["*"]
 }
 
 variable "map_roles" {
   description = "Additional IAM roles to add to the aws-auth configmap."
-  type        = "list"
+  type        = list(object({
+    rolearn  = string
+    username = string
+    group    = string
+  }))
   default     = []
 }
 
 variable "map_users" {
   description = "Additional IAM users to add to the aws-auth configmap."
-  type        = "list"
+  type        = list(object({
+    user     = string
+    username = string
+    group    = string
+  }))
   default     = []
 }
 
 variable "local_exec_interpreter" {
   description = "Command to run for local-exec resources. Must be a shell-style interpreter."
-  type        = "list"
+  type        = list(string)
   default     = ["/bin/sh", "-c"]
 }
 
 variable "buckets" {
-  type    = "list"
+  type    = list(string)
   default = []
 }

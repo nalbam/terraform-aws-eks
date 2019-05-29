@@ -6,6 +6,7 @@ terraform {
     bucket = "terraform-nalbam-seoul"
     key    = "eks.tfstate"
   }
+  required_version = ">= 0.12"
 }
 
 provider "aws" {
@@ -27,7 +28,6 @@ module "eks" {
 
   subnet_ids = [
     "subnet-0c29ad66d2500c8a1",
-    # "subnet-0bcc6818c3c96b827",
     "subnet-01ba9f9879fcf178b",
   ]
 
@@ -82,8 +82,9 @@ module "eks" {
   ]
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {
+}
 
 output "config" {
-  value = "${module.eks.config}"
+  value = module.eks.config
 }

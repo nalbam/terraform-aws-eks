@@ -1,10 +1,10 @@
 # aws auth
 
 resource "null_resource" "executor" {
-  depends_on = ["aws_eks_cluster.cluster"]
+  depends_on = [aws_eks_cluster.cluster]
 
   provisioner "local-exec" {
-    working_dir = "${path.module}"
+    working_dir = path.module
 
     command = <<EOS
 echo "${null_resource.executor.triggers.aws_auth}" > aws_auth.yaml & \
@@ -19,14 +19,16 @@ kubectl apply -f role_view.yaml --kubeconfig kube_config.yaml & \
 rm -rf aws_auth.yaml kube_config.yaml role_admin.yaml role_view.yaml
 EOS
 
-    interpreter = ["${var.local_exec_interpreter}"]
+
+    interpreter = var.local_exec_interpreter
   }
 
-  triggers {
-    aws_auth    = "${data.template_file.aws_auth.rendered}"
-    kube_config = "${data.template_file.kube_config.rendered}"
-    role_admin  = "${data.template_file.cluster_role_binding_admin.rendered}"
-    role_view   = "${data.template_file.cluster_role_binding_view.rendered}"
-    endpoint    = "${aws_eks_cluster.cluster.endpoint}"
+  triggers = {
+    aws_auth = data.template_file.aws_auth.rendered
+    kube_config = data.template_file.kube_config.rendered
+    role_admin = data.template_file.cluster_role_binding_admin.rendered
+    role_view = data.template_file.cluster_role_binding_view.rendered
+    endpoint = aws_eks_cluster.cluster.endpoint
   }
 }
+
