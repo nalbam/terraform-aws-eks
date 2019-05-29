@@ -6,6 +6,7 @@ terraform {
     bucket = "terraform-nalbam-seoul"
     key    = "eks.tfstate"
   }
+  required_version = ">= 0.12"
 }
 
 provider "aws" {
@@ -27,7 +28,6 @@ module "eks" {
 
   subnet_ids = [
     "subnet-0c29ad66d2500c8a1",
-    # "subnet-0bcc6818c3c96b827",
     "subnet-01ba9f9879fcf178b",
   ]
 
@@ -44,7 +44,7 @@ module "eks" {
 
   instance_type = "m4.large"
 
-  mixed_instances = ["m5.large", "r4.large", "r5.large"]
+  mixed_instances = ["m5.large", "r4.large", "r5.large", "c5.large", "c4.large"]
 
   volume_size = "32"
 
@@ -70,20 +70,21 @@ module "eks" {
 
   map_users = [
     {
-      user     = "user/admin"
-      username = "iam-admin"
+      user     = "user/jungyoul.yu"
+      username = "jungyoul.yu"
       group    = "system:masters"
     },
     {
-      user     = "user/dev"
-      username = "iam-dev"
-      group    = "view"
+      user     = "user/username"
+      username = "username"
+      group    = ""
     },
   ]
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {
+}
 
 output "config" {
-  value = "${module.eks.config}"
+  value = module.eks.config
 }
