@@ -66,4 +66,3 @@ kubectl get all --all-namespaces
 EOF
 
 }
-

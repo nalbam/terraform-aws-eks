@@ -66,14 +66,14 @@ module "eks" {
 
   map_users = [
     {
-      user     = "user/admin"
-      username = "iam-admin"
-      group    = "admin"
+      user     = "user/jungyoul.yu"
+      username = "jungyoul.yu"
+      group    = "system:masters"
     },
     {
-      user     = "user/dev"
-      username = "iam-dev"
-      group    = "view"
+      user     = "user/username"
+      username = "username"
+      group    = ""
     },
   ]
 }

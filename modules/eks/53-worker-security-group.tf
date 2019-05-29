@@ -48,4 +48,3 @@ resource "aws_security_group_rule" "worker-ingress-admin-ssh" {
   protocol          = "tcp"
   type              = "ingress"
 }
-

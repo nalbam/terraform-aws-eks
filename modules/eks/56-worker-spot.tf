@@ -61,4 +61,3 @@ resource "aws_autoscaling_group" "worker-spot" {
     local.worker_tags,
   )
 }
-

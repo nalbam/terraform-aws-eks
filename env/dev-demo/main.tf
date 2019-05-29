@@ -70,14 +70,14 @@ module "eks" {
 
   map_users = [
     {
-      user     = "user/admin"
-      username = "admin"
-      group    = "admin"
+      user     = "user/jungyoul.yu"
+      username = "jungyoul.yu"
+      group    = "system:masters"
     },
     {
-      user     = "user/dev"
-      username = "dev"
-      group    = "view"
+      user     = "user/username"
+      username = "username"
+      group    = ""
     },
   ]
 }

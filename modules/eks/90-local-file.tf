@@ -14,14 +14,3 @@ resource "local_file" "kube_config_secret" {
   content  = data.template_file.kube_config_secret.rendered
   filename = "${path.cwd}/.output/kube_config_secret.yaml"
 }
-
-resource "local_file" "cluster_role_binding_admin" {
-  content  = data.template_file.cluster_role_binding_admin.rendered
-  filename = "${path.cwd}/.output/cluster_role_binding_admin.yaml"
-}
-
-resource "local_file" "cluster_role_binding_view" {
-  content  = data.template_file.cluster_role_binding_view.rendered
-  filename = "${path.cwd}/.output/cluster_role_binding_view.yaml"
-}
-

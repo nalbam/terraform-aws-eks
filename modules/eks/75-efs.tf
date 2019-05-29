@@ -21,4 +21,3 @@ resource "aws_efs_mount_target" "efs" {
 
   security_groups = [aws_security_group.efs.id]
 }
-

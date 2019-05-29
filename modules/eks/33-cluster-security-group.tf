@@ -38,4 +38,3 @@ resource "aws_security_group_rule" "cluster-ingress-admin-https" {
   protocol          = "tcp"
   type              = "ingress"
 }
-

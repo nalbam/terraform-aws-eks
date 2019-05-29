@@ -28,4 +28,3 @@ resource "aws_security_group_rule" "efs-ingress-worker" {
   protocol                 = "-1"
   type                     = "ingress"
 }
-

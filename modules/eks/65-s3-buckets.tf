@@ -43,4 +43,3 @@ resource "aws_iam_policy" "worker-buckets" {
 EOF
 
 }
-

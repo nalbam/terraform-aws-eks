@@ -49,4 +49,3 @@ resource "aws_autoscaling_group" "worker" {
     local.worker_tags,
   )
 }
-
