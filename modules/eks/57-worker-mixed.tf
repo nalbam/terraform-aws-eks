@@ -57,17 +57,11 @@ resource "aws_autoscaling_group" "worker-mixed" {
         instance_type = var.instance_type
       }
 
-      # https://github.com/hashicorp/terraform/issues/7034#issuecomment-433511035
-      override {
-        instance_type = var.mixed_instances[0]
-      }
-
-      override {
-        instance_type = var.mixed_instances[1]
-      }
-
-      override {
-        instance_type = var.mixed_instances[2]
+      dynamic "override" {
+        for_each = var.mixed_instances
+        content {
+          instance_type = override.value
+        }
       }
     }
   }
@@ -83,4 +77,3 @@ resource "aws_autoscaling_group" "worker-mixed" {
     local.worker_tags,
   )
 }
-

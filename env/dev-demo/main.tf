@@ -44,7 +44,7 @@ module "eks" {
 
   instance_type = "m4.large"
 
-  mixed_instances = ["m5.large", "r4.large", "r5.large"]
+  mixed_instances = ["m5.large", "r4.large", "r5.large", "c5.large", "c4.large"]
 
   volume_size = "32"
 
@@ -71,12 +71,12 @@ module "eks" {
   map_users = [
     {
       user     = "user/admin"
-      username = "iam-admin"
-      group    = "system:masters"
+      username = "admin"
+      group    = "admin"
     },
     {
       user     = "user/dev"
-      username = "iam-dev"
+      username = "dev"
       group    = "view"
     },
   ]
