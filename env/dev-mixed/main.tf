@@ -6,6 +6,7 @@ terraform {
     bucket = "terraform-nalbam-seoul"
     key    = "eks-mixed.tfstate"
   }
+  required_version = ">= 0.12"
 }
 
 provider "aws" {
@@ -82,8 +83,9 @@ module "eks" {
   ]
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {
+}
 
 output "config" {
-  value = "${module.eks.config}"
+  value = module.eks.config
 }

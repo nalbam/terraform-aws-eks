@@ -6,6 +6,7 @@ terraform {
     bucket = "terraform-nalbam-seoul"
     key    = "eks-spot.tfstate"
   }
+  required_version = ">= 0.12"
 }
 
 provider "aws" {
@@ -52,7 +53,7 @@ module "eks" {
   key_name = "nalbam-seoul"
 
   allow_ip_address = [
-    "10.10.1.0/24",   # bastion
+    "10.10.1.0/24", # bastion
   ]
 
   map_roles = [
@@ -77,8 +78,9 @@ module "eks" {
   ]
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {
+}
 
 output "config" {
-  value = "${module.eks.config}"
+  value = module.eks.config
 }
