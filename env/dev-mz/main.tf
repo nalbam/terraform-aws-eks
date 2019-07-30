@@ -63,7 +63,7 @@ module "eks" {
 
   map_roles = [
     {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/SEOUL-DEV-DEMO-BASTION"
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/seoul-dev-demo-bastion"
       username = "iam-role-bastion"
       group    = "system:masters"
     },
