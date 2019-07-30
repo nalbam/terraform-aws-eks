@@ -17,12 +17,12 @@ module "eks" {
   source = "../../modules/eks"
 
   region = "ap-northeast-2"
-  city   = "SEOUL"
-  stage  = "DEV"
-  name   = "MIXED"
-  suffix = "EKS"
+  city   = "seoul"
+  stage  = "dev"
+  name   = "mixed"
+  suffix = "eks"
 
-  kubernetes_version = "1.12"
+  kubernetes_version = "1.13"
 
   vpc_id = "vpc-00c644066e3a8d97d"
 

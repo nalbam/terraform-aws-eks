@@ -2,13 +2,13 @@
 
 resource "aws_s3_bucket" "buckets" {
   count  = length(var.buckets)
-  bucket = "${local.lower_name}-${var.buckets[count.index]}"
+  bucket = "${local.full_name}-${var.buckets[count.index]}"
   acl    = "private"
 
   tags = {
-    "Name"                                      = "${local.lower_name}-${var.buckets[count.index]}"
-    "KubernetesCluster"                         = local.lower_name
-    "kubernetes.io/cluster/${local.lower_name}" = "owned"
+    "Name"                                      = "${local.full_name}-${var.buckets[count.index]}"
+    "KubernetesCluster"                         = local.full_name
+    "kubernetes.io/cluster/${local.full_name}" = "owned"
   }
 }
 
@@ -20,8 +20,8 @@ resource "aws_iam_role_policy_attachment" "worker-buckets" {
 
 resource "aws_iam_policy" "worker-buckets" {
   count       = length(var.buckets)
-  name        = "${aws_iam_role.worker.name}-S3-${upper(var.buckets[count.index])}"
-  description = "S3 bucket policy for cluster ${local.lower_name}"
+  name        = "${aws_iam_role.worker.name}-s3-${var.buckets[count.index]}"
+  description = "S3 bucket policy for cluster ${local.full_name}"
   path        = "/"
 
   policy = <<EOF
@@ -34,8 +34,8 @@ resource "aws_iam_policy" "worker-buckets" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "arn:aws:s3:::${local.lower_name}-${var.buckets[count.index]}",
-        "arn:aws:s3:::${local.lower_name}-${var.buckets[count.index]}/*"
+        "arn:aws:s3:::${local.full_name}-${var.buckets[count.index]}",
+        "arn:aws:s3:::${local.full_name}-${var.buckets[count.index]}/*"
       ]
     }
   ]

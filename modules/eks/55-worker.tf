@@ -3,13 +3,13 @@
 resource "aws_launch_configuration" "worker" {
   count = var.launch_configuration_enable ? 1 : 0
 
-  name_prefix          = "${local.upper_name}-"
+  name_prefix          = "${local.full_name}-"
   image_id             = data.aws_ami.worker.id
   instance_type        = var.instance_type
   iam_instance_profile = aws_iam_instance_profile.worker.name
   user_data_base64     = base64encode(local.userdata)
 
-  key_name = var.key_path != "" ? "${local.upper_name}-WORKER" : var.key_name
+  key_name = var.key_path != "" ? "${local.full_name}-worker" : var.key_name
 
   associate_public_ip_address = var.associate_public_ip_address
 
@@ -29,7 +29,7 @@ resource "aws_launch_configuration" "worker" {
 resource "aws_autoscaling_group" "worker" {
   count = var.launch_configuration_enable ? 1 : 0
 
-  name = local.upper_name
+  name = local.full_name
 
   min_size = var.min
   max_size = var.max

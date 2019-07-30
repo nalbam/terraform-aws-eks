@@ -5,19 +5,19 @@ variable "region" {
 }
 
 variable "city" {
-  description = "City Name of the cluster, e.g: VIRGINIA"
+  description = "City Name of the cluster, e.g: virginia"
 }
 
 variable "stage" {
-  description = "Stage Name of the cluster, e.g: DEV"
+  description = "Stage Name of the cluster, e.g: dev"
 }
 
 variable "name" {
-  description = "Name of the cluster, e.g: DEMO"
+  description = "Name of the cluster, e.g: demo"
 }
 
 variable "suffix" {
-  description = "Name of the cluster, e.g: EKS"
+  description = "Name of the cluster, e.g: eks"
 }
 
 variable "kubernetes_version" {

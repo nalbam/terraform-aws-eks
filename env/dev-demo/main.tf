@@ -17,10 +17,10 @@ module "eks" {
   source = "../../modules/eks"
 
   region = "ap-northeast-2"
-  city   = "SEOUL"
-  stage  = "DEV"
-  name   = "DEMO"
-  suffix = "EKS"
+  city   = "seoul"
+  stage  = "dev"
+  name   = "demo"
+  suffix = "eks"
 
   kubernetes_version = "1.13"
 
@@ -28,6 +28,7 @@ module "eks" {
 
   subnet_ids = [
     "subnet-0c29ad66d2500c8a1",
+    "subnet-0bcc6818c3c96b827",
     "subnet-01ba9f9879fcf178b",
   ]
 

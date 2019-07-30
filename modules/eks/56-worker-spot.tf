@@ -3,12 +3,12 @@
 resource "aws_launch_template" "worker-spot" {
   count = var.launch_template_enable ? length(var.mixed_instances) == 0 ? 1 : 0 : 0
 
-  name_prefix   = "${local.upper_name}-SPOT-"
+  name_prefix   = "${local.full_name}-spot-"
   image_id      = data.aws_ami.worker.id
   instance_type = var.instance_type
   user_data     = base64encode(local.userdata)
 
-  key_name = var.key_path != "" ? "${local.upper_name}-WORKER" : var.key_name
+  key_name = var.key_path != "" ? "${local.full_name}-worker" : var.key_name
 
   block_device_mappings {
     device_name = "/dev/xvda"
@@ -38,7 +38,7 @@ resource "aws_launch_template" "worker-spot" {
 resource "aws_autoscaling_group" "worker-spot" {
   count = var.launch_template_enable ? length(var.mixed_instances) == 0 ? 1 : 0 : 0
 
-  name = "${local.upper_name}-SPOT"
+  name = "${local.full_name}-spot"
 
   min_size = var.min
   max_size = var.max

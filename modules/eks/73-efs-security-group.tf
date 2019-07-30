@@ -1,7 +1,7 @@
 # efs security group
 
 resource "aws_security_group" "efs" {
-  name        = "efs.${local.lower_name}"
+  name        = "efs.${local.full_name}"
   description = "Security group for efs in the cluster"
 
   vpc_id = var.vpc_id
@@ -14,8 +14,8 @@ resource "aws_security_group" "efs" {
   }
 
   tags = {
-    "Name"                                      = "efs.${local.lower_name}"
-    "kubernetes.io/cluster/${local.lower_name}" = "owned"
+    "Name"                                      = "efs.${local.full_name}"
+    "kubernetes.io/cluster/${local.full_name}" = "owned"
   }
 }
 

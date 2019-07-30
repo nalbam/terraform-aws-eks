@@ -3,12 +3,12 @@
 resource "aws_efs_file_system" "efs" {
   count = var.launch_efs_enable ? 1 : 0
 
-  creation_token = local.lower_name
+  creation_token = local.full_name
 
   tags = {
-    "Name"                                      = "efs.${local.lower_name}"
-    "KubernetesCluster"                         = local.lower_name
-    "kubernetes.io/cluster/${local.lower_name}" = "owned"
+    "Name"                                      = "efs.${local.full_name}"
+    "KubernetesCluster"                         = local.full_name
+    "kubernetes.io/cluster/${local.full_name}" = "owned"
   }
 }
 
