@@ -49,7 +49,7 @@ module "eks" {
 
   volume_size = "32"
 
-  min = "1"
+  min = "2"
   max = "5"
 
   on_demand_base = "0"
