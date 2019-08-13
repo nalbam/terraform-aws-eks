@@ -49,11 +49,11 @@ module "eks" {
 
   volume_size = "32"
 
-  min = "1"
+  min = "2"
   max = "5"
 
-  on_demand_base = "0"
-  on_demand_rate = "0"
+  on_demand_base = "1"
+  on_demand_rate = "50"
 
   key_name = "nalbam-seoul"
 
