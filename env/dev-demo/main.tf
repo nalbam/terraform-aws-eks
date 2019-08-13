@@ -76,8 +76,8 @@ module "eks" {
       group    = "system:masters"
     },
     {
-      user     = "user/username"
-      username = "username"
+      user     = "user/developer"
+      username = "developer"
       group    = ""
     },
   ]
