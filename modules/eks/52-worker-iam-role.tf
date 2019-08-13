@@ -56,7 +56,7 @@ resource "aws_iam_role_policy_attachment" "worker_autoscaling" {
 }
 
 resource "aws_iam_policy" "worker_autoscaling" {
-  name = "${aws_iam_role.worker.name}-AUTOSCALING"
+  name = "${aws_iam_role.worker.name}-autoscaling"
   description = "Autoscaling policy for cluster ${local.full_name}"
   policy = data.aws_iam_policy_document.worker_autoscaling.json
   path = "/"
