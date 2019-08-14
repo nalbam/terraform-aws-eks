@@ -4,7 +4,7 @@ terraform {
   backend "s3" {
     region = "ap-northeast-2"
     bucket = "terraform-nalbam-seoul"
-    key    = "eks-demo.tfstate"
+    key    = "eks-spot.tfstate"
   }
   required_version = ">= 0.12"
 }
@@ -19,7 +19,7 @@ module "eks" {
   region = "ap-northeast-2"
   city   = "seoul"
   stage  = "dev"
-  name   = "demo"
+  name   = "spot"
   suffix = "eks"
 
   kubernetes_version = "1.13"
@@ -52,8 +52,8 @@ module "eks" {
   min = "2"
   max = "5"
 
-  on_demand_base = "1"
-  on_demand_rate = "50"
+  on_demand_base = "0"
+  on_demand_rate = "0"
 
   key_name = "nalbam-seoul"
 
