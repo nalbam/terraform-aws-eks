@@ -32,14 +32,14 @@ resource "aws_launch_template" "worker-mixed" {
 }
 
 resource "aws_autoscaling_group" "worker-mixed" {
-  count = var.launch_template_enable ? length(var.mixed_instances) > 0 ? 1 : 0 : 0
+  count = var.launch_template_enable ? length(var.mixed_instances) > 0 ? local.asg_count : 0 : 0
 
-  name = "${local.full_name}-mixed"
+  name = local.asg_count > 1 ? "${local.full_name}-mixed-${count.index + 1}" : "${local.full_name}-mixed"
 
   min_size = var.min
   max_size = var.max
 
-  vpc_zone_identifier = var.subnet_ids
+  vpc_zone_identifier = var.launch_each_subnet ? [var.subnet_ids[count.index]] : var.subnet_ids
 
   mixed_instances_policy {
     instances_distribution {

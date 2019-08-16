@@ -27,14 +27,14 @@ resource "aws_launch_configuration" "worker" {
 }
 
 resource "aws_autoscaling_group" "worker" {
-  count = var.launch_configuration_enable ? 1 : 0
+  count = var.launch_configuration_enable ? local.asg_count : 0
 
-  name = local.full_name
+  name = local.asg_count > 1 ? "${local.full_name}-${count.index + 1}" : "${local.full_name}"
 
   min_size = var.min
   max_size = var.max
 
-  vpc_zone_identifier = var.subnet_ids
+  vpc_zone_identifier = var.launch_each_subnet ? [var.subnet_ids[count.index]] : var.subnet_ids
 
   launch_configuration = aws_launch_configuration.worker[0].id
 

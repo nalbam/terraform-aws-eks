@@ -40,6 +40,7 @@ module "eks" {
 
   launch_configuration_enable = false
   launch_template_enable      = true
+  launch_each_subnet          = true
 
   associate_public_ip_address = true
 
