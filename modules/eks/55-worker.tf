@@ -29,7 +29,7 @@ resource "aws_launch_configuration" "worker" {
 resource "aws_autoscaling_group" "worker" {
   count = var.launch_configuration_enable ? local.asg_count : 0
 
-  name = local.asg_count > 1 ? "${local.full_name}-${count.index + 1}" : "${local.full_name}"
+  name = var.launch_each_subnet ? "${local.full_name}-${count.index + 1}" : "${local.full_name}"
 
   min_size = var.min
   max_size = var.max

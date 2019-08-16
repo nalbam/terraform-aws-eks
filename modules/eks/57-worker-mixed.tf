@@ -34,7 +34,7 @@ resource "aws_launch_template" "worker-mixed" {
 resource "aws_autoscaling_group" "worker-mixed" {
   count = var.launch_template_enable ? length(var.mixed_instances) > 0 ? local.asg_count : 0 : 0
 
-  name = local.asg_count > 1 ? "${local.full_name}-mixed-${count.index + 1}" : "${local.full_name}-mixed"
+  name = var.launch_each_subnet ? "${local.full_name}-mixed-${count.index + 1}" : "${local.full_name}-mixed"
 
   min_size = var.min
   max_size = var.max

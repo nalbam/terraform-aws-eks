@@ -38,7 +38,7 @@ resource "aws_launch_template" "worker-spot" {
 resource "aws_autoscaling_group" "worker-spot" {
   count = var.launch_template_enable ? length(var.mixed_instances) == 0 ? local.asg_count : 0 : 0
 
-  name = local.asg_count > 1 ? "${local.full_name}-spot-${count.index + 1}" : "${local.full_name}-spot"
+  name = var.launch_each_subnet ? "${local.full_name}-spot-${count.index + 1}" : "${local.full_name}-spot"
 
   min_size = var.min
   max_size = var.max
