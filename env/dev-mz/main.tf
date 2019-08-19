@@ -44,9 +44,9 @@ module "eks" {
 
   associate_public_ip_address = true
 
-  instance_type = "m4.large"
+  instance_type = "m5.xlarge"
 
-  mixed_instances = ["m5.large", "r4.large", "r5.large", "c5.large", "c4.large"]
+  mixed_instances = ["c5.xlarge", "r5.xlarge"]
 
   volume_size = "32"
 
