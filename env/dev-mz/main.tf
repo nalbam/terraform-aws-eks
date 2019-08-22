@@ -4,45 +4,61 @@ terraform {
   backend "s3" {
     region = "ap-northeast-2"
     bucket = "terraform-mz-seoul"
-    key    = "eks.tfstate"
+    key    = "eks-demo.tfstate"
   }
   required_version = ">= 0.12"
 }
 
 provider "aws" {
-  region = "ap-northeast-2"
+  region = var.region
 }
 
 module "eks" {
   source = "../../modules/eks"
 
-  region = "ap-northeast-2"
-  city   = "seoul"
-  stage  = "dev"
-  name   = "demo"
-  suffix = "eks"
+  region = var.region
+  city   = var.city
+  stage  = var.stage
+  name   = var.name
+  suffix = var.suffix
+
+  vpc_id = var.vpc_id
+
+  subnet_ids = var.subnet_ids
 
   kubernetes_version = "1.13"
 
-  vpc_id = "vpc-025ad1e9d1cb3c27d"
-
-  subnet_ids = [
-    "subnet-007a2bd91c7939e85",
-    "subnet-0477597c240b95aa8",
-    "subnet-0c91c5cd95b319b76",
+  allow_ip_address = [
+    "10.10.1.0/24", # bastion
   ]
 
-  buckets = [
-    "artifact",
+  # aws-auth
+  map_roles = [
+    {
+      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/seoul-dev-demo-bastion"
+      username = "iam-role-bastion"
+      group    = "system:masters"
+    },
+  ]
+  map_users = [
+    {
+      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/jungyoul.yu"
+      username = "jungyoul.yu"
+      group    = "system:masters"
+    },
+    {
+      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/developer"
+      username = "developer"
+      group    = ""
+    },
   ]
 
-  launch_efs_enable = true
-
+  # worker
   launch_configuration_enable = false
   launch_template_enable      = true
   launch_each_subnet          = true
 
-  associate_public_ip_address = true
+  associate_public_ip_address = false
 
   instance_type = "m5.xlarge"
 
@@ -58,33 +74,13 @@ module "eks" {
 
   key_name = "nalbam-seoul"
 
-  allow_ip_address = [
-    "10.10.1.0/24", # bastion
-  ]
+  # efs
+  launch_efs_enable = true
 
-  map_roles = [
-    {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/seoul-dev-demo-bastion"
-      username = "iam-role-bastion"
-      group    = "system:masters"
-    },
-  ]
-
-  map_users = [
-    {
-      user     = "user/jungyoul.yu"
-      username = "jungyoul.yu"
-      group    = "system:masters"
-    },
-    {
-      user     = "user/developer"
-      username = "developer"
-      group    = ""
-    },
-  ]
-}
-
-data "aws_caller_identity" "current" {
+  # # s3
+  # buckets = [
+  #   "argo",
+  # ]
 }
 
 output "config" {
