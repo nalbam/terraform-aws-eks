@@ -7,11 +7,6 @@
 * <https://kubernetes.io/docs/tasks/tools/install-kubectl/>
 * <https://github.com/kubernetes-sigs/aws-iam-authenticator>
 
-```bash
-# install tools
-curl -sL https://raw.githubusercontent.com/opsnow/kops-cui/master/tools.sh | bash
-```
-
 ## Create Cluster
 
 ```bash
