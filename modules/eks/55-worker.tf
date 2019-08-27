@@ -56,6 +56,11 @@ module "worker" {
       propagate_at_launch = true
     },
     {
+      key                 = "k8s.io/cluster-autoscaler/${local.full_name}"
+      value               = "owned"
+      propagate_at_launch = true
+    },
+    {
       key                 = "k8s.io/cluster-autoscaler/enabled"
       value               = "true"
       propagate_at_launch = true
