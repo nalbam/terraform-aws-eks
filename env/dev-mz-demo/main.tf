@@ -60,9 +60,9 @@ module "eks" {
 
   associate_public_ip_address = false
 
-  instance_type = "m5.xlarge"
+  instance_type = "m5.large"
 
-  mixed_instances = ["c5.xlarge", "r5.xlarge"]
+  mixed_instances = ["c5.large", "r5.large"]
 
   volume_size = "32"
 
