@@ -26,17 +26,17 @@
 # }
 
 resource "aws_iam_role_policy_attachment" "worker-AmazonEKS_CNI_Policy" {
-  role = module.worker.iam_role_name
+  role       = module.worker.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
 resource "aws_iam_role_policy_attachment" "worker-AmazonEKSWorkerNodePolicy" {
-  role = module.worker.iam_role_name
+  role       = module.worker.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
 resource "aws_iam_role_policy_attachment" "worker-AmazonEC2ContainerRegistryReadOnly" {
-  role = module.worker.iam_role_name
+  role       = module.worker.iam_role_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
@@ -51,20 +51,20 @@ resource "aws_iam_role_policy_attachment" "worker-AmazonEC2ContainerRegistryRead
 # }
 
 resource "aws_iam_role_policy_attachment" "worker_autoscaling" {
-  role = module.worker.iam_role_name
+  role       = module.worker.iam_role_name
   policy_arn = aws_iam_policy.worker_autoscaling.arn
 }
 
 resource "aws_iam_policy" "worker_autoscaling" {
-  name = "${module.worker.iam_role_name}-autoscaling"
+  name        = "${module.worker.iam_role_name}-autoscaling"
   description = "Autoscaling policy for cluster ${local.full_name}"
-  policy = data.aws_iam_policy_document.worker_autoscaling.json
-  path = "/"
+  policy      = data.aws_iam_policy_document.worker_autoscaling.json
+  path        = "/"
 }
 
 data "aws_iam_policy_document" "worker_autoscaling" {
   statement {
-    sid = "eksWorkerAutoscalingAll"
+    sid    = "eksWorkerAutoscalingAll"
     effect = "Allow"
 
     actions = [
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "worker_autoscaling" {
   }
 
   statement {
-    sid = "eksWorkerAutoscalingOwn"
+    sid    = "eksWorkerAutoscalingOwn"
     effect = "Allow"
 
     actions = [
@@ -91,15 +91,15 @@ data "aws_iam_policy_document" "worker_autoscaling" {
     resources = ["*"]
 
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "autoscaling:ResourceTag/kubernetes.io/cluster/${local.full_name}"
-      values = ["owned"]
+      values   = ["owned"]
     }
 
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "autoscaling:ResourceTag/k8s.io/cluster-autoscaler/enabled"
-      values = ["true"]
+      values   = ["true"]
     }
   }
 }

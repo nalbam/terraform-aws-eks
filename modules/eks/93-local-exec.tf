@@ -19,8 +19,8 @@ EOS
   }
 
   triggers = {
-    aws_auth = data.template_file.aws_auth.rendered
+    aws_auth    = data.template_file.aws_auth.rendered
     kube_config = data.template_file.kube_config.rendered
-    endpoint = aws_eks_cluster.cluster.endpoint
+    endpoint    = aws_eks_cluster.cluster.endpoint
   }
 }

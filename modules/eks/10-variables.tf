@@ -43,22 +43,22 @@ variable "allow_ip_address" {
 
 variable "map_roles" {
   description = "Additional IAM roles to add to the aws-auth configmap."
-  type        = list(object({
+  type = list(object({
     rolearn  = string
     username = string
     group    = string
   }))
-  default     = []
+  default = []
 }
 
 variable "map_users" {
   description = "Additional IAM users to add to the aws-auth configmap."
-  type        = list(object({
+  type = list(object({
     userarn  = string
     username = string
     group    = string
   }))
-  default     = []
+  default = []
 }
 
 variable "local_exec_interpreter" {
