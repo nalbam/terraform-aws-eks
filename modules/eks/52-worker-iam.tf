@@ -15,11 +15,6 @@ resource "aws_iam_role_policy_attachment" "worker-AmazonEC2ContainerRegistryRead
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
-# resource "aws_iam_role_policy_attachment" "worker-AmazonS3FullAccess" {
-#   role       = "${module.worker.iam_role_name}"
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-# }
-
 resource "aws_iam_role_policy" "worker_kube2iam" {
   name   = "EKSNodeKube2IAMPolicy"
   role   = module.worker.iam_role_name

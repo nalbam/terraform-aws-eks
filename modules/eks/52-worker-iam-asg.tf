@@ -45,7 +45,6 @@ data "aws_iam_policy_document" "autoscaling" {
   statement {
     sid    = "eksWorkerAutoscalingAll"
     effect = "Allow"
-
     actions = [
       "autoscaling:DescribeAutoScalingGroups",
       "autoscaling:DescribeAutoScalingInstances",
@@ -53,20 +52,17 @@ data "aws_iam_policy_document" "autoscaling" {
       "autoscaling:DescribeTags",
       "ec2:DescribeLaunchTemplateVersions",
     ]
-
     resources = ["*"]
   }
 
   statement {
     sid    = "eksWorkerAutoscalingOwn"
     effect = "Allow"
-
     actions = [
       "autoscaling:SetDesiredCapacity",
       "autoscaling:TerminateInstanceInAutoScalingGroup",
       "autoscaling:UpdateAutoScalingGroup",
     ]
-
     resources = ["*"]
 
     condition {
