@@ -3,11 +3,7 @@
 module "worker" {
   source = "github.com/nalbam/terraform-aws-asg/modules/asg"
 
-  region = var.region
-  city   = var.city
-  stage  = var.stage
-  name   = var.name
-  suffix = var.suffix
+  name = "${local.full_name}-worker"
 
   vpc_id = var.vpc_id
 
