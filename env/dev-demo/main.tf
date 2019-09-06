@@ -26,7 +26,7 @@ module "eks" {
 
   subnet_ids = var.subnet_ids
 
-  kubernetes_version = "1.13"
+  kubernetes_version = var.kubernetes_version
 
   allow_ip_address = [
     "10.10.1.0/24", # bastion

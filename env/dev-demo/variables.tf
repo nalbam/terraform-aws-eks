@@ -30,6 +30,10 @@ variable "subnet_ids" {
   ]
 }
 
+variable "kubernetes_version" {
+  default = "1.14"
+}
+
 data "aws_caller_identity" "current" {
 }
 
