@@ -21,24 +21,22 @@ variable "suffix" {
 }
 
 variable "vpc_id" {
-  description = "The VPC ID."
-  default     = ""
+  default = ""
 }
 
 variable "subnet_ids" {
-  description = "List of Subnet Ids"
-  type        = list(string)
-  default     = []
+  type    = list(string)
+  default = []
 }
 
 variable "kubernetes_version" {
-  default = "1.13"
+  default = "1.14"
 }
 
 variable "allow_ip_address" {
   description = "List of IP Address to permit access"
   type        = list(string)
-  default     = ["*"]
+  default     = []
 }
 
 variable "map_roles" {
@@ -93,8 +91,7 @@ variable "associate_public_ip_address" {
 }
 
 variable "ami_id" {
-  description = "AMI ID of the instance, e.g: ami-000000"
-  default     = ""
+  default = ""
 }
 
 variable "instance_type" {
