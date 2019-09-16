@@ -3,12 +3,12 @@
 resource "aws_efs_file_system" "efs" {
   count = var.launch_efs_enable ? 1 : 0
 
-  creation_token = local.full_name
+  creation_token = var.name
 
   tags = {
-    "Name"                                     = "efs.${local.full_name}"
-    "KubernetesCluster"                        = local.full_name
-    "kubernetes.io/cluster/${local.full_name}" = "owned"
+    "Name"                              = "efs.${var.name}"
+    "KubernetesCluster"                 = var.name
+    "kubernetes.io/cluster/${var.name}" = "owned"
   }
 }
 
@@ -23,7 +23,7 @@ resource "aws_efs_mount_target" "efs" {
 }
 
 resource "aws_security_group" "efs" {
-  name        = "efs.${local.full_name}"
+  name        = "efs.${var.name}"
   description = "Security group for efs in the cluster"
 
   vpc_id = var.vpc_id
@@ -36,9 +36,9 @@ resource "aws_security_group" "efs" {
   }
 
   tags = {
-    "Name"                                     = "efs.${local.full_name}"
-    "KubernetesCluster"                        = local.full_name
-    "kubernetes.io/cluster/${local.full_name}" = "owned"
+    "Name"                              = "efs.${var.name}"
+    "KubernetesCluster"                 = var.name
+    "kubernetes.io/cluster/${var.name}" = "owned"
   }
 }
 

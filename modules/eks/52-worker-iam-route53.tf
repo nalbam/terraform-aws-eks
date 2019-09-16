@@ -1,7 +1,7 @@
 # worker iam role
 
 resource "aws_iam_role" "route53" {
-  name = "${local.full_name}-route53"
+  name = "${var.name}-route53"
 
   assume_role_policy = <<POLICY
 {
@@ -19,7 +19,7 @@ resource "aws_iam_role" "route53" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.full_name}-worker"
+        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.name}-worker"
       },
       "Action": "sts:AssumeRole"
     }
@@ -36,7 +36,7 @@ resource "aws_iam_role_policy_attachment" "route53" {
 
 resource "aws_iam_policy" "route53" {
   name        = "${module.worker.iam_role_name}-route53"
-  description = "Route53 policy for cluster ${local.full_name}"
+  description = "Route53 policy for cluster ${var.name}"
   policy      = data.aws_iam_policy_document.route53.json
   path        = "/"
 }

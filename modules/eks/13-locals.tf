@@ -1,16 +1,12 @@
 # locals
 
 locals {
-  full_name = "${var.city}-${var.stage}-${var.name}-${var.suffix}"
-}
-
-locals {
   user_data = <<EOF
 #!/bin/bash -xe
 /etc/eks/bootstrap.sh \
   --apiserver-endpoint '${aws_eks_cluster.cluster.endpoint}' \
   --b64-cluster-ca '${aws_eks_cluster.cluster.certificate_authority[0].data}' \
-  '${local.full_name}'
+  '${var.name}'
 EOF
 
 }
@@ -20,7 +16,7 @@ locals {
 #
 
 # kube config
-aws eks update-kubeconfig --name ${local.full_name} --alias ${local.full_name}
+aws eks update-kubeconfig --name ${var.name} --alias ${var.name}
 
 # or
 mkdir -p ~/.kube && cp .output/kube_config.yaml ~/.kube/config

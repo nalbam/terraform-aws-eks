@@ -1,7 +1,7 @@
 # worker iam role
 
 resource "aws_iam_role" "autoscaling" {
-  name = "${local.full_name}-autoscaling"
+  name = "${var.name}-autoscaling"
 
   assume_role_policy = <<POLICY
 {
@@ -19,7 +19,7 @@ resource "aws_iam_role" "autoscaling" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.full_name}-worker"
+        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.name}-worker"
       },
       "Action": "sts:AssumeRole"
     }
@@ -36,7 +36,7 @@ resource "aws_iam_role_policy_attachment" "autoscaling" {
 
 resource "aws_iam_policy" "autoscaling" {
   name        = "${module.worker.iam_role_name}-autoscaling"
-  description = "Autoscaling policy for cluster ${local.full_name}"
+  description = "Autoscaling policy for cluster ${var.name}"
   policy      = data.aws_iam_policy_document.autoscaling.json
   path        = "/"
 }
@@ -67,7 +67,7 @@ data "aws_iam_policy_document" "autoscaling" {
 
     condition {
       test     = "StringEquals"
-      variable = "autoscaling:ResourceTag/kubernetes.io/cluster/${local.full_name}"
+      variable = "autoscaling:ResourceTag/kubernetes.io/cluster/${var.name}"
       values   = ["owned"]
     }
 

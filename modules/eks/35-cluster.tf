@@ -1,7 +1,7 @@
 # eks cluster
 
 resource "aws_eks_cluster" "cluster" {
-  name     = local.full_name
+  name     = var.name
   role_arn = aws_iam_role.cluster.arn
   version  = var.kubernetes_version
 

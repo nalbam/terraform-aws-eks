@@ -3,7 +3,7 @@
 module "worker" {
   source = "github.com/nalbam/terraform-aws-asg/modules/asg"
 
-  name = "${local.full_name}-worker"
+  name = "${var.name}-worker"
 
   vpc_id = var.vpc_id
 
@@ -38,21 +38,21 @@ module "worker" {
   tags = [
     {
       key                 = "Name"
-      value               = "${local.full_name}-worker"
+      value               = "${var.name}-worker"
       propagate_at_launch = true
     },
     {
       key                 = "KubernetesCluster"
-      value               = local.full_name
+      value               = var.name
       propagate_at_launch = true
     },
     {
-      key                 = "kubernetes.io/cluster/${local.full_name}"
+      key                 = "kubernetes.io/cluster/${var.name}"
       value               = "owned"
       propagate_at_launch = true
     },
     {
-      key                 = "k8s.io/cluster-autoscaler/${local.full_name}"
+      key                 = "k8s.io/cluster-autoscaler/${var.name}"
       value               = "owned"
       propagate_at_launch = true
     },

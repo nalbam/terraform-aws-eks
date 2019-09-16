@@ -17,10 +17,7 @@ module "eks" {
   source = "../../modules/eks"
 
   region = var.region
-  city   = var.city
-  stage  = var.stage
   name   = var.name
-  suffix = var.suffix
 
   vpc_id = var.vpc_id
 

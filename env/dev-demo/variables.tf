@@ -2,20 +2,8 @@ variable "region" {
   default = "ap-northeast-2"
 }
 
-variable "city" {
-  default = "seoul"
-}
-
-variable "stage" {
-  default = "dev"
-}
-
 variable "name" {
-  default = "demo"
-}
-
-variable "suffix" {
-  default = "eks"
+  default = "seoul-dev-demo-eks"
 }
 
 variable "vpc_id" {
@@ -35,8 +23,4 @@ variable "kubernetes_version" {
 }
 
 data "aws_caller_identity" "current" {
-}
-
-locals {
-  full_name = "${var.city}-${var.stage}-${var.name}-${var.suffix}"
 }
