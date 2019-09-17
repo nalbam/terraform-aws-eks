@@ -23,34 +23,13 @@ module "eks" {
 
   subnet_ids = var.subnet_ids
 
-  kubernetes_version = var.kubernetes_version
+  kubernetes_version = "1.14"
 
-  allow_ip_address = [
-    "10.10.1.0/24", # bastion
-  ]
+  allow_ip_address = var.allow_ip_address
 
-  # aws-auth
-  map_roles = [
-    {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/seoul-dev-demo-bastion"
-      username = "iam-role-bastion"
-      group    = "system:masters"
-    },
-  ]
-  map_users = [
-    {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/jungyoul.yu"
-      username = "jungyoul.yu"
-      group    = "system:masters"
-    },
-    {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/developer"
-      username = "developer"
-      group    = ""
-    },
-  ]
+  map_roles = local.map_roles
+  map_users = local.map_users
 
-  # worker
   launch_configuration_enable = false
   launch_template_enable      = true
   launch_each_subnet          = true
@@ -71,15 +50,9 @@ module "eks" {
 
   key_name = "nalbam-seoul"
 
-  # efs
   launch_efs_enable = true
 
-  # # s3
   # buckets = [
   #   "argo",
   # ]
-}
-
-output "config" {
-  value = module.eks.config
 }
