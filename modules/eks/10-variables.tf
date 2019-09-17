@@ -47,21 +47,6 @@ variable "map_users" {
   default = []
 }
 
-variable "local_exec_interpreter" {
-  description = "Command to run for local-exec resources. Must be a shell-style interpreter."
-  type        = list(string)
-  default     = ["/bin/sh", "-c"]
-}
-
-variable "launch_efs_enable" {
-  default = false
-}
-
-variable "buckets" {
-  type    = list(string)
-  default = []
-}
-
 variable "launch_configuration_enable" {
   default = true
 }
@@ -96,7 +81,7 @@ variable "volume_type" {
 }
 
 variable "volume_size" {
-  default = "8"
+  default = "32"
 }
 
 variable "min" {
@@ -121,4 +106,19 @@ variable "key_name" {
 
 variable "key_path" {
   default = ""
+}
+
+variable "launch_efs_enable" {
+  default = false
+}
+
+variable "buckets" {
+  type    = list(string)
+  default = []
+}
+
+variable "local_exec_interpreter" {
+  description = "Command to run for local-exec resources. Must be a shell-style interpreter."
+  type        = list(string)
+  default     = ["/bin/sh", "-c"]
 }

@@ -23,36 +23,36 @@ module "eks" {
 
   subnet_ids = var.subnet_ids
 
-  kubernetes_version = "1.14"
+  kubernetes_version = var.kubernetes_version
 
   allow_ip_address = var.allow_ip_address
 
   map_roles = local.map_roles
   map_users = local.map_users
 
-  launch_configuration_enable = false
-  launch_template_enable      = true
-  launch_each_subnet          = true
+  launch_configuration_enable = var.launch_configuration_enable
+  launch_template_enable      = var.launch_template_enable
 
-  associate_public_ip_address = false
+  launch_each_subnet          = var.launch_each_subnet
+  associate_public_ip_address = var.associate_public_ip_address
 
-  instance_type = "m5.large"
+  instance_type = var.instance_type
 
-  mixed_instances = ["c5.large", "r5.large"]
+  mixed_instances = var.mixed_instances
 
-  volume_size = "32"
+  volume_type = var.volume_type
+  volume_size = var.volume_size
 
-  min = "1"
-  max = "5"
+  min = var.min
+  max = var.max
 
-  on_demand_base = "0"
-  on_demand_rate = "0"
+  on_demand_base = var.on_demand_base
+  on_demand_rate = var.on_demand_rate
 
-  key_name = "nalbam-seoul"
+  key_name = var.key_name
+  key_path = var.key_path
 
-  launch_efs_enable = true
+  launch_efs_enable = var.launch_efs_enable
 
-  # buckets = [
-  #   "argo",
-  # ]
+  buckets = var.buckets
 }

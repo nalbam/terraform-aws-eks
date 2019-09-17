@@ -20,6 +20,10 @@ variable "subnet_ids" {
   ]
 }
 
+variable "kubernetes_version" {
+  default = "1.14"
+}
+
 variable "allow_ip_address" {
   default = [
     "10.10.1.0/24", # bastion
@@ -46,6 +50,70 @@ locals {
       group    = ""
     },
   ]
+}
+
+variable "launch_configuration_enable" {
+  default = false
+}
+
+variable "launch_template_enable" {
+  default = true
+}
+
+variable "launch_each_subnet" {
+  default = true
+}
+
+variable "associate_public_ip_address" {
+  default = false
+}
+
+variable "instance_type" {
+  default = "m5.large"
+}
+
+variable "mixed_instances" {
+  default = ["c5.large", "r5.large"]
+}
+
+variable "volume_type" {
+  default = "gp2"
+}
+
+variable "volume_size" {
+  default = "32"
+}
+
+variable "min" {
+  default = "1"
+}
+
+variable "max" {
+  default = "5"
+}
+
+variable "on_demand_base" {
+  default = "0"
+}
+
+variable "on_demand_rate" {
+  default = "0"
+}
+
+variable "key_name" {
+  default = "nalbam-seoul"
+}
+
+variable "key_path" {
+  default = ""
+}
+
+variable "launch_efs_enable" {
+  default = true
+}
+
+variable "buckets" {
+  default = []
 }
 
 data "aws_caller_identity" "current" {
