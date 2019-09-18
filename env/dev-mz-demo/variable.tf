@@ -9,14 +9,14 @@ variable "name" {
 }
 
 variable "vpc_id" {
-  default = "vpc-025ad1e9d1cb3c27d"
+  default = "vpc-0f2b2037a6dc5b059"
 }
 
 variable "subnet_ids" {
   default = [
-    "subnet-09a6bcc0e50e97446",
-    "subnet-0bf8251e3c5ea6635",
-    "subnet-0c599871d06e90acf",
+    "subnet-034abbc6fc10634ad",
+    "subnet-0944761ec8c2f8f93",
+    "subnet-06b7d51d445379626",
   ]
 }
 

@@ -35,6 +35,8 @@ module "worker" {
   key_name = var.key_name
   key_path = var.key_path
 
+  security_groups = [aws_security_group.worker.id]
+
   tags = [
     {
       key                 = "Name"
