@@ -61,7 +61,7 @@ variable "launch_template_enable" {
 }
 
 variable "launch_each_subnet" {
-  default = true
+  default = false
 }
 
 variable "associate_public_ip_address" {
