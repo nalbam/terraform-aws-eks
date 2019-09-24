@@ -8,6 +8,10 @@ variable "name" {
   default = "seoul-dev-spot-eks"
 }
 
+variable "kubernetes_version" {
+  default = "1.14"
+}
+
 variable "vpc_id" {
   default = "vpc-018a61f4f7cfedf46"
 }
@@ -18,10 +22,6 @@ variable "subnet_ids" {
     "subnet-00bbcda81a83ed5b3",
     "subnet-0490973094e02cb6c",
   ]
-}
-
-variable "kubernetes_version" {
-  default = "1.14"
 }
 
 variable "allow_ip_address" {

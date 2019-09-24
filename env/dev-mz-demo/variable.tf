@@ -8,6 +8,10 @@ variable "name" {
   default = "seoul-dev-demo-eks"
 }
 
+variable "kubernetes_version" {
+  default = "1.14"
+}
+
 variable "vpc_id" {
   default = "vpc-0f2b2037a6dc5b059"
 }
@@ -18,10 +22,6 @@ variable "subnet_ids" {
     "subnet-0944761ec8c2f8f93",
     "subnet-06b7d51d445379626",
   ]
-}
-
-variable "kubernetes_version" {
-  default = "1.14"
 }
 
 variable "allow_ip_address" {

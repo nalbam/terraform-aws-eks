@@ -8,6 +8,10 @@ variable "name" {
   description = "Name of the cluster, e.g: seoul-dev-demo-eks"
 }
 
+variable "kubernetes_version" {
+  default = "1.14"
+}
+
 variable "vpc_id" {
   default = ""
 }
@@ -15,10 +19,6 @@ variable "vpc_id" {
 variable "subnet_ids" {
   type    = list(string)
   default = []
-}
-
-variable "kubernetes_version" {
-  default = "1.14"
 }
 
 variable "allow_ip_address" {
