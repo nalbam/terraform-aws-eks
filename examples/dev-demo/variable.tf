@@ -13,14 +13,14 @@ variable "kubernetes_version" {
 }
 
 variable "vpc_id" {
-  default = "vpc-075279b4e48b983ff"
+  default = "vpc-050facec749c33357"
 }
 
 variable "subnet_ids" {
   default = [
-    "subnet-08a5b599722126606",
-    "subnet-08d4e11f445bb207f",
-    "subnet-0706fbc7ebe262da7",
+    "subnet-05efd8364ed754edd",
+    "subnet-0d1306b5ef87aae5c",
+    "subnet-0b70f372eefd537be",
   ]
 }
 
@@ -65,7 +65,7 @@ variable "launch_each_subnet" {
 }
 
 variable "associate_public_ip_address" {
-  default = true
+  default = false
 }
 
 variable "instance_type" {
@@ -85,7 +85,7 @@ variable "volume_size" {
 }
 
 variable "min" {
-  default = "1"
+  default = "2"
 }
 
 variable "max" {

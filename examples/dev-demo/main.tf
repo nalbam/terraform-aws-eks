@@ -3,8 +3,8 @@
 terraform {
   backend "s3" {
     region = "ap-northeast-2"
-    bucket = "terraform-mz-seoul"
-    key    = "eks-spot.tfstate"
+    bucket = "terraform-nalbam-seoul"
+    key    = "eks-demo.tfstate"
   }
   required_version = ">= 0.12"
 }
@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 module "eks" {
-  source = "../../modules/eks"
+  source = "../../"
 
   region = var.region
   name   = var.name
