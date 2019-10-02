@@ -55,8 +55,8 @@ data "aws_iam_policy_document" "route53" {
     sid    = "Route53ListZones"
     effect = "Allow"
     actions = [
-      "route53:ListResourceRecordSets",
       "route53:ListHostedZones",
+      "route53:ListResourceRecordSets",
     ]
     resources = ["*"]
   }
