@@ -11,7 +11,7 @@
 
 ```bash
 # env
-cd env/dev-demo
+cd examples/dev-demo
 
 # terraform (10m)
 terraform init
