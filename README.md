@@ -10,7 +10,10 @@
 ## Create Cluster
 
 ```bash
-# env
+# terraform
+brew install terraform
+
+# examples
 cd examples/dev-demo
 
 # terraform (10m)
