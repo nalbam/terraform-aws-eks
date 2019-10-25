@@ -17,25 +17,6 @@ data "aws_ami" "worker" {
   most_recent = true
 }
 
-data "template_file" "kube_config" {
-  template = file("${path.module}/template/kube_config.yaml.tpl")
-
-  vars = {
-    CERTIFICATE     = aws_eks_cluster.cluster.certificate_authority[0].data
-    MASTER_ENDPOINT = aws_eks_cluster.cluster.endpoint
-    CLUSTER_NAME    = var.name
-  }
-}
-
-data "template_file" "kube_config_secret" {
-  template = file("${path.module}/template/kube_config_secret.yaml.tpl")
-
-  vars = {
-    CLUSTER_NAME = var.name
-    ENCODED_TEXT = base64encode(data.template_file.kube_config.rendered)
-  }
-}
-
 data "template_file" "aws_auth_map_roles" {
   count    = length(var.map_roles)
   template = file("${path.module}/template/aws_auth_map_roles.yaml.tpl")
@@ -65,5 +46,33 @@ data "template_file" "aws_auth" {
     rolearn   = module.worker.iam_role_arn
     map_roles = join("", data.template_file.aws_auth_map_roles.*.rendered)
     map_users = join("", data.template_file.aws_auth_map_users.*.rendered)
+  }
+}
+
+data "template_file" "aws_config" {
+  template = file("${path.module}/template/aws_config.yaml.tpl")
+
+  vars = {
+    REGION = var.region
+  }
+}
+
+data "template_file" "kube_config" {
+  template = file("${path.module}/template/kube_config.yaml.tpl")
+
+  vars = {
+    CERTIFICATE     = aws_eks_cluster.cluster.certificate_authority[0].data
+    MASTER_ENDPOINT = aws_eks_cluster.cluster.endpoint
+    CLUSTER_NAME    = var.name
+  }
+}
+
+data "template_file" "kube_config_secret" {
+  template = file("${path.module}/template/kube_config_secret.yaml.tpl")
+
+  vars = {
+    CLUSTER_NAME = var.name
+    AWS_CONFIG   = base64encode(data.template_file.aws_config.rendered)
+    KUBE_CONFIG  = base64encode(data.template_file.kube_config.rendered)
   }
 }

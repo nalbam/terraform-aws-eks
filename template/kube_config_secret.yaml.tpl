@@ -4,5 +4,7 @@ metadata:
   name: kube-config-${CLUSTER_NAME}
 type: Opaque
 data:
+  aws: |-
+    ${AWS_CONFIG}
   text: |-
-    ${ENCODED_TEXT}
+    ${KUBE_CONFIG}
