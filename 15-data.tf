@@ -50,7 +50,7 @@ data "template_file" "aws_auth" {
 }
 
 data "template_file" "aws_config" {
-  template = file("${path.module}/template/aws_config.yaml.tpl")
+  template = file("${path.module}/template/aws_config.conf.tpl")
 
   vars = {
     REGION = var.region
