@@ -18,7 +18,7 @@ resource "aws_iam_role_policy_attachment" "worker-AmazonEC2ContainerRegistryRead
 resource "aws_iam_role_policy" "worker_kube2iam" {
   name   = "EKSNodeKube2IAMPolicy"
   role   = module.worker.iam_role_name
-  policy = "${data.aws_iam_policy_document.worker_kube2iam.json}"
+  policy = data.aws_iam_policy_document.worker_kube2iam.json
 }
 
 data "aws_iam_policy_document" "worker_kube2iam" {
