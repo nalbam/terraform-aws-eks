@@ -43,18 +43,10 @@ resource "aws_iam_policy" "route53" {
 
 data "aws_iam_policy_document" "route53" {
   statement {
-    sid    = "Route53UpdateZones"
+    sid    = "eksWorkerRoute53Update"
     effect = "Allow"
     actions = [
       "route53:ChangeResourceRecordSets",
-    ]
-    resources = ["arn:aws:route53:::zonename/*"]
-  }
-
-  statement {
-    sid    = "Route53ListZones"
-    effect = "Allow"
-    actions = [
       "route53:ListHostedZones",
       "route53:ListResourceRecordSets",
     ]
