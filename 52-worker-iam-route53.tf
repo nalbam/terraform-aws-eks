@@ -11,7 +11,7 @@ resource "aws_iam_role" "route53" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "Service": "ec2.amazonaws.com"
+        "Service": "route53.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
     },
@@ -19,7 +19,7 @@ resource "aws_iam_role" "route53" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.name}-worker"
+        "AWS": "arn:aws:iam::${local.account_id}:role/${var.name}-worker"
       },
       "Action": "sts:AssumeRole"
     }
