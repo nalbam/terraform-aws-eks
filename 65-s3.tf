@@ -12,16 +12,46 @@ resource "aws_s3_bucket" "buckets" {
   }
 }
 
+resource "aws_iam_role" "worker-buckets" {
+  count = length(var.buckets)
+  name  = "${var.name}-${var.buckets[count.index]}"
+
+  assume_role_policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::${local.account_id}:role/${var.name}-worker"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+POLICY
+
+}
+
 resource "aws_iam_role_policy_attachment" "worker-buckets" {
   count      = length(var.buckets)
-  role       = module.worker.iam_role_name
+  role       = aws_iam_role.worker-buckets[count.index].iam_role_name
   policy_arn = aws_iam_policy.worker-buckets[count.index].arn
 }
 
 resource "aws_iam_policy" "worker-buckets" {
   count       = length(var.buckets)
-  name        = "${module.worker.iam_role_name}-s3-${var.buckets[count.index]}"
-  description = "S3 bucket policy for cluster ${var.name}"
+  name        = "${var.name}-${var.buckets[count.index]}"
+  description = "S3 bucket policy for ${var.name}-${var.buckets[count.index]}"
   path        = "/"
 
   policy = <<EOF
