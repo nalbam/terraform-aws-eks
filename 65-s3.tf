@@ -44,14 +44,14 @@ POLICY
 
 resource "aws_iam_role_policy_attachment" "worker-buckets" {
   count      = length(var.buckets)
-  role       = aws_iam_role.worker-buckets[count.index].iam_role_name
+  role       = aws_iam_role.worker-buckets[count.index].name
   policy_arn = aws_iam_policy.worker-buckets[count.index].arn
 }
 
 resource "aws_iam_policy" "worker-buckets" {
   count       = length(var.buckets)
   name        = "${var.name}-${var.buckets[count.index]}"
-  description = "S3 bucket policy for ${var.name}-${var.buckets[count.index]}"
+  description = "S3 bucket policy for ${var.name}"
   path        = "/"
 
   policy = <<EOF
