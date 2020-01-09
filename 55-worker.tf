@@ -1,13 +1,14 @@
 # worker
 
 module "worker" {
-  source = "github.com/nalbam/terraform-aws-asg?ref=v0.12.14"
+  source = "github.com/nalbam/terraform-aws-asg?ref=v0.12.16"
 
   name = "${var.name}-worker"
 
   vpc_id = var.vpc_id
 
   subnet_ids = var.subnet_ids
+  subnet_azs = var.subnet_azs
 
   launch_configuration_enable = var.launch_configuration_enable
   launch_template_enable      = var.launch_template_enable

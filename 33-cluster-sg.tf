@@ -20,16 +20,6 @@ resource "aws_security_group" "cluster" {
   }
 }
 
-resource "aws_security_group_rule" "cluster-worker" {
-  description              = "Allow node to communicate with the cluster API Server"
-  security_group_id        = aws_security_group.cluster.id
-  source_security_group_id = module.worker.security_group_id
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-  type                     = "ingress"
-}
-
 resource "aws_security_group_rule" "cluster-https" {
   description       = "Allow workstation to communicate with the cluster API Server"
   security_group_id = aws_security_group.cluster.id

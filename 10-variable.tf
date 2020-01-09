@@ -21,6 +21,11 @@ variable "subnet_ids" {
   default = []
 }
 
+variable "subnet_azs" {
+  type    = list(string)
+  default = []
+}
+
 variable "allow_ip_address" {
   description = "List of IP Address to permit access"
   type        = list(string)
