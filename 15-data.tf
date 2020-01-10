@@ -6,15 +6,13 @@ data "aws_availability_zones" "azs" {
 data "aws_caller_identity" "current" {
 }
 
-data "aws_ami" "worker" {
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${var.kubernetes_version}-*"]
+data "template_file" "aws_auth_workers" {
+  count    = length(var.workers)
+  template = file("${path.module}/template/aws_auth_workers.yaml.tpl")
+
+  vars = {
+    rolearn = var.workers[count.index]["rolearn"]
   }
-
-  owners = ["602401143452"] # Amazon Account ID
-
-  most_recent = true
 }
 
 data "template_file" "aws_auth_map_roles" {
@@ -43,7 +41,7 @@ data "template_file" "aws_auth" {
   template = file("${path.module}/template/aws_auth.yaml.tpl")
 
   vars = {
-    rolearn   = module.worker.iam_role_arn
+    workers   = join("", data.template_file.aws_auth_workers.*.rendered)
     map_roles = join("", data.template_file.aws_auth_map_roles.*.rendered)
     map_users = join("", data.template_file.aws_auth_map_users.*.rendered)
   }

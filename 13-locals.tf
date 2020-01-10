@@ -14,26 +14,3 @@ locals {
 EOF
 
 }
-
-locals {
-  config = <<EOF
-#
-
-# kube config
-aws eks update-kubeconfig --name ${var.name} --alias ${var.name}
-
-# or
-mkdir -p ~/.kube && cp .output/kube_config.yaml ~/.kube/config
-
-# files
-cat .output/aws_auth.yaml
-cat .output/kube_config.yaml
-
-# get
-kubectl get node -o wide
-kubectl get all --all-namespaces
-
-#
-EOF
-
-}

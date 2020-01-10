@@ -3,7 +3,7 @@
 terraform {
   backend "s3" {
     region = "ap-northeast-2"
-    bucket = "terraform-nalbam-seoul"
+    bucket = "terraform-mz-seoul"
     key    = "eks-demo.tfstate"
     # encrypt        = true
     # dynamodb_table = "terraform-resource-lock"
@@ -16,7 +16,7 @@ provider "aws" {
 }
 
 module "eks" {
-  source = "../../"
+  source = "../.."
 
   region = var.region
   name   = var.name
@@ -29,32 +29,7 @@ module "eks" {
 
   allow_ip_address = var.allow_ip_address
 
+  workers   = local.workers
   map_roles = local.map_roles
   map_users = local.map_users
-
-  launch_configuration_enable = var.launch_configuration_enable
-  launch_template_enable      = var.launch_template_enable
-
-  launch_each_subnet          = var.launch_each_subnet
-  associate_public_ip_address = var.associate_public_ip_address
-
-  instance_type = var.instance_type
-
-  mixed_instances = var.mixed_instances
-
-  volume_type = var.volume_type
-  volume_size = var.volume_size
-
-  min = var.min
-  max = var.max
-
-  on_demand_base = var.on_demand_base
-  on_demand_rate = var.on_demand_rate
-
-  key_name = var.key_name
-  key_path = var.key_path
-
-  launch_efs_enable = var.launch_efs_enable
-
-  buckets = var.buckets
 }

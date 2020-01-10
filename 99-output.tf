@@ -1,9 +1,5 @@
 # output
 
-output "config" {
-  value = local.config
-}
-
 output "name" {
   value = aws_eks_cluster.cluster.name
 }
@@ -16,10 +12,14 @@ output "certificate_authority" {
   value = aws_eks_cluster.cluster.certificate_authority[0].data
 }
 
-output "efs_id" {
-  value = aws_efs_file_system.efs.*.id
+output "security_group_id" {
+  value = aws_security_group.cluster.id
 }
 
-output "buckets" {
-  value = aws_s3_bucket.buckets.*.bucket
+output "role_arn" {
+  value = aws_iam_role.cluster.arn
+}
+
+output "version" {
+  value = aws_eks_cluster.cluster.version
 }
