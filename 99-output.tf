@@ -1,15 +1,27 @@
 # output
 
+output "id" {
+  value = data.aws_eks_cluster.cluster.id
+}
+
 output "name" {
-  value = aws_eks_cluster.cluster.name
+  value = data.aws_eks_cluster.cluster.name
+}
+
+output "version" {
+  value = data.aws_eks_cluster.cluster.version
 }
 
 output "endpoint" {
-  value = aws_eks_cluster.cluster.endpoint
+  value = data.aws_eks_cluster.cluster.endpoint
 }
 
 output "certificate_authority" {
-  value = aws_eks_cluster.cluster.certificate_authority[0].data
+  value = data.aws_eks_cluster.cluster.certificate_authority.0.data
+}
+
+output "token" {
+  value = data.aws_eks_cluster_auth.cluster.token
 }
 
 output "security_group_id" {
@@ -18,8 +30,4 @@ output "security_group_id" {
 
 output "role_arn" {
   value = aws_iam_role.cluster.arn
-}
-
-output "version" {
-  value = aws_eks_cluster.cluster.version
 }

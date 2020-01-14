@@ -1,6 +1,6 @@
     - userarn: ${userarn}
       username: ${username}
-%{ if group != "" }
+%{ if groups != "" }
       groups:
-        - ${group}
+        - ${groups}
 %{ endif }

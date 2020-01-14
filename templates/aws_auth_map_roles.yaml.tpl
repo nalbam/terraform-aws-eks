@@ -1,6 +1,6 @@
     - rolearn: ${rolearn}
       username: ${username}
-%{ if group != "" }
+%{ if groups != "" }
       groups:
-        - ${group}
+        - ${groups}
 %{ endif }

@@ -4,64 +4,42 @@ variable "region" {
   description = "The region to deploy the cluster in, e.g: us-east-1"
 }
 
-variable "name" {
-  description = "Name of the cluster, e.g: seoul-dev-demo-eks"
+variable "config" {
+  type = object({
+    name               = string
+    vpc_id             = string
+    subnet_ids         = list(string)
+    kubernetes_version = string
+    allow_ip_address   = list(string)
+    workers            = list(string)
+    map_roles = list(object({
+      rolearn  = string
+      username = string
+      groups   = list(string)
+    }))
+    map_users = list(object({
+      userarn  = string
+      username = string
+      groups   = list(string)
+    }))
+  })
+  default = {
+    kubernetes_version = "1.14"
+    allow_ip_address   = []
+    workers            = []
+    map_roles          = []
+    map_users          = []
+  }
 }
 
-variable "kubernetes_version" {
-  default = "1.14"
+variable "enable_irsa" {
+  description = "Whether to create OpenID Connect Provider for EKS to enable IRSA"
+  type        = bool
+  default     = false
 }
 
-variable "vpc_id" {
-  default = ""
-}
-
-variable "subnet_ids" {
-  type    = list(string)
-  default = []
-}
-
-variable "subnet_azs" {
-  type    = list(string)
-  default = []
-}
-
-variable "allow_ip_address" {
-  description = "List of IP Address to permit access"
-  type        = list(string)
-  default     = []
-}
-
-variable "workers" {
-  description = "Additional IAM roles to add to the aws-auth configmap."
-  type = list(object({
-    rolearn = string
-  }))
-  default = []
-}
-
-variable "map_roles" {
-  description = "Additional IAM roles to add to the aws-auth configmap."
-  type = list(object({
-    rolearn  = string
-    username = string
-    group    = string
-  }))
-  default = []
-}
-
-variable "map_users" {
-  description = "Additional IAM users to add to the aws-auth configmap."
-  type = list(object({
-    userarn  = string
-    username = string
-    group    = string
-  }))
-  default = []
-}
-
-variable "local_exec_interpreter" {
-  description = "Command to run for local-exec resources. Must be a shell-style interpreter."
-  type        = list(string)
-  default     = ["/bin/sh", "-c"]
+variable "eks_oidc_thumbprint" {
+  type        = string
+  description = "Thumbprint of Root CA for EKS OIDC, Valid until 2037"
+  default     = "9e99a48a9960b14926bb7f3b02e22da2b0ab7280"
 }

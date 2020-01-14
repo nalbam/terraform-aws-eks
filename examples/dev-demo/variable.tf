@@ -31,28 +31,52 @@ variable "allow_ip_address" {
 }
 
 locals {
-  workers = [
-    {
-      rolearn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/seoul-dev-demo-eks-worker"
+  names = [
+    "${var.name}",
+    # "${var.name}-b",
+    # "${var.name}-c",
+  ]
+
+  account_id = data.aws_caller_identity.current.account_id
+}
+
+locals {
+  config = [
+    for name in local.names : {
+      name               = name,
+      vpc_id             = data.terraform_remote_state.vpc.outputs.vpc_id,
+      subnet_ids         = data.terraform_remote_state.vpc.outputs.private_subnet_ids,
+      kubernetes_version = var.kubernetes_version,
+      allow_ip_address   = var.allow_ip_address,
+      workers = [
+        "arn:aws:iam::${local.account_id}:role/${name}-worker",
+        "arn:aws:iam::${local.account_id}:role/${name}-private",
+        "arn:aws:iam::${local.account_id}:role/${name}-public",
+      ],
+      map_roles = local.map_roles,
+      map_users = local.map_users,
     },
   ]
+}
+
+locals {
   map_roles = [
     {
-      rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/seoul-dev-demo-bastion"
+      rolearn  = "arn:aws:iam::${local.account_id}:role/seoul-dev-demo-bastion"
       username = "iam-role-bastion"
-      group    = "system:masters"
+      groups   = ["system:masters"]
     },
   ]
   map_users = [
     {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/jungyoul.yu"
+      userarn  = "arn:aws:iam::${local.account_id}:user/jungyoul.yu"
       username = "jungyoul.yu"
-      group    = "system:masters"
+      groups   = ["system:masters"]
     },
     {
-      userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/developer"
+      userarn  = "arn:aws:iam::${local.account_id}:user/developer"
       username = "developer"
-      group    = ""
+      groups   = [""]
     },
   ]
 }
