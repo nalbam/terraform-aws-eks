@@ -23,13 +23,9 @@ variable "config" {
       groups   = list(string)
     }))
   })
-  default = {
-    kubernetes_version = "1.14"
-    allow_ip_address   = []
-    workers            = []
-    map_roles          = []
-    map_users          = []
-  }
+  # default = {
+  #   kubernetes_version = "1.14"
+  # }
 }
 
 variable "enable_irsa" {
