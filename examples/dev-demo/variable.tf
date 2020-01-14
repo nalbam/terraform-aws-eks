@@ -33,8 +33,8 @@ variable "allow_ip_address" {
 locals {
   names = [
     "${var.name}",
-    # "${var.name}-b",
-    # "${var.name}-c",
+    "${var.name}-b",
+    "${var.name}-c",
   ]
 
   account_id = data.aws_caller_identity.current.account_id

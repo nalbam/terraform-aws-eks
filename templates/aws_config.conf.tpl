@@ -1,3 +1,3 @@
 [default]
 region = ${REGION}
-output = json
+output = ${OUTPUT}

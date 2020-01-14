@@ -15,13 +15,6 @@ provider "aws" {
   region = var.region
 }
 
-provider "kubernetes" {
-  host                   = module.eks.endpoint
-  cluster_ca_certificate = base64decode(module.eks.certificate_authority)
-  token                  = module.eks.token
-  load_config_file       = false
-}
-
 module "eks" {
   source = "../.."
   region = var.region
