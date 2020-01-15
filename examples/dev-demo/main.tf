@@ -16,7 +16,24 @@ provider "aws" {
 }
 
 module "eks" {
-  source = "../.."
+  source = "../../"
+
   region = var.region
-  config = local.config.0
+  name   = var.name
+
+  vpc_id     = data.terraform_remote_state.vpc.outputs.vpc_id
+  subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnet_ids
+
+  kubernetes_version = var.kubernetes_version
+
+  allow_ip_address = var.allow_ip_address
+
+  workers = [
+    "arn:aws:iam::${local.account_id}:role/${var.name}-worker",
+    "arn:aws:iam::${local.account_id}:role/${var.name}-private",
+    "arn:aws:iam::${local.account_id}:role/${var.name}-public",
+  ]
+
+  map_roles = local.map_roles
+  map_users = local.map_users
 }

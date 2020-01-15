@@ -16,9 +16,9 @@ output "endpoint" {
   value = module.eks.endpoint
 }
 
-# output "certificate_authority" {
-#   value = module.eks.certificate_authority
-# }
+output "certificate_authority" {
+  value = module.eks.certificate_authority
+}
 
 # output "token" {
 #   value = module.eks.token

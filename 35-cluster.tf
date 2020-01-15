@@ -1,12 +1,12 @@
 # eks cluster
 
 resource "aws_eks_cluster" "cluster" {
-  name     = var.config.name
+  name     = var.name
   role_arn = aws_iam_role.cluster.arn
-  version  = var.config.kubernetes_version
+  version  = var.kubernetes_version
 
   vpc_config {
-    subnet_ids         = var.config.subnet_ids
+    subnet_ids         = var.subnet_ids
     security_group_ids = [aws_security_group.cluster.id]
   }
 
