@@ -20,10 +20,6 @@ output "certificate_authority" {
   value = module.eks.certificate_authority
 }
 
-# output "token" {
-#   value = module.eks.token
-# }
-
 output "security_group_id" {
   value = module.eks.security_group_id
 }
