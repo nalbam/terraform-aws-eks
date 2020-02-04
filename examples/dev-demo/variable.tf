@@ -17,7 +17,7 @@ variable "region" {
 }
 
 variable "name" {
-  default = "seoul-dev-demo-eks"
+  default = "dev-demo-eks"
 }
 
 variable "kubernetes_version" {
@@ -43,7 +43,7 @@ locals {
 locals {
   map_roles = [
     {
-      rolearn  = "arn:aws:iam::${local.account_id}:role/seoul-dev-demo-bastion"
+      rolearn  = "arn:aws:iam::${local.account_id}:role/dev-demo-bastion"
       username = "iam-role-bastion"
       groups   = ["system:masters"]
     },
