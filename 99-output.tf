@@ -28,6 +28,10 @@ output "security_group_id" {
   value = aws_security_group.cluster.id
 }
 
-output "role_arn" {
+output "iam_role_arn" {
   value = aws_iam_role.cluster.arn
+}
+
+output "iam_role_name" {
+  value = aws_iam_role.cluster.name
 }
