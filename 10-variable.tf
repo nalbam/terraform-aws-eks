@@ -9,7 +9,7 @@ variable "name" {
 }
 
 variable "kubernetes_version" {
-  default = "1.14"
+  default = "1.16"
 }
 
 variable "vpc_id" {
@@ -41,7 +41,7 @@ variable "cluster_log_retention_in_days" {
 }
 
 variable "allow_ip_address" {
-  description = "List of IP Address to permit access"
+  description = "List of IP Address to permit access."
   type        = list(string)
   default     = []
 }

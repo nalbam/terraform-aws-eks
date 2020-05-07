@@ -21,10 +21,10 @@ module "eks" {
   region = var.region
   name   = var.name
 
+  kubernetes_version = var.kubernetes_version
+
   vpc_id     = data.terraform_remote_state.vpc.outputs.vpc_id
   subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnet_ids
-
-  kubernetes_version = var.kubernetes_version
 
   allow_ip_address = var.allow_ip_address
 

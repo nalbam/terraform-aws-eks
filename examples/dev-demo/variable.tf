@@ -21,7 +21,7 @@ variable "name" {
 }
 
 variable "kubernetes_version" {
-  default = "1.14"
+  default = "1.16"
 }
 
 variable "allow_ip_address" {
