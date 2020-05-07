@@ -10,8 +10,24 @@ resource "aws_eks_cluster" "cluster" {
     security_group_ids = [aws_security_group.cluster.id]
   }
 
+  cluster_enabled_log_types = var.cluster_enabled_log_types
+
   depends_on = [
     aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.cluster-AmazonEKSServicePolicy,
+    aws_cloudwatch_log_group.this,
   ]
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  count = length(var.cluster_enabled_log_types) > 0 ? 1 : 0
+
+  name              = "/aws/eks/${var.name}/cluster"
+  retention_in_days = var.cluster_log_retention_in_days
+  kms_key_id        = var.cluster_log_kms_key_id
+
+  tags = {
+    "Name"              = var.name
+    "KubernetesCluster" = var.name
+  }
 }

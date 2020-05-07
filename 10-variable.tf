@@ -21,6 +21,25 @@ variable "subnet_ids" {
   default = []
 }
 
+variable "cluster_enabled_log_types" {
+  description = "A list of the desired control plane logging to enable. For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)"
+  type        = list(string)
+  default     = []
+  # api, audit, authenticator, controllerManager, scheduler
+}
+
+variable "cluster_log_kms_key_id" {
+  description = "If a KMS Key ARN is set, this key will be used to encrypt the corresponding log group. Please be sure that the KMS Key has an appropriate key policy (https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html)"
+  type        = string
+  default     = ""
+}
+
+variable "cluster_log_retention_in_days" {
+  description = "Number of days to retain log events. Default retention - 90 days."
+  type        = number
+  default     = 90
+}
+
 variable "allow_ip_address" {
   description = "List of IP Address to permit access"
   type        = list(string)
