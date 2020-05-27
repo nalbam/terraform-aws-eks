@@ -13,8 +13,6 @@ resource "kubernetes_config_map" "aws_auth" {
     namespace = "kube-system"
   }
 
-  depends_on = [aws_eks_cluster.cluster]
-
   data = {
     mapRoles = <<EOF
 ${join("", distinct(concat(data.template_file.aws_auth_workers.*.rendered)))}
@@ -24,4 +22,5 @@ EOF
     # mapAccounts = yamlencode(var.map_accounts)
   }
 
+  depends_on = [aws_eks_cluster.cluster]
 }
