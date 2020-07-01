@@ -88,3 +88,8 @@ variable "save_local_file" {
   type    = bool
   default = false
 }
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

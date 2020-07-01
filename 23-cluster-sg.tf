@@ -13,11 +13,12 @@ resource "aws_security_group" "cluster" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    "Name"                              = var.name
-    "KubernetesCluster"                 = var.name
-    "kubernetes.io/cluster/${var.name}" = "owned"
-  }
+  tags = merge(
+    local.tags,
+    {
+      "kubernetes.io/cluster/${var.name}" = "owned"
+    },
+  )
 }
 
 resource "aws_security_group_rule" "cluster-https" {
