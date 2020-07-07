@@ -84,6 +84,12 @@ variable "eks_oidc_thumbprint" {
   default     = "9e99a48a9960b14926bb7f3b02e22da2b0ab7280"
 }
 
+variable "efs_enable" {
+  description = "EFS 스토리지를 생성 여부를 선택 합니다."
+  type        = bool
+  default     = false
+}
+
 variable "save_local_file" {
   type    = bool
   default = false
