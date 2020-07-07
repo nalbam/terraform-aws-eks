@@ -28,10 +28,5 @@ resource "aws_cloudwatch_log_group" "this" {
   retention_in_days = var.cluster_log_retention_in_days
   kms_key_id        = var.cluster_log_kms_key_id
 
-  tags = merge(
-    local.tags,
-    {
-      "kubernetes.io/cluster/${var.name}" = "owned"
-    },
-  )
+  tags = local.sub_tags
 }

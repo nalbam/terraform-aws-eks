@@ -5,11 +5,7 @@ resource "aws_efs_file_system" "this" {
 
   creation_token = var.name
 
-  tags = {
-    "Name"                              = "${var.name}-efs"
-    "KubernetesCluster"                 = var.name
-    "kubernetes.io/cluster/${var.name}" = "owned"
-  }
+  tags = local.sub_tags
 }
 
 resource "aws_security_group" "efs" {
@@ -27,11 +23,7 @@ resource "aws_security_group" "efs" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    "Name"                              = "${var.name}-efs"
-    "KubernetesCluster"                 = var.name
-    "kubernetes.io/cluster/${var.name}" = "owned"
-  }
+  tags = local.sub_tags
 }
 
 resource "aws_efs_mount_target" "this" {

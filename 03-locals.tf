@@ -12,4 +12,11 @@ locals {
     },
     var.tags,
   )
+
+  sub_tags = merge(
+    local.tags,
+    {
+      "kubernetes.io/cluster/${var.name}" = "owned"
+    },
+  )
 }

@@ -13,12 +13,7 @@ resource "aws_security_group" "worker" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge(
-    local.tags,
-    {
-      "kubernetes.io/cluster/${var.name}" = "owned"
-    },
-  )
+  tags = local.sub_tags
 }
 
 resource "aws_security_group_rule" "cluster-worker" {
