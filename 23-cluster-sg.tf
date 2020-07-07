@@ -1,7 +1,7 @@
 # cluster security group
 
 resource "aws_security_group" "cluster" {
-  name        = var.name
+  name        = "${var.name}-cluster"
   description = "Cluster communication with nodes"
 
   vpc_id = var.vpc_id

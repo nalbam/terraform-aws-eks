@@ -32,7 +32,7 @@ output "oidc_arn" {
   value = join("", aws_iam_openid_connect_provider.cluster.*.arn)
 }
 
-output "security_group_id" {
+output "cluster_security_group_id" {
   value = aws_security_group.cluster.id
 }
 
@@ -40,6 +40,18 @@ output "cluster_role_arn" {
   value = aws_iam_role.cluster.arn
 }
 
+output "cluster_role_name" {
+  value = aws_iam_role.cluster.name
+}
+
+output "worker_security_group_id" {
+  value = aws_security_group.worker.id
+}
+
 output "worker_role_arn" {
   value = aws_iam_role.worker.arn
+}
+
+output "worker_role_name" {
+  value = aws_iam_role.worker.name
 }
