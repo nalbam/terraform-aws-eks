@@ -28,18 +28,18 @@ output "oidc_issuer" {
   value = join("", data.aws_eks_cluster.cluster.*.identity.0.oidc.0.issuer)
 }
 
-output "oidc_issuer_arn" {
-  value = join("", aws_iam_openid_connect_provider.oidc_provider.*.arn)
+output "oidc_arn" {
+  value = join("", aws_iam_openid_connect_provider.cluster.*.arn)
 }
 
 output "security_group_id" {
   value = aws_security_group.cluster.id
 }
 
-output "iam_role_arn" {
+output "cluster_role_arn" {
   value = aws_iam_role.cluster.arn
 }
 
-output "iam_role_name" {
-  value = aws_iam_role.cluster.name
+output "worker_role_arn" {
+  value = aws_iam_role.worker.arn
 }
