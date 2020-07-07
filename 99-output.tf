@@ -29,7 +29,7 @@ output "oidc_issuer" {
 }
 
 output "oidc_arn" {
-  value = join("", aws_iam_openid_connect_provider.cluster.*.arn)
+  value = element(concat(aws_iam_openid_connect_provider.cluster.*.arn, [""]), 0)
 }
 
 output "cluster_security_group_id" {
@@ -57,5 +57,5 @@ output "worker_role_name" {
 }
 
 output "efs_id" {
-  value = join("", aws_efs_file_system.this.*.id)
+  value = element(concat(aws_efs_file_system.this.*.id, [""]), 0)
 }
