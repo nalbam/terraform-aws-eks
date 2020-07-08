@@ -32,10 +32,6 @@ output "oidc_arn" {
   value = element(concat(aws_iam_openid_connect_provider.cluster.*.arn, [""]), 0)
 }
 
-output "cluster_security_group_id" {
-  value = aws_security_group.cluster.id
-}
-
 output "cluster_role_arn" {
   value = aws_iam_role.cluster.arn
 }
@@ -44,8 +40,12 @@ output "cluster_role_name" {
   value = aws_iam_role.cluster.name
 }
 
-output "worker_security_group_id" {
-  value = aws_security_group.worker.id
+output "cluster_security_group_id" {
+  value = aws_security_group.cluster.id
+}
+
+output "worker_ami_id" {
+  value = data.aws_ami.worker.id
 }
 
 output "worker_role_arn" {
@@ -56,8 +56,8 @@ output "worker_role_name" {
   value = aws_iam_role.worker.name
 }
 
-output "worker_ami_id" {
-  value = data.aws_ami.worker.id
+output "worker_security_group_id" {
+  value = aws_security_group.worker.id
 }
 
 output "efs_id" {
