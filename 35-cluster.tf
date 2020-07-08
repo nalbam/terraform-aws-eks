@@ -12,7 +12,12 @@ resource "aws_eks_cluster" "cluster" {
 
   enabled_cluster_log_types = var.cluster_log_types
 
-  tags = local.tags
+  tags = merge(
+    {
+      "Name" = var.name
+    },
+    local.tags,
+  )
 
   depends_on = [
     aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
@@ -28,5 +33,10 @@ resource "aws_cloudwatch_log_group" "this" {
   retention_in_days = var.cluster_log_retention_in_days
   kms_key_id        = var.cluster_log_kms_key_id
 
-  tags = local.sub_tags
+  tags = merge(
+    {
+      "Name" = var.name
+    },
+    local.tags,
+  )
 }

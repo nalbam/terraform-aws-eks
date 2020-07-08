@@ -13,7 +13,12 @@ resource "aws_security_group" "worker" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = local.sub_tags
+  tags = merge(
+    {
+      "Name" = "${var.name}-worker"
+    },
+    local.tags,
+  )
 }
 
 resource "aws_security_group_rule" "cluster-worker" {

@@ -7,16 +7,10 @@ locals {
 locals {
   tags = merge(
     {
-      "Name"              = var.name
-      "KubernetesCluster" = var.name
-    },
-    var.tags,
-  )
-
-  sub_tags = merge(
-    local.tags,
-    {
+      "Name"                              = var.name
+      "KubernetesCluster"                 = var.name
       "kubernetes.io/cluster/${var.name}" = "owned"
     },
+    var.tags,
   )
 }
