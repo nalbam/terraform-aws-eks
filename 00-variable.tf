@@ -72,19 +72,19 @@ variable "map_users" {
   default = []
 }
 
-variable "enable_irsa" {
-  description = "Whether to create OpenID Connect Provider for EKS to enable IRSA"
-  type        = bool
-  default     = false
-}
-
 variable "eks_oidc_thumbprint" {
   description = "Thumbprint of Root CA for EKS OIDC, Valid until 2037"
   type        = string
   default     = "9e99a48a9960b14926bb7f3b02e22da2b0ab7280"
 }
 
-variable "efs_enable" {
+variable "irsa_enabled" {
+  description = "Whether to create OpenID Connect Provider for EKS to enable IRSA"
+  type        = bool
+  default     = false
+}
+
+variable "efs_enabled" {
   description = "EFS 스토리지를 생성 여부를 선택 합니다."
   type        = bool
   default     = false
