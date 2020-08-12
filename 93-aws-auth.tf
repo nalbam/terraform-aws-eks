@@ -19,7 +19,6 @@ ${join("", distinct(concat(data.template_file.aws_auth_workers.*.rendered)))}
 %{if length(var.map_roles) != 0}${yamlencode(var.map_roles)}%{endif}
 EOF
     mapUsers = yamlencode(var.map_users)
-    # mapAccounts = yamlencode(var.map_accounts)
   }
 
   depends_on = [aws_eks_cluster.cluster]
