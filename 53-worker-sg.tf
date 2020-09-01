@@ -21,13 +21,13 @@ resource "aws_security_group" "worker" {
   )
 }
 
-resource "aws_security_group_rule" "cluster-worker" {
-  description              = "Allow worker to communicate with the cluster API Server"
-  security_group_id        = aws_security_group.cluster.id
+resource "aws_security_group_rule" "worker-worker" {
+  description              = "Allow worker to communicate with each other"
+  security_group_id        = aws_security_group.worker.id
   source_security_group_id = aws_security_group.worker.id
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "-1"
   type                     = "ingress"
 }
 
@@ -41,13 +41,13 @@ resource "aws_security_group_rule" "worker-cluster" {
   type                     = "ingress"
 }
 
-resource "aws_security_group_rule" "worker-worker" {
-  description              = "Allow worker to communicate with each other"
-  security_group_id        = aws_security_group.worker.id
+resource "aws_security_group_rule" "cluster-worker" {
+  description              = "Allow worker to communicate with the cluster API Server"
+  security_group_id        = aws_security_group.cluster.id
   source_security_group_id = aws_security_group.worker.id
-  from_port                = 0
-  to_port                  = 65535
-  protocol                 = "-1"
+  from_port                = 443
+  to_port                  = 443
+  protocol                 = "tcp"
   type                     = "ingress"
 }
 
