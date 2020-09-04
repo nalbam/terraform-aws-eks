@@ -10,7 +10,10 @@ resource "aws_iam_role" "cluster" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "eks.amazonaws.com"
+        "Service": [
+          "eks.amazonaws.com",
+          "eks-fargate-pods.amazonaws.com"
+        ]
       },
       "Action": "sts:AssumeRole"
     }
