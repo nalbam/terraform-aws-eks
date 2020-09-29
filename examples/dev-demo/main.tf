@@ -8,7 +8,6 @@ terraform {
     dynamodb_table = "terraform-nalbam-seoul"
     encrypt        = true
   }
-  required_version = ">= 0.12"
 }
 
 provider "aws" {
