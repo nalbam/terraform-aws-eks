@@ -9,7 +9,7 @@ variable "name" {
 }
 
 variable "kubernetes_version" {
-  default = "1.16"
+  default = "1.18"
 }
 
 variable "vpc_id" {
@@ -37,7 +37,7 @@ variable "cluster_log_kms_key_id" {
 variable "cluster_log_retention_in_days" {
   description = "Number of days to retain log events. Default retention - 90 days."
   type        = number
-  default     = 90
+  default     = 7
 }
 
 variable "allow_ip_address" {
