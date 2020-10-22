@@ -21,14 +21,6 @@ terraform init
 terraform plan
 terraform apply
 
-# kube config
-mkdir -p ~/.kube && cp .output/kube_config.yaml ~/.kube/config
-
-# files
-cat .output/aws_auth.yaml
-cat .output/kube_config.yaml
-cat .output/kube_config_secret.yaml
-
 # get
 kubectl get node -o wide
 kubectl get all --all-namespaces
