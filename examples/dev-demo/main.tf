@@ -33,23 +33,23 @@ module "eks" {
 
   roles = [
     {
-      name = "dev-bastion"
+      name   = "dev-bastion"
       groups = ["system:masters"]
     },
   ]
 
   users = [
     {
-      name = "bruce"
+      name   = "bruce"
       groups = ["system:masters"]
     },
     {
-      name = "developer"
-      groups = []
+      name   = "developer"
+      groups = [""]
     },
     {
-      name = "readonly"
-      groups = []
+      name   = "readonly"
+      groups = [""]
     },
   ]
 }

@@ -4,7 +4,7 @@ data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
     region = "ap-northeast-2"
-    bucket = "terraform-workshop-seoul"
+    bucket = "terraform-workshop-082867736673"
     key    = "vpc-public.tfstate"
   }
 }
@@ -14,7 +14,7 @@ variable "region" {
 }
 
 variable "name" {
-  default = "dev-demo-eks"
+  default = "eks-demo"
 }
 
 variable "kubernetes_version" {

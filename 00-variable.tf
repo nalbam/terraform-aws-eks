@@ -47,7 +47,7 @@ variable "allow_ip_address" {
 }
 
 variable "workers" {
-  description = "Additional IAM roles to add to the aws-auth configmap."
+  description = "Additional worker node roles to add to the aws-auth configmap."
   type        = list(string)
   default     = []
 }

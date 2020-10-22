@@ -13,6 +13,16 @@ resource "kubernetes_config_map" "aws_auth" {
     namespace = "kube-system"
   }
 
+#   data = {
+#     mapRoles = <<EOF
+# ${join("", distinct(concat(data.template_file.aws_auth_workers.*.rendered)))}
+# ${join("", distinct(concat(data.template_file.aws_auth_roles.*.rendered)))}
+# EOF
+#     mapUsers = <<EOF
+# ${join("", distinct(concat(data.template_file.aws_auth_users.*.rendered)))}
+# EOF
+#   }
+
   data = {
     mapRoles = yamlencode(local.roles)
     mapUsers = yamlencode(local.users)

@@ -14,29 +14,29 @@ locals {
   roles = concat(
     [
       for item in var.workers:
-      map(
-        rolearn  , format("arn:aws:iam::%s:role/%s", local.account_id, item),
-        username , "system:node:{{EC2PrivateDNSName}}",
-        groups   , ["system:bootstrappers", "system:nodes"],
-      )
+      {
+        "rolearn" = format("arn:aws:iam::%s:role/%s", local.account_id, item)
+        "username"= "system:node:{{EC2PrivateDNSName}}"
+        "groups"  = ["system:bootstrappers", "system:nodes"]
+      }
     ],
     [
       for item in var.roles:
-      map(
-        rolearn  , format("arn:aws:iam::%s:role/%s", local.account_id, item["name"]),
-        username , format("iam-role-%s", item["name"]),
-        groups   , item["groups"],
-      )
+      {
+        "rolearn" = format("arn:aws:iam::%s:role/%s", local.account_id, item["name"])
+        "username"= format("iam-role-%s", item["name"])
+        "groups"  = item["groups"]
+      }
     ],
   )
 
   users = [
     for item in var.users:
-    map(
-      rolearn  , format("arn:aws:iam::%s:user/%s", local.account_id, item["name"]),
-      username , format("iam-user-%s", item["name"]),
-      groups   , item["groups"],
-    )
+    {
+      "userarn" = format("arn:aws:iam::%s:user/%s", local.account_id, item["name"])
+      "username"= format("iam-user-%s", item["name"])
+      "groups"  = item["groups"]
+    }
   ]
 }
 

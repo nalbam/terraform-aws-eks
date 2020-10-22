@@ -16,16 +16,16 @@ output "endpoint" {
   value = module.eks.endpoint
 }
 
-output "certificate_authority" {
-  value = module.eks.certificate_authority
+# output "certificate_authority" {
+#   value = module.eks.certificate_authority
+# }
+
+output "worker_role_arn" {
+  value = module.eks.worker_role_arn
 }
 
-output "security_group_id" {
-  value = module.eks.security_group_id
-}
-
-output "role_arn" {
-  value = module.eks.role_arn
+output "worker_security_group_id" {
+  value = module.eks.worker_security_group_id
 }
 
 output "update-kubeconfig" {

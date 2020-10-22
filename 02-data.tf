@@ -22,12 +22,3 @@ data "aws_ami" "worker" {
   owners = ["602401143452"] # Amazon Account ID
   most_recent = true
 }
-
-# # aws_auth_workers
-# data "template_file" "aws_auth_workers" {
-#   count    = length(var.workers)
-#   template = file("${path.module}/templates/aws_auth_workers.yaml.tpl")
-#   vars = {
-#     rolearn = var.workers[count.index]
-#   }
-# }
