@@ -3,9 +3,9 @@
 terraform {
   backend "s3" {
     region         = "ap-northeast-2"
-    bucket         = "terraform-nalbam-seoul"
+    bucket         = "terraform-workshop-082867736673"
     key            = "eks-demo.tfstate"
-    dynamodb_table = "terraform-nalbam-seoul"
+    dynamodb_table = "terraform-resource-lock"
     encrypt        = true
   }
 }
@@ -31,6 +31,25 @@ module "eks" {
     format("%s-worker", var.name),
   ]
 
-  roles = []
-  users = []
+  roles = [
+    {
+      name = "dev-bastion"
+      groups = ["system:masters"]
+    },
+  ]
+
+  users = [
+    {
+      name = "bruce"
+      groups = ["system:masters"]
+    },
+    {
+      name = "developer"
+      groups = []
+    },
+    {
+      name = "readonly"
+      groups = []
+    },
+  ]
 }

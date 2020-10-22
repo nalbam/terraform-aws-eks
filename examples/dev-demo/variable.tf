@@ -4,8 +4,8 @@ data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
     region = "ap-northeast-2"
-    bucket = "terraform-nalbam-seoul"
-    key    = "vpc-demo.tfstate"
+    bucket = "terraform-workshop-seoul"
+    key    = "vpc-public.tfstate"
   }
 }
 
@@ -18,7 +18,7 @@ variable "name" {
 }
 
 variable "kubernetes_version" {
-  default = "1.16"
+  default = "1.18"
 }
 
 variable "allow_ip_address" {
