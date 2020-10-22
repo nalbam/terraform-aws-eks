@@ -52,24 +52,16 @@ variable "workers" {
   default     = []
 }
 
-variable "map_roles" {
+variable "roles" {
   description = "Additional IAM roles to add to the aws-auth configmap."
-  type = list(object({
-    rolearn  = string
-    username = string
-    groups   = list(string)
-  }))
-  default = []
+  # type        = list(map)
+  default     = []
 }
 
-variable "map_users" {
+variable "users" {
   description = "Additional IAM users to add to the aws-auth configmap."
-  type = list(object({
-    userarn  = string
-    username = string
-    groups   = list(string)
-  }))
-  default = []
+  # type        = list(map)
+  default     = []
 }
 
 variable "eks_oidc_thumbprint" {

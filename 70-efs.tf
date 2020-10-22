@@ -1,5 +1,9 @@
 # efs
 
+locals {
+  efs_name = format("%s-efs", var.name)
+}
+
 resource "aws_efs_file_system" "this" {
   count = var.efs_enabled ? 1 : 0
 
@@ -7,7 +11,7 @@ resource "aws_efs_file_system" "this" {
 
   tags = merge(
     {
-      "Name" = "${var.name}-efs"
+      "Name" = local.efs_name
     },
     local.tags,
   )
@@ -16,7 +20,7 @@ resource "aws_efs_file_system" "this" {
 resource "aws_security_group" "efs" {
   count = var.efs_enabled ? 1 : 0
 
-  name        = "${var.name}-efs"
+  name        = local.efs_name
   description = "Security group for efs in the cluster"
 
   vpc_id = var.vpc_id
@@ -30,7 +34,7 @@ resource "aws_security_group" "efs" {
 
   tags = merge(
     {
-      "Name" = "${var.name}-efs"
+      "Name" = local.efs_name
     },
     local.tags,
   )

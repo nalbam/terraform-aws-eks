@@ -14,11 +14,8 @@ resource "kubernetes_config_map" "aws_auth" {
   }
 
   data = {
-    mapRoles = <<EOF
-${join("", distinct(concat(data.template_file.aws_auth_workers.*.rendered)))}
-%{if length(var.map_roles) != 0}${yamlencode(var.map_roles)}%{endif}
-EOF
-    mapUsers = yamlencode(var.map_users)
+    mapRoles = yamlencode(local.roles)
+    mapUsers = yamlencode(local.users)
   }
 
   depends_on = [aws_eks_cluster.cluster]

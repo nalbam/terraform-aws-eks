@@ -1,7 +1,7 @@
 # cluster security group
 
 resource "aws_security_group" "cluster" {
-  name        = "${var.name}-cluster"
+  name        = local.cluster_name
   description = "Cluster communication with nodes"
 
   vpc_id = var.vpc_id
@@ -15,7 +15,7 @@ resource "aws_security_group" "cluster" {
 
   tags = merge(
     {
-      "Name" = "${var.name}-cluster"
+      "Name" = local.cluster_name
     },
     local.tags,
   )

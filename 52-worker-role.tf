@@ -1,7 +1,7 @@
 # worker iam role
 
 resource "aws_iam_role" "worker" {
-  name = "${var.name}-worker"
+  name = local.worker_name
 
   assume_role_policy = <<POLICY
 {

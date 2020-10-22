@@ -28,11 +28,9 @@ module "eks" {
   allow_ip_address = var.allow_ip_address
 
   workers = [
-    "arn:aws:iam::${local.account_id}:role/${var.name}-worker",
-    "arn:aws:iam::${local.account_id}:role/${var.name}-private",
-    "arn:aws:iam::${local.account_id}:role/${var.name}-public",
+    format("%s-worker", var.name),
   ]
 
-  map_roles = local.map_roles
-  map_users = local.map_users
+  roles = []
+  users = []
 }

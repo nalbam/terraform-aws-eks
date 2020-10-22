@@ -1,7 +1,7 @@
 # worker security group
 
 resource "aws_security_group" "worker" {
-  name        = "${var.name}-worker"
+  name        = local.worker_name
   description = "Cluster communication with worker nodes"
 
   vpc_id = var.vpc_id
@@ -15,7 +15,7 @@ resource "aws_security_group" "worker" {
 
   tags = merge(
     {
-      "Name" = "${var.name}-worker"
+      "Name" = local.worker_name
     },
     local.tags,
   )

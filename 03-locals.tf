@@ -5,6 +5,42 @@ locals {
 }
 
 locals {
+  cluster_name = format("%s-cluster", var.name)
+
+  worker_name = format("%s-worker", var.name)
+}
+
+locals {
+  roles = concat(
+    [
+      for item in keys(var.workers) :
+      map(
+        rolearn  , format("arn:aws:iam::%s:role/%s", local.account_id, item),
+        username , "system:node:{{EC2PrivateDNSName}}",
+        groups   , ["system:bootstrappers", "system:nodes"],
+      )
+    ],
+    [
+      for item in keys(var.roles) :
+      map(
+        rolearn  , format("arn:aws:iam::%s:role/%s", local.account_id, item.name),
+        username , format("iam-role-%s", item.name),
+        groups   , item.groups,
+      )
+    ],
+  )
+
+  users = [
+    for item in keys(var.users) :
+    map(
+      rolearn  , format("arn:aws:iam::%s:user/%s", local.account_id, item.name),
+      username , format("iam-user-%s", item.name),
+      groups   , item.groups,
+    )
+  ]
+}
+
+locals {
   tags = merge(
     {
       "KubernetesCluster"                 = var.name
