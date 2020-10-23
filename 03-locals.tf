@@ -13,40 +13,41 @@ locals {
 locals {
   roles = concat(
     [
-      for item in var.workers:
+      for item in var.workers :
       {
-        "rolearn" = format("arn:aws:iam::%s:role/%s", local.account_id, item)
-        "username"= "system:node:{{EC2PrivateDNSName}}"
-        "groups"  = ["system:bootstrappers", "system:nodes"]
+        "rolearn"  = format("arn:aws:iam::%s:role/%s", local.account_id, item)
+        "username" = "system:node:{{EC2PrivateDNSName}}"
+        "groups"   = ["system:bootstrappers", "system:nodes"]
       }
     ],
     [
-      for item in var.roles:
+      for item in var.roles :
       {
-        "rolearn" = format("arn:aws:iam::%s:role/%s", local.account_id, item["name"])
-        "username"= format("iam-role-%s", item["name"])
-        "groups"  = item["groups"]
+        "rolearn"  = format("arn:aws:iam::%s:role/%s", local.account_id, item["name"])
+        "username" = format("iam-role-%s", item["name"])
+        "groups"   = item["groups"]
       }
     ],
   )
 
   users = [
-    for item in var.users:
+    for item in var.users :
     {
-      "userarn" = format("arn:aws:iam::%s:user/%s", local.account_id, item["name"])
-      "username"= format("iam-user-%s", item["name"])
-      "groups"  = item["groups"]
+      "userarn"  = format("arn:aws:iam::%s:user/%s", local.account_id, item["name"])
+      "username" = format("iam-user-%s", item["name"])
+      "groups"   = item["groups"]
     }
   ]
 }
 
 locals {
   tags = merge(
+    var.tags,
     {
+      "Name"                              = var.name
       "KubernetesCluster"                 = var.name
       "kubernetes.io/cluster/${var.name}" = "owned"
     },
-    var.tags,
   )
 }
 
