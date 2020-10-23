@@ -55,13 +55,13 @@ variable "workers" {
 variable "roles" {
   description = "Additional IAM roles to add to the aws-auth configmap."
   # type        = list(map)
-  default     = []
+  default = []
 }
 
 variable "users" {
   description = "Additional IAM users to add to the aws-auth configmap."
   # type        = list(map)
-  default     = []
+  default = []
 }
 
 variable "eks_oidc_thumbprint" {
@@ -73,7 +73,7 @@ variable "eks_oidc_thumbprint" {
 variable "irsa_enabled" {
   description = "Whether to create OpenID Connect Provider for EKS to enable IRSA"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "efs_enabled" {
