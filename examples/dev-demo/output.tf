@@ -24,8 +24,8 @@ output "worker_role_arn" {
   value = module.eks.worker_role_arn
 }
 
-output "worker_security_group_id" {
-  value = module.eks.worker_security_group_id
+output "worker_security_groups" {
+  value = module.eks.worker_security_groups
 }
 
 output "update-kubeconfig" {
