@@ -65,13 +65,13 @@ output "worker_security_group_id" {
   value = aws_security_group.worker.id
 }
 
-output "vpc_id" {
-  value = var.vpc_id
-}
+# output "vpc_id" {
+#   value = var.vpc_id
+# }
 
-output "subnet_ids" {
-  value = var.subnet_ids
-}
+# output "subnet_ids" {
+#   value = var.subnet_ids
+# }
 
 output "efs_id" {
   value = element(concat(aws_efs_file_system.this.*.id, [""]), 0)
