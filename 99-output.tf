@@ -24,6 +24,10 @@ output "endpoint" {
 #   value = data.aws_eks_cluster_auth.cluster.token
 # }
 
+output "vpc_config" {
+  value = data.aws_eks_cluster.cluster.vpc_config
+}
+
 output "oidc_issuer" {
   value = data.aws_eks_cluster.cluster.identity.0.oidc.0.issuer
   # value = join("", data.aws_eks_cluster.cluster.*.identity.0.oidc.0.issuer)
