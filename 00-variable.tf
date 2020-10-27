@@ -21,6 +21,16 @@ variable "subnet_ids" {
   default = []
 }
 
+variable "endpoint_private_access" {
+  type    = bool
+  default = true
+}
+
+variable "endpoint_public_access" {
+  type    = bool
+  default = false
+}
+
 variable "cluster_log_types" {
   description = "A list of the desired control plane logging to enable. For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)"
   type        = list(string)

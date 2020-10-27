@@ -6,8 +6,10 @@ resource "aws_eks_cluster" "cluster" {
   version  = var.kubernetes_version
 
   vpc_config {
-    subnet_ids         = var.subnet_ids
-    security_group_ids = [aws_security_group.cluster.id]
+    subnet_ids              = var.subnet_ids
+    security_group_ids      = [aws_security_group.cluster.id]
+    endpoint_private_access = var.endpoint_private_access
+    endpoint_public_access  = var.endpoint_public_access
   }
 
   enabled_cluster_log_types = var.cluster_log_types
