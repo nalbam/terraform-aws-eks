@@ -14,10 +14,10 @@ resource "aws_security_group" "worker" {
   }
 
   tags = merge(
+    local.tags,
     {
       "Name" = local.worker_name
     },
-    local.tags,
   )
 }
 

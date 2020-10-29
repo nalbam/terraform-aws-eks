@@ -10,10 +10,10 @@ resource "aws_efs_file_system" "this" {
   creation_token = var.name
 
   tags = merge(
+    local.tags,
     {
       "Name" = local.efs_name
     },
-    local.tags,
   )
 }
 
@@ -33,10 +33,10 @@ resource "aws_security_group" "efs" {
   }
 
   tags = merge(
+    local.tags,
     {
       "Name" = local.efs_name
     },
-    local.tags,
   )
 }
 

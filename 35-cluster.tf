@@ -15,10 +15,10 @@ resource "aws_eks_cluster" "cluster" {
   enabled_cluster_log_types = var.cluster_log_types
 
   tags = merge(
+    local.tags,
     {
       "Name" = var.name
     },
-    local.tags,
   )
 
   depends_on = [
@@ -36,9 +36,9 @@ resource "aws_cloudwatch_log_group" "this" {
   kms_key_id        = var.cluster_log_kms_key_id
 
   tags = merge(
+    local.tags,
     {
       "Name" = var.name
     },
-    local.tags,
   )
 }
