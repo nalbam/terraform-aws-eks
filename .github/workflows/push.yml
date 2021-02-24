@@ -19,6 +19,8 @@ jobs:
         uses: opspresso/action-builder@master
         with:
           args: --version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
         uses: opspresso/action-builder@master
@@ -26,3 +28,4 @@ jobs:
           args: --release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_COMMITISH: master

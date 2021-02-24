@@ -1,5 +1,6 @@
 # terraform-aws-eks
 
+<!--- BEGIN_TF_DOCS --->
 ## Requirements
 
 No requirements.
@@ -54,3 +55,5 @@ No requirements.
 | worker\_role\_arn | n/a |
 | worker\_role\_name | n/a |
 | worker\_security\_groups | n/a |
+
+<!--- END_TF_DOCS --->
