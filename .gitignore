@@ -17,6 +17,7 @@ $RECYCLE.BIN/
 # Terraform
 .terraform/
 .terraform.tfstate.lock.info
+.terraform.lock.hcl
 terraform.tfstate.backup
 terraform.tfstate
 terraform.tfplan
