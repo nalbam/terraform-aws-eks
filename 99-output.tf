@@ -1,40 +1,23 @@
 # output
 
-output "id" {
-  value = data.aws_eks_cluster.cluster.id
+output "cluster_info" {
+  value = local.cluster_info
 }
 
-output "name" {
-  value = data.aws_eks_cluster.cluster.name
+output "cluster_name" {
+  value = aws_eks_cluster.cluster.name
 }
 
-output "version" {
-  value = data.aws_eks_cluster.cluster.version
+output "cluster_version" {
+  value = aws_eks_cluster.cluster.version
 }
 
-output "endpoint" {
-  value = data.aws_eks_cluster.cluster.endpoint
+output "cluster_endpoint" {
+  value = aws_eks_cluster.cluster.endpoint
 }
 
-# output "certificate_authority" {
-#   value = data.aws_eks_cluster.cluster.certificate_authority.0.data
-# }
-
-# output "token" {
-#   value = data.aws_eks_cluster_auth.cluster.token
-# }
-
-output "vpc_config" {
-  value = data.aws_eks_cluster.cluster.vpc_config
-}
-
-output "oidc_issuer" {
-  value = data.aws_eks_cluster.cluster.identity.0.oidc.0.issuer
-  # value = join("", data.aws_eks_cluster.cluster.*.identity.0.oidc.0.issuer)
-}
-
-output "oidc_arn" {
-  value = element(concat(aws_iam_openid_connect_provider.oidc.*.arn, [""]), 0)
+output "cluster_vpc_config" {
+  value = aws_eks_cluster.cluster.vpc_config
 }
 
 output "cluster_role_arn" {
@@ -45,12 +28,16 @@ output "cluster_role_name" {
   value = aws_iam_role.cluster.name
 }
 
-output "cluster_security_groups" {
-  value = [aws_security_group.cluster.id]
+output "cluster_oidc_arn" {
+  value = aws_iam_openid_connect_provider.cluster.arn
 }
 
-output "worker_ami_id" {
-  value = data.aws_ami.worker.id
+output "cluster_oidc_url" {
+  value = aws_iam_openid_connect_provider.cluster.url
+}
+
+output "worker_security_group" {
+  value = aws_security_group.worker.id
 }
 
 output "worker_role_arn" {
@@ -60,18 +47,6 @@ output "worker_role_arn" {
 output "worker_role_name" {
   value = aws_iam_role.worker.name
 }
-
-output "worker_security_groups" {
-  value = [aws_security_group.worker.id]
-}
-
-# output "vpc_id" {
-#   value = var.vpc_id
-# }
-
-# output "subnet_ids" {
-#   value = var.subnet_ids
-# }
 
 output "efs_id" {
   value = element(concat(aws_efs_file_system.this.*.id, [""]), 0)

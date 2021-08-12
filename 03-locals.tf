@@ -5,37 +5,37 @@ locals {
 }
 
 locals {
-  cluster_name = format("%s-cluster", var.name)
-
-  worker_name = format("%s-worker", var.name)
+  cluster_name = format("%s-cluster", var.cluster_name)
+  worker_name  = format("%s-worker", var.cluster_name)
 }
 
 locals {
-  roles = concat(
-    [
-      for item in var.workers :
-      {
-        "rolearn"  = format("arn:aws:iam::%s:role/%s", local.account_id, item)
-        "username" = "system:node:{{EC2PrivateDNSName}}"
-        "groups"   = ["system:bootstrappers", "system:nodes"]
-      }
-    ],
-    [
-      for item in var.roles :
-      {
-        "rolearn"  = format("arn:aws:iam::%s:role/%s", local.account_id, item["name"])
-        "username" = format("iam-role-%s", item["name"])
-        "groups"   = item["groups"]
-      }
-    ],
-  )
+  cluster_info = {
+    name                  = data.aws_eks_cluster.cluster.name
+    version               = data.aws_eks_cluster.cluster.version
+    endpoint              = data.aws_eks_cluster.cluster.endpoint
+    certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
+  }
+}
+
+locals {
+  roles = [
+    for item in var.iam_roles :
+    {
+      "rolearn"  = item.role
+      "username" = item.name
+      "groups"   = item.groups
+    }
+  ]
+
+  masters = var.iam_group != "" ? compact(concat(var.masters, data.aws_iam_group.master[0].users.*.user_name)) : var.masters
 
   users = [
-    for item in var.users :
+    for item in local.masters :
     {
-      "userarn"  = format("arn:aws:iam::%s:user/%s", local.account_id, item["name"])
-      "username" = format("iam-user-%s", item["name"])
-      "groups"   = item["groups"]
+      "userarn"  = format("arn:aws:iam::%s:user/%s", local.account_id, item)
+      "username" = format("iam-user-%s", item)
+      "groups"   = ["system:masters"]
     }
   ]
 }
@@ -44,14 +44,8 @@ locals {
   tags = merge(
     var.tags,
     {
-      "Name"                              = var.name
-      "KubernetesCluster"                 = var.name
-      "kubernetes.io/cluster/${var.name}" = "owned"
+      "KubernetesCluster"                         = var.cluster_name
+      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     },
   )
-}
-
-locals {
-  provider_url = data.aws_eks_cluster.cluster.identity.0.oidc.0.issuer
-  provider_urn = replace(local.provider_url, "https://", "")
 }
