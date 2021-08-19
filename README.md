@@ -22,7 +22,6 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | cluster\_name | n/a | `string` | n/a | yes |
-| efs\_enabled | n/a | `bool` | `false` | no |
 | endpoint\_private\_access | n/a | `bool` | `true` | no |
 | endpoint\_public\_access | n/a | `bool` | `false` | no |
 | iam\_group | n/a | `string` | `""` | no |
