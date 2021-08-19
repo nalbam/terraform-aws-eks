@@ -47,11 +47,6 @@ variable "masters" {
   default = []
 }
 
-variable "efs_enabled" {
-  type    = bool
-  default = false
-}
-
 variable "tags" {
   type    = map(string)
   default = {}
