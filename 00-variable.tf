@@ -57,3 +57,8 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+
+variable "save_local_files" {
+  type    = bool
+  default = false
+}

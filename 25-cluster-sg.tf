@@ -14,8 +14,8 @@ resource "aws_security_group" "cluster" {
   }
 
   tags = {
-    "Name" = local.cluster_name
-    # "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "Name"                                      = local.cluster_name
+    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
 
