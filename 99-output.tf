@@ -47,7 +47,3 @@ output "worker_role_arn" {
 output "worker_role_name" {
   value = aws_iam_role.worker.name
 }
-
-output "efs_id" {
-  value = element(concat(aws_efs_file_system.this.*.id, [""]), 0)
-}

@@ -28,9 +28,9 @@ variable "endpoint_public_access" {
 }
 
 variable "cluster_log_types" {
-  # ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   type    = list(string)
   default = []
+  # ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 }
 
 variable "retention_in_days" {
@@ -56,9 +56,4 @@ variable "masters" {
 variable "tags" {
   type    = map(string)
   default = {}
-}
-
-variable "save_local_files" {
-  type    = bool
-  default = false
 }

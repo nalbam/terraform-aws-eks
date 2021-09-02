@@ -12,7 +12,7 @@ resource "aws_security_group" "worker" {
   }
 
   tags = {
-    "Name"                                      = local.worker_name
+    "Name" = local.worker_name
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
