@@ -27,6 +27,12 @@ variable "endpoint_public_access" {
   default = false
 }
 
+variable "cluster_log_types" {
+  # ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  type    = list(string)
+  default = []
+}
+
 variable "retention_in_days" {
   type    = number
   default = 7
