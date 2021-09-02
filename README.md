@@ -21,6 +21,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| cluster\_log\_types | n/a | `list(string)` | `[]` | no |
 | cluster\_name | n/a | `string` | n/a | yes |
 | endpoint\_private\_access | n/a | `bool` | `true` | no |
 | endpoint\_public\_access | n/a | `bool` | `false` | no |
