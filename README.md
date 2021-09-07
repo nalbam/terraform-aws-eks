@@ -14,8 +14,6 @@
 |------|---------|
 | aws | >= 3.30.0 |
 | kubernetes | n/a |
-| local | n/a |
-| template | n/a |
 
 ## Inputs
 
@@ -30,7 +28,6 @@
 | kubernetes\_version | n/a | `string` | `"1.21"` | no |
 | masters | n/a | `list(string)` | `[]` | no |
 | retention\_in\_days | n/a | `number` | `7` | no |
-| save\_local\_files | n/a | `bool` | `false` | no |
 | subnet\_ids | n/a | `list(string)` | n/a | yes |
 | tags | n/a | `map(string)` | `{}` | no |
 | vpc\_id | n/a | `string` | n/a | yes |
