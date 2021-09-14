@@ -31,6 +31,7 @@
 | subnet\_ids | n/a | `list(string)` | n/a | yes |
 | tags | n/a | `map(string)` | `{}` | no |
 | vpc\_id | n/a | `string` | n/a | yes |
+| worker\_policies | n/a | `list(string)` | `[]` | no |
 
 ## Outputs
 
