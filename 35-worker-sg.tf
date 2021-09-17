@@ -18,7 +18,7 @@ resource "aws_security_group" "worker" {
 }
 
 resource "aws_security_group_rule" "worker_cluster" {
-  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
+  description              = format("Allow to communicate between master and workers (%s)", local.worker_name)
   from_port                = 1025
   to_port                  = 65535
   protocol                 = "tcp"
@@ -28,7 +28,7 @@ resource "aws_security_group_rule" "worker_cluster" {
 }
 
 resource "aws_security_group_rule" "worker_cluster_443" {
-  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
+  description              = format("Allow to communicate between master and workers (%s)", local.worker_name)
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
@@ -38,7 +38,7 @@ resource "aws_security_group_rule" "worker_cluster_443" {
 }
 
 resource "aws_security_group_rule" "worker_cluster_10250" {
-  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
+  description              = format("Allow to communicate between master and workers (%s)", local.worker_name)
   from_port                = 10250
   to_port                  = 10250
   protocol                 = "tcp"
@@ -48,7 +48,7 @@ resource "aws_security_group_rule" "worker_cluster_10250" {
 }
 
 resource "aws_security_group_rule" "worker_worker" {
-  description              = "Allow to communicate between worker nodes"
+  description              = format("Allow to communicate between workers (%s)", local.worker_name)
   from_port                = 0
   to_port                  = 0
   protocol                 = "-1"
@@ -58,11 +58,23 @@ resource "aws_security_group_rule" "worker_worker" {
 }
 
 resource "aws_security_group_rule" "worker_ssh" {
-  description       = "SSH via VPN"
+  description       = format("Allow to communicate between ssh and workers (%s)", local.worker_name)
   from_port         = 22
   to_port           = 22
   security_group_id = aws_security_group.worker.id
   protocol          = "tcp"
   cidr_blocks       = ["10.0.0.0/8"]
   type              = "ingress"
+}
+
+resource "aws_security_group_rule" "worker_source" {
+  count = length(var.worker_source_sgs)
+
+  description              = format("Allow to communicate between source and workers (%s)", local.worker_name)
+  from_port                = 0
+  to_port                  = 0
+  protocol                 = "-1"
+  security_group_id        = aws_security_group.worker.id
+  source_security_group_id = var.worker_source_sgs[count.index]
+  type                     = "ingress"
 }

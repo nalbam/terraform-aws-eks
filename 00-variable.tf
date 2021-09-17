@@ -58,6 +58,11 @@ variable "worker_policies" {
   default = []
 }
 
+variable "worker_source_sgs" {
+  type    = list(string)
+  default = []
+}
+
 variable "tags" {
   type    = map(string)
   default = {}
