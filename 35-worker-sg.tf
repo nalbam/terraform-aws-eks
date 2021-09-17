@@ -18,7 +18,7 @@ resource "aws_security_group" "worker" {
 }
 
 resource "aws_security_group_rule" "worker_cluster" {
-  description              = format("Allow to communicate between master and workers (%s) %s", local.worker_name)
+  description              = format("Allow to communicate between master and workers (%s)", local.worker_name)
   from_port                = 1025
   to_port                  = 65535
   protocol                 = "tcp"
@@ -28,7 +28,7 @@ resource "aws_security_group_rule" "worker_cluster" {
 }
 
 resource "aws_security_group_rule" "worker_cluster_443" {
-  description              = format("Allow to communicate between master and workers (%s) %s", local.worker_name)
+  description              = format("Allow to communicate between master and workers (%s)", local.worker_name)
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
@@ -38,7 +38,7 @@ resource "aws_security_group_rule" "worker_cluster_443" {
 }
 
 resource "aws_security_group_rule" "worker_cluster_10250" {
-  description              = format("Allow to communicate between master and workers (%s) %s", local.worker_name)
+  description              = format("Allow to communicate between master and workers (%s)", local.worker_name)
   from_port                = 10250
   to_port                  = 10250
   protocol                 = "tcp"
