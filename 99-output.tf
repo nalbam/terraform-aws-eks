@@ -47,3 +47,7 @@ output "worker_role_arn" {
 output "worker_role_name" {
   value = aws_iam_role.worker.name
 }
+
+output "worker_instance_profile_name" {
+  value = aws_iam_instance_profile.worker.name
+}
