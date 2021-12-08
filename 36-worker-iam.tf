@@ -18,6 +18,11 @@ POLICY
 
 }
 
+resource "aws_iam_instance_profile" "worker" {
+  name = local.worker_name
+  role = aws_iam_role.worker.name
+}
+
 resource "aws_iam_role_policy_attachment" "worker_AmazonEKSWorkerNodePolicy" {
   role       = aws_iam_role.worker.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"

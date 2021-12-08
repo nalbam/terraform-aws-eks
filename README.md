@@ -47,6 +47,7 @@
 | cluster\_role\_name | n/a |
 | cluster\_version | n/a |
 | cluster\_vpc\_config | n/a |
+| worker\_instance\_profile\_name | n/a |
 | worker\_role\_arn | n/a |
 | worker\_role\_name | n/a |
 | worker\_security\_group | n/a |
