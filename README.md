@@ -19,7 +19,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cluster\_log\_types | n/a | `list(string)` | `[]` | no |
+| cluster\_log\_types | n/a | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
 | cluster\_name | n/a | `string` | n/a | yes |
 | endpoint\_private\_access | n/a | `bool` | `true` | no |
 | endpoint\_public\_access | n/a | `bool` | `false` | no |
@@ -51,5 +51,6 @@
 | worker\_role\_arn | n/a |
 | worker\_role\_name | n/a |
 | worker\_security\_group | n/a |
+| worker\_sqs\_id | n/a |
 
 <!--- END_TF_DOCS --->

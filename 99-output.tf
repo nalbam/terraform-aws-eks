@@ -51,3 +51,7 @@ output "worker_role_name" {
 output "worker_instance_profile_name" {
   value = aws_iam_instance_profile.worker.name
 }
+
+output "worker_sqs_id" {
+  value = aws_sqs_queue.worker.id
+}
