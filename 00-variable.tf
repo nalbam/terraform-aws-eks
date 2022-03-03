@@ -54,7 +54,7 @@ variable "masters" {
 
 variable "sslvpn_name" {
   type    = string
-  default = "ALLOW SSLVPN CIDR-s"
+  default = ""
 }
 
 variable "worker_policies" {
