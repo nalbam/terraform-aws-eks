@@ -31,6 +31,7 @@
 | kubernetes\_version | n/a | `string` | `"1.21"` | no |
 | masters | n/a | `list(string)` | `[]` | no |
 | retention\_in\_days | n/a | `number` | `7` | no |
+| sslvpn\_name | n/a | `string` | `"ALLOW SSLVPN CIDR-s"` | no |
 | subnet\_ids | n/a | `list(string)` | n/a | yes |
 | tags | n/a | `map(string)` | `{}` | no |
 | vpc\_id | n/a | `string` | n/a | yes |
