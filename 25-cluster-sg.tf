@@ -30,11 +30,23 @@ resource "aws_security_group_rule" "cluster_worker" {
 }
 
 resource "aws_security_group_rule" "cluster_vpn" {
-  description       = "Allow to communicate with the cluster API Server"
+  description       = "Allow vpn to communicate with the cluster API Server"
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
   security_group_id = aws_security_group.cluster.id
   cidr_blocks       = ["10.0.0.0/8"]
+  type              = "ingress"
+}
+
+resource "aws_security_group_rule" "cluster_sslvpn" {
+  count = var.sslvpn_name != "" ? 1 : 0
+
+  description       = "Allow sslvpn to communicate with the cluster API Server"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.cluster.id
+  prefix_list_ids   = data.aws_ec2_managed_prefix_list.sslvpn.*.id
   type              = "ingress"
 }

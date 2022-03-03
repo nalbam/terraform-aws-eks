@@ -52,6 +52,11 @@ variable "masters" {
   default = []
 }
 
+variable "sslvpn_name" {
+  type    = string
+  default = "ALLOW SSLVPN CIDR-s"
+}
+
 variable "worker_policies" {
   type    = list(string)
   default = []
