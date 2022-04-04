@@ -28,6 +28,7 @@
 | endpoint\_public\_access | n/a | `bool` | `false` | no |
 | iam\_group | n/a | `string` | `""` | no |
 | iam\_roles | n/a | `list(any)` | `[]` | no |
+| ip\_family | n/a | `string` | `null` | no |
 | kubernetes\_version | n/a | `string` | `"1.21"` | no |
 | masters | n/a | `list(string)` | `[]` | no |
 | retention\_in\_days | n/a | `number` | `7` | no |
