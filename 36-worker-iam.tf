@@ -33,6 +33,13 @@ resource "aws_iam_role_policy_attachment" "worker_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
+resource "aws_iam_role_policy_attachment" "worker_AmazonEKS_CNI_IPv6_Policy" {
+  count = var.ip_family == "ipv6" ? 1:0
+
+  role       = aws_iam_role.worker.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_IPv6_Policy"
+}
+
 resource "aws_iam_role_policy_attachment" "worker_AmazonEC2ContainerRegistryReadOnly" {
   role       = aws_iam_role.worker.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
