@@ -16,6 +16,10 @@ resource "aws_eks_cluster" "cluster" {
     endpoint_public_access  = var.endpoint_public_access
   }
 
+  kubernetes_network_config {
+    ip_family = var.ip_family
+  }
+
   tags = merge(
     var.tags,
     {
