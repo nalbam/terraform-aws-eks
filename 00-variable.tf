@@ -22,6 +22,11 @@ variable "endpoint_private_access" {
   default = true
 }
 
+variable "ip_family" {
+  type    = string
+  default = null
+}
+
 variable "endpoint_public_access" {
   type    = bool
   default = false
