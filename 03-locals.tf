@@ -17,6 +17,7 @@ locals {
     version               = data.aws_eks_cluster.cluster.version
     endpoint              = data.aws_eks_cluster.cluster.endpoint
     certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
+    ip_family             = var.ip_family
   }
 }
 
