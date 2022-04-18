@@ -29,4 +29,4 @@ jobs:
           args: --release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_COMMITISH: master
+          TARGET_COMMITISH: main
