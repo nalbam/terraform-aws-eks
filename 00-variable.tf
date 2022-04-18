@@ -59,7 +59,12 @@ variable "masters" {
 
 variable "sslvpn_name" {
   type    = string
-  default = ""
+  default = "" # ALLOW SSLVPN CIDR-s
+}
+
+variable "ssm_policy_name" {
+  type    = string
+  default = "" # session-manager-access-policy
 }
 
 variable "worker_policies" {
