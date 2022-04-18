@@ -26,7 +26,6 @@
 | addons\_version | n/a | `map(string)` | `{}` | no |
 | cluster\_log\_types | n/a | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
 | cluster\_name | n/a | `string` | n/a | yes |
-| create\_cni\_ipv6\_iam\_policy | Determines whether to create an [`AmazonEKS_CNI_IPv6_Policy`](https://docs.aws.amazon.com/eks/latest/userguide/cni-iam-role.html#cni-iam-role-create-ipv6-policy) | `bool` | `false` | no |
 | endpoint\_private\_access | n/a | `bool` | `true` | no |
 | endpoint\_public\_access | n/a | `bool` | `false` | no |
 | iam\_group | n/a | `string` | `""` | no |
