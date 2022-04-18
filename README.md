@@ -45,6 +45,7 @@
 
 | Name | Description |
 |------|-------------|
+| cluster\_certificate\_authority | n/a |
 | cluster\_endpoint | n/a |
 | cluster\_info | n/a |
 | cluster\_name | n/a |
