@@ -30,7 +30,7 @@
 | endpoint\_public\_access | n/a | `bool` | `false` | no |
 | iam\_group | n/a | `string` | `""` | no |
 | iam\_roles | n/a | `list(any)` | `[]` | no |
-| ip\_family | n/a | `string` | `null` | no |
+| ip\_family | n/a | `string` | `"ipv4"` | no |
 | kubernetes\_version | n/a | `string` | `"1.22"` | no |
 | masters | n/a | `list(string)` | `[]` | no |
 | retention\_in\_days | n/a | `number` | `7` | no |
@@ -54,6 +54,7 @@
 | cluster\_role\_name | n/a |
 | cluster\_version | n/a |
 | cluster\_vpc\_config | n/a |
+| worker\_info | n/a |
 | worker\_instance\_profile\_name | n/a |
 | worker\_role\_arn | n/a |
 | worker\_role\_name | n/a |
