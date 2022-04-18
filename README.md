@@ -45,7 +45,6 @@
 
 | Name | Description |
 |------|-------------|
-| cluster\_certificate\_authority | n/a |
 | cluster\_endpoint | n/a |
 | cluster\_info | n/a |
 | cluster\_name | n/a |
@@ -55,7 +54,6 @@
 | cluster\_role\_name | n/a |
 | cluster\_version | n/a |
 | cluster\_vpc\_config | n/a |
-| worker\_info | n/a |
 | worker\_instance\_profile\_name | n/a |
 | worker\_role\_arn | n/a |
 | worker\_role\_name | n/a |
