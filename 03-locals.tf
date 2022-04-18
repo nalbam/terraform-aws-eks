@@ -17,21 +17,15 @@ locals {
     version   = data.aws_eks_cluster.cluster.version
     endpoint  = data.aws_eks_cluster.cluster.endpoint
     ip_family = var.ip_family
-    oidc = {
-      arn = aws_iam_openid_connect_provider.cluster.arn
-      url = aws_iam_openid_connect_provider.cluster.url
-    }
-    role = {
-      arn  = aws_iam_role.cluster.arn
-      name = aws_iam_role.cluster.name
-    }
+    oidc_arn  = aws_iam_openid_connect_provider.cluster.arn
+    oidc_url  = aws_iam_openid_connect_provider.cluster.url
+    role_arn  = aws_iam_role.cluster.arn
+    role_name = aws_iam_role.cluster.name
   }
 
   worker_info = {
-    role = {
-      arn  = aws_iam_role.worker.arn
-      name = aws_iam_role.worker.name
-    }
+    role_arn              = aws_iam_role.worker.arn
+    role_name             = aws_iam_role.worker.name
     instance_profile_name = aws_iam_instance_profile.worker.name
   }
 }
