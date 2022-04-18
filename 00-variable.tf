@@ -24,7 +24,7 @@ variable "endpoint_private_access" {
 
 variable "ip_family" {
   type    = string
-  default = null
+  default = "ipv4"
 }
 
 variable "endpoint_public_access" {

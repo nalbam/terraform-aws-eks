@@ -1,5 +1,7 @@
 # output
 
+## cluster
+
 output "cluster_info" {
   value = local.cluster_info
 }
@@ -34,6 +36,12 @@ output "cluster_oidc_arn" {
 
 output "cluster_oidc_url" {
   value = aws_iam_openid_connect_provider.cluster.url
+}
+
+## worker
+
+output "worker_info" {
+  value = local.worker_info
 }
 
 output "worker_security_group" {

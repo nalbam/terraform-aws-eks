@@ -13,11 +13,26 @@ locals {
 
 locals {
   cluster_info = {
-    name                  = data.aws_eks_cluster.cluster.name
-    version               = data.aws_eks_cluster.cluster.version
-    endpoint              = data.aws_eks_cluster.cluster.endpoint
-    certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
-    ip_family             = var.ip_family
+    name      = data.aws_eks_cluster.cluster.name
+    version   = data.aws_eks_cluster.cluster.version
+    endpoint  = data.aws_eks_cluster.cluster.endpoint
+    ip_family = var.ip_family
+    oidc = {
+      arn = aws_iam_openid_connect_provider.cluster.arn
+      url = aws_iam_openid_connect_provider.cluster.url
+    }
+    role = {
+      arn  = aws_iam_role.cluster.arn
+      name = aws_iam_role.cluster.name
+    }
+  }
+
+  worker_info = {
+    role = {
+      arn  = aws_iam_role.worker.arn
+      name = aws_iam_role.worker.name
+    }
+    instance_profile_name = aws_iam_instance_profile.worker.name
   }
 }
 
