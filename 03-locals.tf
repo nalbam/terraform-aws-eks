@@ -17,17 +17,7 @@ locals {
     certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
     endpoint              = data.aws_eks_cluster.cluster.endpoint
     ip_family             = var.ip_family
-    oidc_arn              = aws_iam_openid_connect_provider.cluster.arn
-    oidc_url              = aws_iam_openid_connect_provider.cluster.url
-    role_arn              = aws_iam_role.cluster.arn
-    role_name             = aws_iam_role.cluster.name
     version               = data.aws_eks_cluster.cluster.version
-  }
-
-  worker_info = {
-    role_arn              = aws_iam_role.worker.arn
-    role_name             = aws_iam_role.worker.name
-    instance_profile_name = aws_iam_instance_profile.worker.name
   }
 }
 
