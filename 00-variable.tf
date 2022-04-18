@@ -82,3 +82,19 @@ variable "create_cni_ipv6_iam_policy" {
   type        = bool
   default     = false
 }
+
+variable "addons_version" {
+  type    = map(string)
+  default = {
+    # "kube-proxy" : "v1.22.6-eksbuild.1"
+    # "coredns" : "v1.8.7-eksbuild.1"
+    # "vpc-cni" : "v1.10.3-eksbuild.1"
+  }
+}
+
+variable "addons_irsa_role" {
+  type    = map(string)
+  default = {
+    # "vpc-cni" : "arn:aws:iam::123456789012:role/irsa--aws-node"
+  }
+}
