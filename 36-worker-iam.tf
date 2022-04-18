@@ -33,11 +33,6 @@ resource "aws_iam_role_policy_attachment" "worker_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
-# resource "aws_iam_role_policy_attachment" "worker_AmazonEKS_CNI_IPv6_Policy" {
-#   role       = aws_iam_role.worker.name
-#   policy_arn = format("arn:aws:iam::%s:policy/AmazonEKS_CNI_IPv6_Policy", local.account_id)
-# }
-
 resource "aws_iam_role_policy_attachment" "worker_AmazonEC2ContainerRegistryReadOnly" {
   role       = aws_iam_role.worker.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
@@ -48,4 +43,17 @@ resource "aws_iam_role_policy_attachment" "worker_policies" {
 
   role       = aws_iam_role.worker.name
   policy_arn = var.worker_policies[count.index]
+}
+
+data "aws_iam_policy" "ssm_policy" {
+  count = var.ssm_policy_name != "" ? 1 : 0
+
+  name = var.ssm_policy_name
+}
+
+resource "aws_iam_role_policy_attachment" "worker_ssm_access" {
+  count = var.ssm_policy_name != "" ? 1 : 0
+
+  role       = aws_iam_role.worker.name
+  policy_arn = data.aws_iam_policy.ssm_policy.0.arn
 }
