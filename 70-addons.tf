@@ -8,7 +8,7 @@ resource "aws_eks_addon" "kube-proxy" {
   addon_version     = lookup(var.addons_version, "kube-proxy", null)
   resolve_conflicts = "OVERWRITE"
 
-  service_account_role_arn = lookup(var.addons_irsa_role, "vpc-cni", null)
+  service_account_role_arn = lookup(var.addons_irsa_role, "kube-proxy", null)
 }
 
 resource "aws_eks_addon" "coredns" {
@@ -19,7 +19,7 @@ resource "aws_eks_addon" "coredns" {
   addon_version     = lookup(var.addons_version, "coredns", null)
   resolve_conflicts = "OVERWRITE"
 
-  service_account_role_arn = lookup(var.addons_irsa_role, "vpc-cni", null)
+  service_account_role_arn = lookup(var.addons_irsa_role, "coredns", null)
 }
 
 resource "aws_eks_addon" "vpc-cni" {
