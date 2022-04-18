@@ -35,6 +35,7 @@
 | masters | n/a | `list(string)` | `[]` | no |
 | retention\_in\_days | n/a | `number` | `7` | no |
 | sslvpn\_name | n/a | `string` | `""` | no |
+| ssm\_policy\_name | n/a | `string` | `""` | no |
 | subnet\_ids | n/a | `list(string)` | n/a | yes |
 | tags | n/a | `map(string)` | `{}` | no |
 | vpc\_id | n/a | `string` | n/a | yes |
