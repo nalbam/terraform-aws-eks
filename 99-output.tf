@@ -30,6 +30,10 @@ output "cluster_role_name" {
   value = aws_iam_role.cluster.name
 }
 
+output "cluster_certificate_authority" {
+  value = data.aws_eks_cluster.cluster.certificate_authority.0.data
+}
+
 output "cluster_oidc_arn" {
   value = aws_iam_openid_connect_provider.cluster.arn
 }
