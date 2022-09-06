@@ -28,10 +28,10 @@ resource "aws_iam_role_policy_attachment" "worker_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "worker_Amazon_EBS_CSI_Driver_Policy" {
-  role       = aws_iam_role.worker.name
-  policy_arn = "arn:aws:iam::aws:policy/Amazon_EBS_CSI_Driver_Policy"
-}
+# resource "aws_iam_role_policy_attachment" "worker_AmazonEBSCSIDriverPolicy" {
+#   role       = aws_iam_role.worker.name
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEBSCSIDriverPolicy"
+# }
 
 resource "aws_iam_role_policy_attachment" "worker_AmazonEKS_CNI_Policy" {
   role       = aws_iam_role.worker.name
