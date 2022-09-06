@@ -1,14 +1,14 @@
 # aws_eks_addon
 
-resource "aws_eks_addon" "kube-proxy" {
-  count = lookup(var.addons_version, "kube-proxy", null) != null ? 1 : 0
+resource "aws_eks_addon" "aws-ebs-csi-driver" {
+  count = lookup(var.addons_version, "aws-ebs-csi-driver", null) != null ? 1 : 0
 
   cluster_name      = aws_eks_cluster.cluster.name
-  addon_name        = "kube-proxy"
-  addon_version     = lookup(var.addons_version, "kube-proxy", null)
+  addon_name        = "aws-ebs-csi-driver"
+  addon_version     = lookup(var.addons_version, "aws-ebs-csi-driver", null)
   resolve_conflicts = "OVERWRITE"
 
-  service_account_role_arn = lookup(var.addons_irsa_role, "kube-proxy", null)
+  service_account_role_arn = lookup(var.addons_irsa_role, "aws-ebs-csi-driver", null)
 }
 
 resource "aws_eks_addon" "coredns" {
@@ -20,6 +20,17 @@ resource "aws_eks_addon" "coredns" {
   resolve_conflicts = "OVERWRITE"
 
   service_account_role_arn = lookup(var.addons_irsa_role, "coredns", null)
+}
+
+resource "aws_eks_addon" "kube-proxy" {
+  count = lookup(var.addons_version, "kube-proxy", null) != null ? 1 : 0
+
+  cluster_name      = aws_eks_cluster.cluster.name
+  addon_name        = "kube-proxy"
+  addon_version     = lookup(var.addons_version, "kube-proxy", null)
+  resolve_conflicts = "OVERWRITE"
+
+  service_account_role_arn = lookup(var.addons_irsa_role, "kube-proxy", null)
 }
 
 resource "aws_eks_addon" "vpc-cni" {
