@@ -85,15 +85,15 @@ variable "tags" {
 variable "addons_version" {
   type    = map(string)
   default = {
-    # "kube-proxy" : "v1.22.6-eksbuild.1"
     # "coredns" : "v1.8.7-eksbuild.1"
+    # "kube-proxy" : "v1.22.6-eksbuild.1"
     # "vpc-cni" : "v1.10.3-eksbuild.1"
   }
 }
 
-variable "addons_irsa_role" {
+variable "addons_irsa_name" {
   type    = map(string)
   default = {
-    # "vpc-cni" : "arn:aws:iam::123456789012:role/irsa--aws-node"
+    # "vpc-cni" : "aws-node"
   }
 }

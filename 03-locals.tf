@@ -44,6 +44,12 @@ locals {
 }
 
 locals {
+  addons_irsa_role = {
+    for k, v in var.addons_irsa_name : k => format("arn:aws:iam::%s:role/irsa--%s--%s", local.account_id, var.cluster_name, v)
+  }
+}
+
+locals {
   tags = merge(
     var.tags,
     {
