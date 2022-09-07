@@ -8,7 +8,7 @@ resource "aws_eks_addon" "aws-ebs-csi-driver" {
   addon_version     = lookup(var.addons_version, "aws-ebs-csi-driver", null)
   resolve_conflicts = "OVERWRITE"
 
-  service_account_role_arn = lookup(var.addons_irsa_role, "aws-ebs-csi-driver", null)
+  service_account_role_arn = lookup(local.addons_irsa_role, "aws-ebs-csi-driver", null)
 }
 
 resource "aws_eks_addon" "coredns" {
@@ -19,7 +19,7 @@ resource "aws_eks_addon" "coredns" {
   addon_version     = lookup(var.addons_version, "coredns", null)
   resolve_conflicts = "OVERWRITE"
 
-  service_account_role_arn = lookup(var.addons_irsa_role, "coredns", null)
+  service_account_role_arn = lookup(local.addons_irsa_role, "coredns", null)
 }
 
 resource "aws_eks_addon" "kube-proxy" {
@@ -30,7 +30,7 @@ resource "aws_eks_addon" "kube-proxy" {
   addon_version     = lookup(var.addons_version, "kube-proxy", null)
   resolve_conflicts = "OVERWRITE"
 
-  service_account_role_arn = lookup(var.addons_irsa_role, "kube-proxy", null)
+  service_account_role_arn = lookup(local.addons_irsa_role, "kube-proxy", null)
 }
 
 resource "aws_eks_addon" "vpc-cni" {
@@ -41,5 +41,5 @@ resource "aws_eks_addon" "vpc-cni" {
   addon_version     = lookup(var.addons_version, "vpc-cni", null)
   resolve_conflicts = "OVERWRITE"
 
-  service_account_role_arn = lookup(var.addons_irsa_role, "vpc-cni", null)
+  service_account_role_arn = lookup(local.addons_irsa_role, "vpc-cni", null)
 }
