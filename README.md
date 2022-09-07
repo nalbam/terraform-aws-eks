@@ -22,7 +22,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| addons\_irsa\_role | n/a | `map(string)` | `{}` | no |
+| addons\_irsa\_name | n/a | `map(string)` | `{}` | no |
 | addons\_version | n/a | `map(string)` | `{}` | no |
 | cluster\_log\_types | n/a | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
 | cluster\_name | n/a | `string` | n/a | yes |
