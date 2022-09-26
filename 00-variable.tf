@@ -42,21 +42,6 @@ variable "retention_in_days" {
   default = 7
 }
 
-variable "iam_group" {
-  type    = string
-  default = ""
-}
-
-variable "iam_roles" {
-  type    = list(any)
-  default = []
-}
-
-variable "masters" {
-  type    = list(string)
-  default = []
-}
-
 variable "sslvpn_name" {
   type    = string
   default = "" # ALLOW SSLVPN CIDR-s
