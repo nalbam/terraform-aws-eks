@@ -19,3 +19,9 @@ data "aws_ec2_managed_prefix_list" "sslvpn" {
 
   name = var.sslvpn_name
 }
+
+data "aws_iam_group" "master" {
+  count = var.iam_group != "" ? 1 : 0
+
+  group_name = var.iam_group
+}

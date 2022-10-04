@@ -22,6 +22,28 @@ locals {
 }
 
 locals {
+  roles = [
+    for item in var.iam_roles :
+    {
+      "rolearn"  = item.role
+      "username" = item.name
+      "groups"   = item.groups
+    }
+  ]
+
+  masters = var.iam_group != "" ? compact(concat(var.masters, data.aws_iam_group.master[0].users.*.user_name)) : var.masters
+
+  users = [
+    for item in local.masters :
+    {
+      "userarn"  = format("arn:aws:iam::%s:user/%s", local.account_id, item)
+      "username" = format("iam-user-%s", item)
+      "groups"   = ["system:masters"]
+    }
+  ]
+}
+
+locals {
   addons_irsa_role = {
     for k, v in var.addons_irsa_name : k => format("arn:aws:iam::%s:role/irsa--%s--%s", local.account_id, var.cluster_name, v)
   }
