@@ -42,6 +42,21 @@ variable "retention_in_days" {
   default = 7
 }
 
+variable "iam_group" {
+  type    = string
+  default = ""
+}
+
+variable "iam_roles" {
+  type    = list(any)
+  default = []
+}
+
+variable "masters" {
+  type    = list(string)
+  default = []
+}
+
 variable "sslvpn_name" {
   type    = string
   default = "" # ALLOW SSLVPN CIDR-s
@@ -68,7 +83,7 @@ variable "tags" {
 }
 
 variable "addons_version" {
-  type    = map(string)
+  type = map(string)
   default = {
     # "coredns" : "v1.8.7-eksbuild.1"
     # "kube-proxy" : "v1.22.6-eksbuild.1"
@@ -77,7 +92,7 @@ variable "addons_version" {
 }
 
 variable "addons_irsa_name" {
-  type    = map(string)
+  type = map(string)
   default = {
     # "vpc-cni" : "aws-node"
   }
