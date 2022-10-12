@@ -97,3 +97,13 @@ variable "addons_irsa_name" {
     # "vpc-cni" : "aws-node"
   }
 }
+
+variable "apply_aws_auth" {
+  type    = bool
+  default = false
+}
+
+variable "save_aws_auth" {
+  type    = bool
+  default = false
+}
