@@ -17,6 +17,7 @@
 |------|---------|
 | aws | >= 4.1.0 |
 | kubernetes | n/a |
+| local | n/a |
 
 ## Inputs
 
@@ -24,6 +25,7 @@
 |------|-------------|------|---------|:--------:|
 | addons\_irsa\_name | n/a | `map(string)` | `{}` | no |
 | addons\_version | n/a | `map(string)` | `{}` | no |
+| apply\_aws\_auth | n/a | `bool` | `false` | no |
 | cluster\_log\_types | n/a | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
 | cluster\_name | n/a | `string` | n/a | yes |
 | endpoint\_private\_access | n/a | `bool` | `true` | no |
@@ -34,6 +36,7 @@
 | kubernetes\_version | n/a | `string` | `"1.22"` | no |
 | masters | n/a | `list(string)` | `[]` | no |
 | retention\_in\_days | n/a | `number` | `7` | no |
+| save\_aws\_auth | n/a | `bool` | `false` | no |
 | sslvpn\_name | n/a | `string` | `""` | no |
 | ssm\_policy\_name | n/a | `string` | `""` | no |
 | subnet\_ids | n/a | `list(string)` | n/a | yes |
