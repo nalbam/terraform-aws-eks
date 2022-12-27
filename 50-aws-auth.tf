@@ -1,14 +1,9 @@
 # aws-auth
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  # load_config_file       = false
-}
+# terraform import kubernetes_config_map.aws_auth kube-system/aws-auth
 
 resource "kubernetes_config_map" "aws_auth" {
-  count = var.apply_aws_auth ? 1 : 0
+  count = var.save_aws_auth ? 1 : 0
 
   metadata {
     name      = "aws-auth"
@@ -24,7 +19,7 @@ resource "kubernetes_config_map" "aws_auth" {
 }
 
 resource "local_file" "aws_auth" {
-  count = var.save_aws_auth ? 1 : 0
+  count = var.save_local_files ? 1 : 0
 
   filename = "${path.cwd}/.output/aws_auth.yaml"
 
@@ -32,7 +27,7 @@ resource "local_file" "aws_auth" {
     {
       rolearn    = aws_iam_role.worker.arn
       account_id = local.account_id
-      users      = local.masters
+      users      = local.users
     }
   )
 
