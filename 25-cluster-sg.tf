@@ -21,33 +21,47 @@ resource "aws_security_group" "cluster" {
 }
 
 resource "aws_security_group_rule" "cluster_worker" {
-  description              = "Allow workers to communicate with the cluster API Server"
+  description              = format("%s - worker 443", local.cluster_name)
+  security_group_id        = aws_security_group.cluster.id
   from_port                = 443
   to_port                  = 443
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.cluster.id
+  protocol                 = "TCP"
   source_security_group_id = aws_security_group.worker.id
   type                     = "ingress"
-}
-
-resource "aws_security_group_rule" "cluster_vpn" {
-  description       = "Allow vpn to communicate with the cluster API Server"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  security_group_id = aws_security_group.cluster.id
-  cidr_blocks       = ["10.0.0.0/8"]
-  type              = "ingress"
 }
 
 resource "aws_security_group_rule" "cluster_sslvpn" {
   count = var.sslvpn_name != "" ? 1 : 0
 
-  description       = "Allow sslvpn to communicate with the cluster API Server"
+  description       = format("%s - sslvpn 443", local.cluster_name)
+  security_group_id = aws_security_group.cluster.id
   from_port         = 443
   to_port           = 443
-  protocol          = "tcp"
-  security_group_id = aws_security_group.cluster.id
+  protocol          = "TCP"
   prefix_list_ids   = data.aws_ec2_managed_prefix_list.sslvpn.*.id
+  type              = "ingress"
+}
+
+resource "aws_security_group_rule" "cluster_prefix_list" {
+  count = length(var.allow_prefix_list_ids) > 0 ? 1 : 0
+
+  description       = format("%s - prefix_list 443", local.cluster_name)
+  security_group_id = aws_security_group.cluster.id
+  from_port         = 443
+  to_port           = 443
+  protocol          = "TCP"
+  prefix_list_ids   = var.allow_prefix_list_ids
+  type              = "ingress"
+}
+
+resource "aws_security_group_rule" "cluster_cidr" {
+  count = length(var.allow_cidr_cluster) > 0 ? 1 : 0
+
+  description       = format("%s - cidr 443", local.cluster_name)
+  security_group_id = aws_security_group.cluster.id
+  from_port         = 443
+  to_port           = 443
+  protocol          = "TCP"
+  cidr_blocks       = var.allow_cidr_cluster
   type              = "ingress"
 }

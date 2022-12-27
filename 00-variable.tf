@@ -39,7 +39,7 @@ variable "cluster_log_types" {
 
 variable "retention_in_days" {
   type    = number
-  default = 7
+  default = 30
 }
 
 variable "iam_group" {
@@ -72,9 +72,55 @@ variable "worker_policies" {
   default = []
 }
 
-variable "worker_source_sgs" {
+variable "worker_ports_internal" {
+  type    = list(number)
+  default = []
+}
+
+variable "worker_ports_public" {
+  type    = list(number)
+  default = []
+}
+
+variable "allow_prefix_list_ids" {
   type    = list(string)
   default = []
+}
+
+variable "allow_cidr_cluster" {
+  type    = list(string)
+  default = []
+}
+
+variable "allow_cidr_internal" {
+  type    = list(string)
+  default = ["10.0.0.0/8"]
+}
+
+variable "allow_cidr_public" {
+  type    = list(string)
+  default = ["0.0.0.0/0"]
+}
+
+variable "addons_version" {
+  type = map(string)
+  default = {
+    # "coredns" : "v1.xx.x-eksbuild.1"
+    # "kube-proxy" : "v1.xx.x-eksbuild.1"
+    # "vpc-cni" : "v1.xx.x-eksbuild.1"
+  }
+}
+
+variable "addons_resolve_conflicts" {
+  type    = string
+  default = "PRESERVE" # NONE, OVERWRITE and PRESERVE.
+}
+
+variable "addons_irsa_role" {
+  type = map(string)
+  default = {
+    # "vpc-cni" : "arn:aws:iam::123456789012:role/irsa--aws-node"
+  }
 }
 
 variable "tags" {
@@ -82,23 +128,7 @@ variable "tags" {
   default = {}
 }
 
-variable "addons_version" {
-  type = map(string)
-  default = {
-    # "coredns" : "v1.8.7-eksbuild.1"
-    # "kube-proxy" : "v1.22.6-eksbuild.1"
-    # "vpc-cni" : "v1.10.3-eksbuild.1"
-  }
-}
-
-variable "addons_irsa_name" {
-  type = map(string)
-  default = {
-    # "vpc-cni" : "aws-node"
-  }
-}
-
-variable "apply_aws_auth" {
+variable "save_local_files" {
   type    = bool
   default = false
 }

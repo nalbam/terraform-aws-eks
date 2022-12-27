@@ -35,7 +35,7 @@ resource "aws_eks_cluster" "cluster" {
 }
 
 resource "aws_cloudwatch_log_group" "cluster" {
-  name_prefix = format("/aws/eks/%s-", var.cluster_name)
+  name = format("/aws/eks/%s/cluster", var.cluster_name)
 
   retention_in_days = var.retention_in_days
 
