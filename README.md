@@ -50,6 +50,7 @@
 | worker\_policies | n/a | `list(string)` | `[]` | no |
 | worker\_ports\_internal | n/a | `list(number)` | `[]` | no |
 | worker\_ports\_public | n/a | `list(number)` | `[]` | no |
+| worker\_source\_sgs | n/a | `list(string)` | `[]` | no |
 
 ## Outputs
 
