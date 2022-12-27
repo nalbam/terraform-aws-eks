@@ -48,6 +48,18 @@ resource "aws_security_group_rule" "worker_worker" {
   type                     = "ingress"
 }
 
+resource "aws_security_group_rule" "worker_source" {
+  count = length(var.worker_source_sgs)
+
+  description              = format("%s - worker source", local.worker_name)
+  from_port                = 0
+  to_port                  = 0
+  protocol                 = "-1"
+  security_group_id        = aws_security_group.worker.id
+  source_security_group_id = var.worker_source_sgs[count.index]
+  type                     = "ingress"
+}
+
 resource "aws_security_group_rule" "worker_prefix_list" {
   count = length(var.allow_prefix_list_ids) > 0 ? 1 : 0
 

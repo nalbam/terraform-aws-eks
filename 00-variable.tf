@@ -72,6 +72,11 @@ variable "worker_policies" {
   default = []
 }
 
+variable "worker_source_sgs" {
+  type    = list(string)
+  default = []
+}
+
 variable "worker_ports_internal" {
   type    = list(number)
   default = []
