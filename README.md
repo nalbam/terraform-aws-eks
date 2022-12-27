@@ -23,9 +23,13 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| addons\_irsa\_name | n/a | `map(string)` | `{}` | no |
+| addons\_irsa\_role | n/a | `map(string)` | `{}` | no |
+| addons\_resolve\_conflicts | n/a | `string` | `"PRESERVE"` | no |
 | addons\_version | n/a | `map(string)` | `{}` | no |
-| apply\_aws\_auth | n/a | `bool` | `false` | no |
+| allow\_cidr\_cluster | n/a | `list(string)` | `[]` | no |
+| allow\_cidr\_internal | n/a | `list(string)` | <pre>[<br>  "10.0.0.0/8"<br>]</pre> | no |
+| allow\_cidr\_public | n/a | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| allow\_prefix\_list\_ids | n/a | `list(string)` | `[]` | no |
 | cluster\_log\_types | n/a | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
 | cluster\_name | n/a | `string` | n/a | yes |
 | endpoint\_private\_access | n/a | `bool` | `true` | no |
@@ -35,15 +39,17 @@
 | ip\_family | n/a | `string` | `"ipv4"` | no |
 | kubernetes\_version | n/a | `string` | `"1.22"` | no |
 | masters | n/a | `list(string)` | `[]` | no |
-| retention\_in\_days | n/a | `number` | `7` | no |
+| retention\_in\_days | n/a | `number` | `30` | no |
 | save\_aws\_auth | n/a | `bool` | `false` | no |
+| save\_local\_files | n/a | `bool` | `false` | no |
 | sslvpn\_name | n/a | `string` | `""` | no |
 | ssm\_policy\_name | n/a | `string` | `""` | no |
 | subnet\_ids | n/a | `list(string)` | n/a | yes |
 | tags | n/a | `map(string)` | `{}` | no |
 | vpc\_id | n/a | `string` | n/a | yes |
 | worker\_policies | n/a | `list(string)` | `[]` | no |
-| worker\_source\_sgs | n/a | `list(string)` | `[]` | no |
+| worker\_ports\_internal | n/a | `list(number)` | `[]` | no |
+| worker\_ports\_public | n/a | `list(number)` | `[]` | no |
 
 ## Outputs
 
