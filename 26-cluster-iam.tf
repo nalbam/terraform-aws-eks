@@ -1,21 +1,24 @@
+# cluster iam
+
+data "aws_iam_policy_document" "cluster" {
+  statement {
+    effect = "Allow"
+    principals {
+      type = "Service"
+      identifiers = [
+        "eks.amazonaws.com",
+      ]
+    }
+    actions = [
+      "sts:AssumeRole"
+    ]
+  }
+}
+
 resource "aws_iam_role" "cluster" {
   name = local.cluster_name
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
-
+  assume_role_policy = data.aws_iam_policy_document.cluster.json
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {

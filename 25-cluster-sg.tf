@@ -1,3 +1,5 @@
+# cluster sg
+
 # https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/sec-group-reqs.html
 
 resource "aws_security_group" "cluster" {
@@ -14,10 +16,12 @@ resource "aws_security_group" "cluster" {
     ipv6_cidr_blocks = var.ip_family == "ipv6" ? ["::/0"] : null
   }
 
-  tags = {
-    "Name"                                      = local.cluster_name
-    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-  }
+  tags = merge(
+    local.tags,
+    {
+      "Name" = local.cluster_name
+    },
+  )
 }
 
 resource "aws_security_group_rule" "cluster_worker" {

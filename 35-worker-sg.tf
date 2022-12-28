@@ -1,3 +1,5 @@
+# worker sg
+
 resource "aws_security_group" "worker" {
   name        = local.worker_name
   description = "EKS worker node common security_group"
@@ -12,10 +14,12 @@ resource "aws_security_group" "worker" {
     ipv6_cidr_blocks = var.ip_family == "ipv6" ? ["::/0"] : null
   }
 
-  tags = {
-    "Name"                                      = local.worker_name
-    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-  }
+  tags = merge(
+    local.tags,
+    {
+      "Name" = local.worker_name
+    },
+  )
 }
 
 resource "aws_security_group_rule" "worker_cluster" {

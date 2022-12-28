@@ -1,21 +1,24 @@
+# worker iam
+
+data "aws_iam_policy_document" "worker" {
+  statement {
+    effect = "Allow"
+    principals {
+      type = "Service"
+      identifiers = [
+        "ec2.amazonaws.com",
+      ]
+    }
+    actions = [
+      "sts:AssumeRole"
+    ]
+  }
+}
+
 resource "aws_iam_role" "worker" {
   name = local.worker_name
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
-
+  assume_role_policy = data.aws_iam_policy_document.worker.json
 }
 
 resource "aws_iam_instance_profile" "worker" {
