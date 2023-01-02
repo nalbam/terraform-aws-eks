@@ -41,6 +41,8 @@ resource "aws_iam_role_policy_attachment" "worker_AmazonEC2ContainerRegistryRead
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
+# worker_policies
+
 resource "aws_iam_role_policy_attachment" "worker_policies" {
   count = length(var.worker_policies)
 
@@ -48,7 +50,9 @@ resource "aws_iam_role_policy_attachment" "worker_policies" {
   policy_arn = var.worker_policies[count.index]
 }
 
-data "aws_iam_policy" "ssm_policy" {
+# worker_ssm_access
+
+data "aws_iam_policy" "worker_ssm_access" {
   count = var.ssm_policy_name != "" ? 1 : 0
 
   name = var.ssm_policy_name
@@ -58,5 +62,31 @@ resource "aws_iam_role_policy_attachment" "worker_ssm_access" {
   count = var.ssm_policy_name != "" ? 1 : 0
 
   role       = aws_iam_role.worker.name
-  policy_arn = data.aws_iam_policy.ssm_policy.0.arn
+  policy_arn = data.aws_iam_policy.worker_ssm_access.0.arn
+}
+
+# worker_create_tags
+
+resource "aws_iam_policy" "worker_create_tags" {
+  name = format("%s-create-tags", local.worker_name)
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:CreateTags"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "worker_create_tags" {
+  role       = aws_iam_role.worker.name
+  policy_arn = aws_iam_policy.worker_create_tags.arn
 }
