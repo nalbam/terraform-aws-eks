@@ -1,4 +1,19 @@
-# aws-node-termination-handler
+# sqs
+
+resource "aws_sqs_queue" "worker" {
+  name = local.worker_name
+
+  message_retention_seconds = 300
+
+  policy = data.aws_iam_policy_document.sqs.json
+
+  tags = merge(
+    local.tags,
+    {
+      "Name" = local.worker_name
+    },
+  )
+}
 
 data "aws_iam_policy_document" "sqs" {
   statement {
@@ -17,19 +32,4 @@ data "aws_iam_policy_document" "sqs" {
       "arn:aws:sqs:${local.region}:${local.account_id}:${local.worker_name}",
     ]
   }
-}
-
-resource "aws_sqs_queue" "worker" {
-  name = local.worker_name
-
-  message_retention_seconds = 300
-
-  policy = data.aws_iam_policy_document.sqs.json
-
-  tags = merge(
-    local.tags,
-    {
-      "Name" = local.worker_name
-    },
-  )
 }

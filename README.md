@@ -32,6 +32,7 @@
 | allow\_prefix\_list\_ids | n/a | `list(string)` | `[]` | no |
 | cluster\_log\_types | n/a | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
 | cluster\_name | n/a | `string` | n/a | yes |
+| enable\_event | n/a | `bool` | `true` | no |
 | endpoint\_private\_access | n/a | `bool` | `true` | no |
 | endpoint\_public\_access | n/a | `bool` | `false` | no |
 | iam\_group | n/a | `string` | `""` | no |
