@@ -142,3 +142,8 @@ variable "save_aws_auth" {
   type    = bool
   default = false
 }
+
+variable "enable_event" {
+  type    = bool
+  default = true
+}
