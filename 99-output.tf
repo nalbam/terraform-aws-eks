@@ -2,9 +2,9 @@
 
 ## cluster
 
-output "cluster_info" {
-  value = local.cluster_info
-}
+# output "cluster_info" {
+#   value = local.cluster_info
+# }
 
 output "cluster_name" {
   value = aws_eks_cluster.cluster.name
@@ -16,6 +16,10 @@ output "cluster_endpoint" {
 
 output "cluster_version" {
   value = aws_eks_cluster.cluster.version
+}
+
+output "cluster_certificate_authority" {
+  value = data.aws_eks_cluster.cluster.certificate_authority.0.data
 }
 
 output "cluster_vpc_config" {
@@ -58,4 +62,8 @@ output "worker_security_group" {
 
 output "worker_sqs_id" {
   value = aws_sqs_queue.worker.id
+}
+
+output "worker_ami_id" {
+  value = data.aws_ami.worker.id
 }

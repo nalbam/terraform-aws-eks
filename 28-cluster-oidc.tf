@@ -7,4 +7,11 @@ resource "aws_iam_openid_connect_provider" "cluster" {
     "9e99a48a9960b14926bb7f3b02e22da2b0ab7280"
   ]
   url = aws_eks_cluster.cluster.identity.0.oidc.0.issuer
+
+  tags = merge(
+    local.tags,
+    {
+      "Name" = local.cluster_name
+    },
+  )
 }

@@ -47,25 +47,25 @@ resource "aws_security_group_rule" "cluster_sslvpn" {
 }
 
 resource "aws_security_group_rule" "cluster_prefix_list" {
-  count = length(var.allow_prefix_list_ids) > 0 ? 1 : 0
+  count = length(var.allow_prefix_list_ids)
 
   description       = format("%s - prefix_list 443", local.cluster_name)
   security_group_id = aws_security_group.cluster.id
   from_port         = 443
   to_port           = 443
   protocol          = "TCP"
-  prefix_list_ids   = var.allow_prefix_list_ids
+  prefix_list_ids   = [var.allow_prefix_list_ids[count.index]]
   type              = "ingress"
 }
 
 resource "aws_security_group_rule" "cluster_cidr" {
-  count = length(var.allow_cidr_cluster) > 0 ? 1 : 0
+  count = length(var.allow_cidr_cluster)
 
   description       = format("%s - cidr 443", local.cluster_name)
   security_group_id = aws_security_group.cluster.id
   from_port         = 443
   to_port           = 443
   protocol          = "TCP"
-  cidr_blocks       = var.allow_cidr_cluster
+  cidr_blocks       = [var.allow_cidr_cluster[count.index]]
   type              = "ingress"
 }
