@@ -8,14 +8,14 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 1.1 |
-| aws | >= 4.1.0 |
+| terraform | >= 1.5 |
+| aws | >= 5.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 4.1.0 |
+| aws | >= 5.1.0 |
 | kubernetes | n/a |
 | local | n/a |
 
@@ -23,8 +23,11 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| account\_id | n/a | `string` | n/a | yes |
+| addons\_configuration | n/a | `map(string)` | <pre>{<br>  "coredns": "{}",<br>  "kube-proxy": "{}",<br>  "vpc-cni": "{}"<br>}</pre> | no |
 | addons\_irsa\_role | n/a | `map(string)` | `{}` | no |
-| addons\_resolve\_conflicts | n/a | `string` | `"PRESERVE"` | no |
+| addons\_resolve\_conflicts\_on\_create | n/a | `string` | `"OVERWRITE"` | no |
+| addons\_resolve\_conflicts\_on\_update | n/a | `string` | `"PRESERVE"` | no |
 | addons\_version | n/a | `map(string)` | `{}` | no |
 | allow\_cidr\_cluster | n/a | `list(string)` | `[]` | no |
 | allow\_cidr\_internal | n/a | `list(string)` | <pre>[<br>  "10.0.0.0/8"<br>]</pre> | no |
@@ -38,16 +41,19 @@
 | iam\_group | n/a | `string` | `""` | no |
 | iam\_roles | n/a | `list(any)` | `[]` | no |
 | ip\_family | n/a | `string` | `"ipv4"` | no |
-| kubernetes\_version | n/a | `string` | `"1.22"` | no |
+| kubernetes\_version | n/a | `string` | n/a | yes |
 | masters | n/a | `list(string)` | `[]` | no |
+| region | n/a | `string` | n/a | yes |
 | retention\_in\_days | n/a | `number` | `30` | no |
-| save\_aws\_auth | n/a | `bool` | `false` | no |
+| save\_aws\_auth | n/a | `bool` | `true` | no |
 | save\_local\_files | n/a | `bool` | `false` | no |
 | sslvpn\_name | n/a | `string` | `""` | no |
 | ssm\_policy\_name | n/a | `string` | `""` | no |
 | subnet\_ids | n/a | `list(string)` | n/a | yes |
 | tags | n/a | `map(string)` | `{}` | no |
 | vpc\_id | n/a | `string` | n/a | yes |
+| worker\_ami\_arch | n/a | `string` | `"x86_64"` | no |
+| worker\_ami\_keyword | n/a | `string` | `"*"` | no |
 | worker\_policies | n/a | `list(string)` | `[]` | no |
 | worker\_ports\_internal | n/a | `list(number)` | `[]` | no |
 | worker\_ports\_public | n/a | `list(number)` | `[]` | no |
@@ -57,8 +63,8 @@
 
 | Name | Description |
 |------|-------------|
+| cluster\_certificate\_authority | n/a |
 | cluster\_endpoint | n/a |
-| cluster\_info | n/a |
 | cluster\_name | n/a |
 | cluster\_oidc\_arn | n/a |
 | cluster\_oidc\_url | n/a |
@@ -66,6 +72,7 @@
 | cluster\_role\_name | n/a |
 | cluster\_version | n/a |
 | cluster\_vpc\_config | n/a |
+| worker\_ami\_id | n/a |
 | worker\_instance\_profile\_name | n/a |
 | worker\_role\_arn | n/a |
 | worker\_role\_name | n/a |
