@@ -26,7 +26,7 @@ resource "local_file" "aws_auth" {
   content = templatefile("${path.module}/templates/aws_auth.yaml.tpl",
     {
       rolearn    = aws_iam_role.worker.arn
-      account_id = local.account_id
+      account_id = var.account_id
       users      = local.users
     }
   )

@@ -1,12 +1,19 @@
 # variable
 
+variable "region" {
+  type = string
+}
+
+variable "account_id" {
+  type = string
+}
+
 variable "cluster_name" {
   type = string
 }
 
 variable "kubernetes_version" {
-  type    = string
-  default = "1.22"
+  type = string
 }
 
 variable "vpc_id" {
@@ -67,6 +74,16 @@ variable "ssm_policy_name" {
   default = "" # session-manager-access-policy
 }
 
+variable "worker_ami_arch" {
+  type    = string
+  default = "x86_64" # arm64
+}
+
+variable "worker_ami_keyword" {
+  type    = string
+  default = "*"
+}
+
 variable "worker_policies" {
   type    = list(string)
   default = []
@@ -116,9 +133,23 @@ variable "addons_version" {
   }
 }
 
-variable "addons_resolve_conflicts" {
+variable "addons_resolve_conflicts_on_create" {
+  type    = string
+  default = "OVERWRITE" # NONE and OVERWRITE.
+}
+
+variable "addons_resolve_conflicts_on_update" {
   type    = string
   default = "PRESERVE" # NONE, OVERWRITE and PRESERVE.
+}
+
+variable "addons_configuration" {
+  type = map(string)
+  default = {
+    "coredns" : "{}"
+    "kube-proxy" : "{}"
+    "vpc-cni" : "{}"
+  }
 }
 
 variable "addons_irsa_role" {
@@ -140,7 +171,7 @@ variable "save_local_files" {
 
 variable "save_aws_auth" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "enable_event" {

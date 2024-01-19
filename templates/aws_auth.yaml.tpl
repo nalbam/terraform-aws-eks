@@ -10,10 +10,6 @@ data:
       groups:
         - system:bootstrappers
         - system:nodes
-    - rolearn: arn:aws:iam::${account_id}:role/irsa--eks-demo--atlantis
-      username: k8s-master
-      groups:
-        - system:masters
     - rolearn: arn:aws:iam::${account_id}:role/k8s-master
       username: k8s-master
       groups:

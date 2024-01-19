@@ -1,24 +1,23 @@
 # locals
 
 locals {
-  region = data.aws_region.current.name
-
-  account_id = data.aws_caller_identity.current.account_id
-}
-
-locals {
   cluster_name = format("%s-cluster", var.cluster_name)
   worker_name  = format("%s-worker", var.cluster_name)
 }
 
+# locals {
+#   cluster_info = {
+#     name                  = data.aws_eks_cluster.cluster.name
+#     certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
+#     endpoint              = data.aws_eks_cluster.cluster.endpoint
+#     ip_family             = var.ip_family
+#     version               = data.aws_eks_cluster.cluster.version
+#   }
+# }
+
 locals {
-  cluster_info = {
-    name                  = data.aws_eks_cluster.cluster.name
-    certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
-    endpoint              = data.aws_eks_cluster.cluster.endpoint
-    ip_family             = var.ip_family
-    version               = data.aws_eks_cluster.cluster.version
-  }
+  worker_ami_arch    = var.worker_ami_arch == "arm64" ? "amazon-eks-arm64-node" : "amazon-eks-node"
+  worker_ami_keyword = format("%s-%s-%s", local.worker_ami_arch, var.kubernetes_version, var.worker_ami_keyword)
 }
 
 locals {
@@ -36,7 +35,7 @@ locals {
   users = [
     for item in local.masters :
     {
-      "userarn"  = format("arn:aws:iam::%s:user/%s", local.account_id, item)
+      "userarn"  = format("arn:aws:iam::%s:user/%s", var.account_id, item)
       "username" = format("iam-user-%s", item)
       "groups"   = ["system:masters"]
     }
@@ -48,6 +47,7 @@ locals {
     var.tags,
     {
       "KubernetesCluster"                         = var.cluster_name
+      "KubernetesVersion"                         = var.kubernetes_version
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
       "krmt.io/cluster"                           = var.cluster_name
     },

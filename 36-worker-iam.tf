@@ -19,11 +19,25 @@ resource "aws_iam_role" "worker" {
   name = local.worker_name
 
   assume_role_policy = data.aws_iam_policy_document.worker.json
+
+  tags = merge(
+    local.tags,
+    {
+      "Name" = local.worker_name
+    },
+  )
 }
 
 resource "aws_iam_instance_profile" "worker" {
   name = local.worker_name
   role = aws_iam_role.worker.name
+
+  tags = merge(
+    local.tags,
+    {
+      "Name" = local.worker_name
+    },
+  )
 }
 
 resource "aws_iam_role_policy_attachment" "worker_AmazonEKSWorkerNodePolicy" {
@@ -76,7 +90,8 @@ resource "aws_iam_policy" "worker_create_tags" {
   "Statement": [
     {
       "Action": [
-        "ec2:CreateTags"
+        "ec2:CreateTags",
+        "ssm:GetParameter"
       ],
       "Effect": "Allow",
       "Resource": "*"
@@ -84,6 +99,13 @@ resource "aws_iam_policy" "worker_create_tags" {
   ]
 }
 EOF
+
+  tags = merge(
+    local.tags,
+    {
+      "Name" = format("%s-create-tags", local.worker_name)
+    },
+  )
 }
 
 resource "aws_iam_role_policy_attachment" "worker_create_tags" {

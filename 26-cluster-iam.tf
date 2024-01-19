@@ -19,6 +19,13 @@ resource "aws_iam_role" "cluster" {
   name = local.cluster_name
 
   assume_role_policy = data.aws_iam_policy_document.cluster.json
+
+  tags = merge(
+    local.tags,
+    {
+      "Name" = local.cluster_name
+    },
+  )
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {

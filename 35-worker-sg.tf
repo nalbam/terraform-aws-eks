@@ -65,14 +65,14 @@ resource "aws_security_group_rule" "worker_source" {
 }
 
 resource "aws_security_group_rule" "worker_prefix_list" {
-  count = length(var.allow_prefix_list_ids) > 0 ? 1 : 0
+  count = length(var.allow_prefix_list_ids)
 
   description       = format("%s - prefix_list", local.worker_name)
   security_group_id = aws_security_group.worker.id
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
-  prefix_list_ids   = var.allow_prefix_list_ids
+  prefix_list_ids   = [var.allow_prefix_list_ids[count.index]]
   type              = "ingress"
 }
 
