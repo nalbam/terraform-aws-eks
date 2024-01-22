@@ -146,9 +146,9 @@ variable "addons_resolve_conflicts_on_update" {
 variable "addons_configuration" {
   type = map(string)
   default = {
-    "coredns" : "{}"
-    "kube-proxy" : "{}"
-    "vpc-cni" : "{}"
+    # "coredns" : "{}"
+    # "kube-proxy" : "{}"
+    # "vpc-cni" : "{}"
   }
 }
 
@@ -157,11 +157,6 @@ variable "addons_irsa_role" {
   default = {
     # "vpc-cni" : "arn:aws:iam::123456789012:role/irsa--aws-node"
   }
-}
-
-variable "tags" {
-  type    = map(string)
-  default = {}
 }
 
 variable "save_local_files" {
@@ -177,4 +172,18 @@ variable "save_aws_auth" {
 variable "enable_event" {
   type    = bool
   default = true
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
+
+variable "workers" {
+  default = [
+    # {
+    #   name    = "workers"
+    #   vername = "v1"
+    # },
+  ]
 }
