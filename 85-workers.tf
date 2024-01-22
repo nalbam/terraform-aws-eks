@@ -23,8 +23,8 @@ module "workers" {
   cluster_certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
 
   ami_id          = try(each.value.ami_id, data.aws_ami.worker.id)
-  role_name       = aws_iam_role.worker.name
-  security_groups = [aws_security_group.worker.id]
+  role_name       = try(each.value.role_name, aws_iam_role.worker.name)
+  security_groups = try(each.value.security_groups, [aws_security_group.worker.id])
   subnet_ids      = try(each.value.subnet_ids, var.subnet_ids)
 
   kubernetes_version = var.kubernetes_version
