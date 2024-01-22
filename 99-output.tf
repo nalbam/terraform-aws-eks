@@ -67,7 +67,3 @@ output "worker_sqs_id" {
 output "worker_ami_id" {
   value = data.aws_ami.worker.id
 }
-
-output "workers" {
-  value = values(module.workers).*.worker_name
-}

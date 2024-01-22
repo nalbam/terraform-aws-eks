@@ -79,5 +79,6 @@
 | worker\_role\_name | n/a |
 | worker\_security\_group | n/a |
 | worker\_sqs\_id | n/a |
+| workers | n/a |
 
 <!--- END_TF_DOCS --->
