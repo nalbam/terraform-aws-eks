@@ -1,9 +1,9 @@
 # workers
 
 module "workers" {
-  source = "../terraform-aws-eks-worker"
-  # source  = "nalbam/eks-worker/aws"
-  # version = "~> 3.0"
+  # source = "../terraform-aws-eks-worker"
+  source  = "nalbam/eks-worker/aws"
+  version = "~> 3.0"
 
   for_each = {
     for w in var.workers :
