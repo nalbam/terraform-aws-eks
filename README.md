@@ -24,7 +24,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | account\_id | n/a | `string` | n/a | yes |
-| addons\_configuration | n/a | `map(string)` | <pre>{<br>  "coredns": "{}",<br>  "kube-proxy": "{}",<br>  "vpc-cni": "{}"<br>}</pre> | no |
+| addons\_configuration | n/a | `map(string)` | `{}` | no |
 | addons\_irsa\_role | n/a | `map(string)` | `{}` | no |
 | addons\_resolve\_conflicts\_on\_create | n/a | `string` | `"OVERWRITE"` | no |
 | addons\_resolve\_conflicts\_on\_update | n/a | `string` | `"PRESERVE"` | no |
@@ -58,6 +58,7 @@
 | worker\_ports\_internal | n/a | `list(number)` | `[]` | no |
 | worker\_ports\_public | n/a | `list(number)` | `[]` | no |
 | worker\_source\_sgs | n/a | `list(string)` | `[]` | no |
+| workers | n/a | `map` | `{}` | no |
 
 ## Outputs
 
