@@ -180,7 +180,10 @@ variable "tags" {
 }
 
 variable "workers" {
-  default = {
-    # "workers" : {}
-  }
+  default = [
+    # {
+    #   name    = "workers"
+    #   vername = "v1"
+    # },
+  ]
 }
