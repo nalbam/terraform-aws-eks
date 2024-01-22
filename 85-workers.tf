@@ -51,3 +51,7 @@ module "workers" {
     aws_eks_cluster.cluster,
   ]
 }
+
+output "workers" {
+  value = values(module.workers).*.worker_name
+}
