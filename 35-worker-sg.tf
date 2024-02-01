@@ -24,21 +24,11 @@ resource "aws_security_group" "worker" {
 
 resource "aws_security_group_rule" "worker_cluster" {
   type                     = "ingress"
-  description              = format("%s - cluster 1025-65535", local.worker_name)
+  description              = format("%s - cluster all", local.worker_name)
   security_group_id        = aws_security_group.worker.id
-  from_port                = 1025
-  to_port                  = 65535
-  protocol                 = "TCP"
-  source_security_group_id = aws_security_group.cluster.id
-}
-
-resource "aws_security_group_rule" "worker_cluster_443" {
-  type                     = "ingress"
-  description              = format("%s - cluster 443", local.worker_name)
-  security_group_id        = aws_security_group.worker.id
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "TCP"
+  from_port                = 0
+  to_port                  = 0
+  protocol                 = "-1"
   source_security_group_id = aws_security_group.cluster.id
 }
 
@@ -56,7 +46,7 @@ resource "aws_security_group_rule" "worker_source" {
   count = length(var.worker_source_sgs)
 
   type                     = "ingress"
-  description              = format("%s - worker source", local.worker_name)
+  description              = format("%s - source all", local.worker_name)
   security_group_id        = aws_security_group.worker.id
   from_port                = 0
   to_port                  = 0
