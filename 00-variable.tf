@@ -159,6 +159,11 @@ variable "addons_irsa_role" {
   }
 }
 
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
+
 variable "save_local_files" {
   type    = bool
   default = false
@@ -172,11 +177,6 @@ variable "save_aws_auth" {
 variable "enable_event" {
   type    = bool
   default = true
-}
-
-variable "tags" {
-  type    = map(string)
-  default = {}
 }
 
 variable "workers" {

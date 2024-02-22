@@ -2,10 +2,6 @@
 
 ## cluster
 
-# output "cluster_info" {
-#   value = local.cluster_info
-# }
-
 output "cluster_name" {
   value = aws_eks_cluster.cluster.name
 }
@@ -44,6 +40,10 @@ output "cluster_role_name" {
 
 ## worker
 
+output "worker_ami_id" {
+  value = data.aws_ami.worker.id
+}
+
 output "worker_instance_profile_name" {
   value = aws_iam_instance_profile.worker.name
 }
@@ -62,8 +62,4 @@ output "worker_security_group" {
 
 output "worker_sqs_id" {
   value = aws_sqs_queue.worker.id
-}
-
-output "worker_ami_id" {
-  value = data.aws_ami.worker.id
 }

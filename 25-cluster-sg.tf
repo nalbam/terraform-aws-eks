@@ -16,6 +16,8 @@ resource "aws_security_group" "cluster" {
     ipv6_cidr_blocks = var.ip_family == "ipv6" ? ["::/0"] : null
   }
 
+  # revoke_rules_on_delete = true
+
   tags = merge(
     local.tags,
     {
