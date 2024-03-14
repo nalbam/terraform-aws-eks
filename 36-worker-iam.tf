@@ -79,10 +79,10 @@ resource "aws_iam_role_policy_attachment" "worker_ssm_access" {
   policy_arn = data.aws_iam_policy.worker_ssm_access.0.arn
 }
 
-# worker_create_tags
+# worker_additional_policies
 
-resource "aws_iam_policy" "worker_create_tags" {
-  name = format("%s-create-tags", local.worker_name)
+resource "aws_iam_policy" "worker_additional_policies" {
+  name = format("%s-additional-policies", local.worker_name)
 
   policy = <<EOF
 {
@@ -90,7 +90,12 @@ resource "aws_iam_policy" "worker_create_tags" {
   "Statement": [
     {
       "Action": [
+        "ec2:AssignIpv6Addresses",
         "ec2:CreateTags",
+        "ec2:DescribeInstances",
+        "ec2:DescribeInstanceTypes"
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeTags",
         "ssm:GetParameter"
       ],
       "Effect": "Allow",
@@ -103,12 +108,12 @@ EOF
   tags = merge(
     local.tags,
     {
-      "Name" = format("%s-create-tags", local.worker_name)
+      "Name" = format("%s-additional-policies", local.worker_name)
     },
   )
 }
 
-resource "aws_iam_role_policy_attachment" "worker_create_tags" {
+resource "aws_iam_role_policy_attachment" "worker_additional_policies" {
   role       = aws_iam_role.worker.name
-  policy_arn = aws_iam_policy.worker_create_tags.arn
+  policy_arn = aws_iam_policy.worker_additional_policies.arn
 }
