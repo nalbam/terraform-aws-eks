@@ -49,7 +49,6 @@ locals {
       "KubernetesCluster"                         = var.cluster_name
       "KubernetesVersion"                         = var.kubernetes_version
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-      "krmt.io/cluster"                           = var.cluster_name
     },
   )
 }
